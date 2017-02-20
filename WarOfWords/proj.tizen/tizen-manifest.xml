@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="2.3" package="com.sample.warofprojects" version="1.0.0">
+    <ui-application appid="com.sample.warofprojects" exec="hellocpp" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+        <label>WarOfWords</label>
+        <icon>WarOfWords.png</icon>
+    </ui-application>
+</manifest>
