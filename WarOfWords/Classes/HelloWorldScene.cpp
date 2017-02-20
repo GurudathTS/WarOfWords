@@ -1,6 +1,8 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 
+#include "WWObjectiveCCalls.h"
+
 USING_NS_CC;
 
 Scene* HelloWorld::createScene()
@@ -73,6 +75,18 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
+    
+    //Check if Word is Present in Dictionary
+    std::string _tStr = "crashqw";
+    if(WWObjectiveCCalls::isDictionaryWordCall(_tStr))
+    {
+        log("..................... Dictionary present......................");
+    }
+    else
+    {
+        log("..................... Dictionary Not present......................");
+
+    }
     return true;
 }
 

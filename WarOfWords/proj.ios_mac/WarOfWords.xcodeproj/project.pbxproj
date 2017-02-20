@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */; };
+		06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C984011E5AC38900B0660C /* WWObjectiveCCalls.mm */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -111,6 +113,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06C983FE1E5AC38900B0660C /* WWObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveC.h; sourceTree = "<group>"; };
+		06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWObjectiveC.mm; sourceTree = "<group>"; };
+		06C984001E5AC38900B0660C /* WWObjectiveCCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveCCalls.h; sourceTree = "<group>"; };
+		06C984011E5AC38900B0660C /* WWObjectiveCCalls.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWObjectiveCCalls.mm; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -218,6 +224,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				06C983FE1E5AC38900B0660C /* WWObjectiveC.h */,
+				06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */,
+				06C984001E5AC38900B0660C /* WWObjectiveCCalls.h */,
+				06C984011E5AC38900B0660C /* WWObjectiveCCalls.mm */,
+			);
+			path = WWObjectiveCWrapper;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +326,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
@@ -515,9 +533,11 @@
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
