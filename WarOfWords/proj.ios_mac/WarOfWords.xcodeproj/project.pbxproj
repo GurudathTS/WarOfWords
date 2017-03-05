@@ -7,6 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		061ED52A1E6BF635000DD216 /* WWFacebookShare.mm in Sources */ = {isa = PBXBuildFile; fileRef = 061ED51E1E6BF635000DD216 /* WWFacebookShare.mm */; };
+		061ED5321E6BF71A000DD216 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5311E6BF71A000DD216 /* CFNetwork.framework */; };
+		061ED5341E6BF731000DD216 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5331E6BF731000DD216 /* Social.framework */; };
+		061ED5361E6BF73B000DD216 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5351E6BF73B000DD216 /* libc++.tbd */; };
+		061ED5381E6BF743000DD216 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5371E6BF743000DD216 /* libxml2.tbd */; };
+		061ED53A1E6BF74A000DD216 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5391E6BF74A000DD216 /* WebKit.framework */; };
+		061ED53C1E6BF74F000DD216 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED53B1E6BF74F000DD216 /* SafariServices.framework */; };
+		061ED53E1E6BF755000DD216 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED53D1E6BF755000DD216 /* Accelerate.framework */; };
+		061ED5401E6BF75A000DD216 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED53F1E6BF75A000DD216 /* MessageUI.framework */; };
+		061ED5421E6BF763000DD216 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5411E6BF763000DD216 /* libz.tbd */; };
+		061ED5441E6BF76A000DD216 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5431E6BF76A000DD216 /* CoreBluetooth.framework */; };
+		061ED5461E6BF771000DD216 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5451E6BF771000DD216 /* CoreLocation.framework */; };
+		061ED5481E6BF777000DD216 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5471E6BF777000DD216 /* CoreMedia.framework */; };
+		061ED54A1E6BF77D000DD216 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5491E6BF77D000DD216 /* CoreMotion.framework */; };
+		061ED54C1E6BF782000DD216 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED54B1E6BF782000DD216 /* CoreTelephony.framework */; };
+		061ED54E1E6BF78C000DD216 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED54D1E6BF78C000DD216 /* libsqlite3.tbd */; };
+		061ED5501E6BF79B000DD216 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED54F1E6BF79B000DD216 /* SystemConfiguration.framework */; };
+		061ED5521E6BF7A3000DD216 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5511E6BF7A3000DD216 /* AVFoundation.framework */; };
+		061ED5591E6BFEE2000DD216 /* Reachability.mm in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5581E6BFEE2000DD216 /* Reachability.mm */; };
+		061ED55C1E6BFEF7000DD216 /* WWNetworkManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED55A1E6BFEF7000DD216 /* WWNetworkManager.cpp */; };
+		061ED5661E6C07D0000DD216 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5611E6C07D0000DD216 /* Bolts.framework */; };
+		061ED5671E6C07D0000DD216 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5621E6C07D0000DD216 /* FBAudienceNetwork.framework */; };
+		061ED5681E6C07D0000DD216 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5631E6C07D0000DD216 /* FBSDKCoreKit.framework */; };
+		061ED5691E6C07D0000DD216 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5641E6C07D0000DD216 /* FBSDKLoginKit.framework */; };
+		061ED56A1E6C07D0000DD216 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED5651E6C07D0000DD216 /* FBSDKShareKit.framework */; };
+		061ED56C1E6C0835000DD216 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED56B1E6C0835000DD216 /* CoreVideo.framework */; };
+		061ED56E1E6C086F000DD216 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED56D1E6C086F000DD216 /* MediaPlayer.framework */; };
+		061ED5701E6C0874000DD216 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 061ED56F1E6C0874000DD216 /* GameController.framework */; };
+		061ED5731E6C08AB000DD216 /* WWSocialFriendDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5711E6C08AB000DD216 /* WWSocialFriendDetail.cpp */; };
+		061ED5761E6C43EB000DD216 /* WWiOSInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */; };
+		061ED5791E6C44EC000DD216 /* WWSocialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */; };
 		06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */; };
 		06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C984011E5AC38900B0660C /* WWObjectiveCCalls.mm */; };
 		06C9840A1E5AE32B00B0660C /* WWGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C984081E5AE32B00B0660C /* WWGameScene.cpp */; };
@@ -109,6 +140,43 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		061ED51D1E6BF635000DD216 /* WWFacebookShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWFacebookShare.h; sourceTree = "<group>"; };
+		061ED51E1E6BF635000DD216 /* WWFacebookShare.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWFacebookShare.mm; sourceTree = "<group>"; };
+		061ED5311E6BF71A000DD216 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5331E6BF731000DD216 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Social.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5351E6BF73B000DD216 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		061ED5371E6BF743000DD216 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libxml2.tbd; sourceTree = DEVELOPER_DIR; };
+		061ED5391E6BF74A000DD216 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		061ED53B1E6BF74F000DD216 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
+		061ED53D1E6BF755000DD216 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		061ED53F1E6BF75A000DD216 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5411E6BF763000DD216 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		061ED5431E6BF76A000DD216 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5451E6BF771000DD216 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5471E6BF777000DD216 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5491E6BF77D000DD216 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		061ED54B1E6BF782000DD216 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		061ED54D1E6BF78C000DD216 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		061ED54F1E6BF79B000DD216 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5511E6BF7A3000DD216 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5571E6BFEE2000DD216 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		061ED5581E6BFEE2000DD216 /* Reachability.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Reachability.mm; sourceTree = "<group>"; };
+		061ED55A1E6BFEF7000DD216 /* WWNetworkManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWNetworkManager.cpp; sourceTree = "<group>"; };
+		061ED55B1E6BFEF7000DD216 /* WWNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWNetworkManager.h; sourceTree = "<group>"; };
+		061ED5611E6C07D0000DD216 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		061ED5621E6C07D0000DD216 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		061ED5631E6C07D0000DD216 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		061ED5641E6C07D0000DD216 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		061ED5651E6C07D0000DD216 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		061ED56B1E6C0835000DD216 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		061ED56D1E6C086F000DD216 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		061ED56F1E6C0874000DD216 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		061ED5711E6C08AB000DD216 /* WWSocialFriendDetail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSocialFriendDetail.cpp; sourceTree = "<group>"; };
+		061ED5721E6C08AB000DD216 /* WWSocialFriendDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSocialFriendDetail.h; sourceTree = "<group>"; };
+		061ED5741E6C43E3000DD216 /* WWiOSInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWiOSInterface.h; sourceTree = "<group>"; };
+		061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWiOSInterface.mm; sourceTree = "<group>"; };
+		061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSocialManager.cpp; sourceTree = "<group>"; };
+		061ED5781E6C44EC000DD216 /* WWSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSocialManager.h; sourceTree = "<group>"; };
 		06C983FE1E5AC38900B0660C /* WWObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveC.h; sourceTree = "<group>"; };
 		06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWObjectiveC.mm; sourceTree = "<group>"; };
 		06C984001E5AC38900B0660C /* WWObjectiveCCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveCCalls.h; sourceTree = "<group>"; };
@@ -182,6 +250,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				061ED5701E6C0874000DD216 /* GameController.framework in Frameworks */,
+				061ED56E1E6C086F000DD216 /* MediaPlayer.framework in Frameworks */,
+				061ED56C1E6C0835000DD216 /* CoreVideo.framework in Frameworks */,
+				061ED5521E6BF7A3000DD216 /* AVFoundation.framework in Frameworks */,
+				061ED5501E6BF79B000DD216 /* SystemConfiguration.framework in Frameworks */,
+				061ED54E1E6BF78C000DD216 /* libsqlite3.tbd in Frameworks */,
+				061ED54C1E6BF782000DD216 /* CoreTelephony.framework in Frameworks */,
+				061ED54A1E6BF77D000DD216 /* CoreMotion.framework in Frameworks */,
+				061ED5481E6BF777000DD216 /* CoreMedia.framework in Frameworks */,
+				061ED5461E6BF771000DD216 /* CoreLocation.framework in Frameworks */,
+				061ED5441E6BF76A000DD216 /* CoreBluetooth.framework in Frameworks */,
+				061ED5421E6BF763000DD216 /* libz.tbd in Frameworks */,
+				061ED5401E6BF75A000DD216 /* MessageUI.framework in Frameworks */,
+				061ED53E1E6BF755000DD216 /* Accelerate.framework in Frameworks */,
+				061ED53C1E6BF74F000DD216 /* SafariServices.framework in Frameworks */,
+				061ED53A1E6BF74A000DD216 /* WebKit.framework in Frameworks */,
+				061ED5381E6BF743000DD216 /* libxml2.tbd in Frameworks */,
+				061ED5361E6BF73B000DD216 /* libc++.tbd in Frameworks */,
+				061ED5661E6C07D0000DD216 /* Bolts.framework in Frameworks */,
+				061ED5341E6BF731000DD216 /* Social.framework in Frameworks */,
+				061ED5321E6BF71A000DD216 /* CFNetwork.framework in Frameworks */,
+				061ED5671E6C07D0000DD216 /* FBAudienceNetwork.framework in Frameworks */,
+				061ED5681E6C07D0000DD216 /* FBSDKCoreKit.framework in Frameworks */,
 				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -194,6 +285,8 @@
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
+				061ED56A1E6C07D0000DD216 /* FBSDKShareKit.framework in Frameworks */,
+				061ED5691E6C07D0000DD216 /* FBSDKLoginKit.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
 			);
@@ -221,6 +314,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		061ED5181E6BF635000DD216 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */,
+				061ED5781E6C44EC000DD216 /* WWSocialManager.h */,
+				061ED5191E6BF635000DD216 /* HelperClass */,
+				061ED51C1E6BF635000DD216 /* iOS */,
+				061ED5211E6BF635000DD216 /* NetworkManager */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		061ED5191E6BF635000DD216 /* HelperClass */ = {
+			isa = PBXGroup;
+			children = (
+				061ED5711E6C08AB000DD216 /* WWSocialFriendDetail.cpp */,
+				061ED5721E6C08AB000DD216 /* WWSocialFriendDetail.h */,
+			);
+			path = HelperClass;
+			sourceTree = "<group>";
+		};
+		061ED51C1E6BF635000DD216 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */,
+				061ED5741E6C43E3000DD216 /* WWiOSInterface.h */,
+				061ED51D1E6BF635000DD216 /* WWFacebookShare.h */,
+				061ED51E1E6BF635000DD216 /* WWFacebookShare.mm */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		061ED5211E6BF635000DD216 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				061ED55A1E6BFEF7000DD216 /* WWNetworkManager.cpp */,
+				061ED55B1E6BFEF7000DD216 /* WWNetworkManager.h */,
+				061ED5221E6BF635000DD216 /* IOS */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		061ED5221E6BF635000DD216 /* IOS */ = {
+			isa = PBXGroup;
+			children = (
+				061ED5571E6BFEE2000DD216 /* Reachability.h */,
+				061ED5581E6BFEE2000DD216 /* Reachability.mm */,
+			);
+			path = IOS;
+			sourceTree = "<group>";
+		};
+		061ED5601E6C07D0000DD216 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				061ED5611E6C07D0000DD216 /* Bolts.framework */,
+				061ED5621E6C07D0000DD216 /* FBAudienceNetwork.framework */,
+				061ED5631E6C07D0000DD216 /* FBSDKCoreKit.framework */,
+				061ED5641E6C07D0000DD216 /* FBSDKLoginKit.framework */,
+				061ED5651E6C07D0000DD216 /* FBSDKShareKit.framework */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
 		06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +450,27 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				061ED56F1E6C0874000DD216 /* GameController.framework */,
+				061ED56D1E6C086F000DD216 /* MediaPlayer.framework */,
+				061ED56B1E6C0835000DD216 /* CoreVideo.framework */,
+				061ED5601E6C07D0000DD216 /* Facebook */,
+				061ED5511E6BF7A3000DD216 /* AVFoundation.framework */,
+				061ED54F1E6BF79B000DD216 /* SystemConfiguration.framework */,
+				061ED54D1E6BF78C000DD216 /* libsqlite3.tbd */,
+				061ED54B1E6BF782000DD216 /* CoreTelephony.framework */,
+				061ED5491E6BF77D000DD216 /* CoreMotion.framework */,
+				061ED5471E6BF777000DD216 /* CoreMedia.framework */,
+				061ED5451E6BF771000DD216 /* CoreLocation.framework */,
+				061ED5431E6BF76A000DD216 /* CoreBluetooth.framework */,
+				061ED5411E6BF763000DD216 /* libz.tbd */,
+				061ED53F1E6BF75A000DD216 /* MessageUI.framework */,
+				061ED53D1E6BF755000DD216 /* Accelerate.framework */,
+				061ED53B1E6BF74F000DD216 /* SafariServices.framework */,
+				061ED5391E6BF74A000DD216 /* WebKit.framework */,
+				061ED5371E6BF743000DD216 /* libxml2.tbd */,
+				061ED5351E6BF73B000DD216 /* libc++.tbd */,
+				061ED5331E6BF731000DD216 /* Social.framework */,
+				061ED5311E6BF71A000DD216 /* CFNetwork.framework */,
 				294D0D631D0D56D500F7F5D4 /* CoreText.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
@@ -331,6 +508,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				061ED5181E6BF635000DD216 /* Facebook */,
 				06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
@@ -533,13 +711,19 @@
 			files = (
 				06C9840D1E5B00B700B0660C /* WWAlphabetSprite.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				061ED55C1E6BFEF7000DD216 /* WWNetworkManager.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				061ED52A1E6BF635000DD216 /* WWFacebookShare.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				061ED5791E6C44EC000DD216 /* WWSocialManager.cpp in Sources */,
 				06C9840A1E5AE32B00B0660C /* WWGameScene.cpp in Sources */,
+				061ED5731E6C08AB000DD216 /* WWSocialFriendDetail.cpp in Sources */,
+				061ED5761E6C43EB000DD216 /* WWiOSInterface.mm in Sources */,
 				06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */,
+				061ED5591E6BFEE2000DD216 /* Reachability.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +760,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Facebook",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -588,11 +776,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sample.warofprojects;
 				SDKROOT = iphoneos;
@@ -610,6 +799,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Facebook",
+				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -620,11 +813,12 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sample.warofprojects;
 				SDKROOT = iphoneos;
@@ -715,7 +909,7 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -738,7 +932,7 @@
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
