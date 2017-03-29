@@ -36,7 +36,6 @@ WWSocialManager* WWSocialManager::getInstance()
 }
 WWSocialManager::WWSocialManager()
 :_mDelegate(nullptr)
-
 {
     Node::init();
     setAnchorPoint(cocos2d::Vec2(0, 0));
@@ -128,12 +127,13 @@ void WWSocialManager::checkForPermissions()
 #endif
     
     }
-
+    
 }
 
 void WWSocialManager::setTotalUserCount(int pTotalUserCount)
 {
     _mTotalFbFriendsCount = pTotalUserCount;
+    this->executeCallback(true);
 }
 
 void WWSocialManager::logOut(enumSocialSharingType pShareType)

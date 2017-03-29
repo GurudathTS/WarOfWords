@@ -62,7 +62,7 @@ public:
     void inviteFriends(enumSocialSharingType pShareType,std::vector<std::string>pInviteList);
     void updateScore(enumSocialSharingType pShareType, int pScore);
 
-private:
+public:
     WWSocialManager();
     
     CC_SYNTHESIZE_READONLY(bool, _mIsShareOpened, ShareOpened);

@@ -64,6 +64,15 @@
 	<string>267289773709326</string>
 	<key>FacebookDisplayName</key>
 	<string>WarOfWords</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb267289773709326</string>
+			</array>
+		</dict>
+	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

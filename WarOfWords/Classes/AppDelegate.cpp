@@ -2,7 +2,7 @@
 #include "WWGameScene.hpp"
 #include <vector>
 #include <string>
-
+#include "WWLoginScreen.h"
 
 USING_NS_CC;
 using namespace std;
@@ -78,7 +78,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = WWGameScene::createScene();
+    auto scene = WWLoginScreen::createScene();
 
     // run
     director->runWithScene(scene);
