@@ -6,13 +6,15 @@
 //
 //
 
-#include "WWGameScene.hpp"
+#include "WWGameScene.h"
 #include "WWObjectiveCCalls.h"
+#include "WWGameConstant.h"
 
 USING_NS_CC;
 
-#define TOTALGRID 64
-#define ROWGRIDCOUNT 8
+#define TOTALGRID 36
+#define ROWGRIDCOUNT 6
+#define MinAlphabetsRequired 4
 
 Scene* WWGameScene::createScene()
 {
@@ -43,7 +45,7 @@ bool WWGameScene::init()
     origin = Director::getInstance()->getVisibleOrigin();
     
     // Background
-    auto backgroundSpr = Sprite::create("Background.png");
+    auto backgroundSpr = Sprite::create("UI/Background.png");
     backgroundSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(backgroundSpr);
     
@@ -54,10 +56,7 @@ bool WWGameScene::init()
     
     //Initialize Alphabets
     this->initializeAlphabets();
-    
-    //UI
-    this->addUI();
-    
+
     //Create Alphabets Grid
     this->createAlphabetGridArray();
     this->createAlphabetGridArray();
@@ -67,29 +66,55 @@ bool WWGameScene::init()
     pTotalGridAlphabet = this->shuffleArray(pTotalGridAlphabet);
     log("........ Array Count............ %zd",pTotalGridAlphabet.size());
     
-    this->createGrid();
+    float yPos = this->createGrid();
+    
+    //Power Up
+    this->createPowerUpIcon();
+    
+    //UI
+    this->addUI(yPos);
     
     return true;
 }
 
 #pragma mark - UI
-void WWGameScene::addUI()
+void WWGameScene::addUI(float pYpos)
 {
     currentScore = Label::createWithTTF("Score: 0", "fonts/Marker Felt.ttf", 40);
     currentScore->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.2 + origin.y));
     addChild(currentScore);
+    currentScore->setVisible(false);
     
     resultSelectedStr = Label::createWithTTF("", "fonts/Marker Felt.ttf", 40);
     resultSelectedStr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.1 + origin.y));
     addChild(resultSelectedStr);
     
+    //Add battel
+    auto* pbatterSpr = Sprite::create("UI/Logo-Icon.png");
+    pbatterSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.05 + origin.y));
+    addChild(pbatterSpr);
+    
+    //timer label
+    this->pTimerLabel = Label::createWithTTF("", FN_GAME_FONT_NAME, FN_GAME_ALPHABET_FONT_SIZE);
+    this->pTimerLabel->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.05 + origin.y - pbatterSpr->getContentSize().height/2 - 50));
+    addChild(this->pTimerLabel);
+    
+    this->hourVal = 23;
+    this->minVal = 0;
+    this->secVal = 0;
+    
+    this->updateTimerLabel();
+    this->schedule(CC_SCHEDULE_SELECTOR(WWGameScene::updateFunc), 1.0f);
+    
     //Submit Button
     auto* submitButton = MenuItemFont::create("SUBMIT", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));
-    submitButton->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 8 + origin.y));
+    submitButton->setPosition(Vec2(visibleSize.width/2 + origin.x, pYpos - 50));
+    submitButton->setFontSize(35);
     
-    Menu* menuBtn = Menu::create(submitButton, NULL);
-    menuBtn->setPosition(Vec2::ZERO);
-    addChild(menuBtn);
+    Menu* menubtn = Menu::create(submitButton, NULL);
+    menubtn->setPosition(Vec2::ZERO);
+    addChild(menubtn);
+    
 }
 
 #pragma mark - Initialize
@@ -188,10 +213,10 @@ void WWGameScene::createCustomAlphabet(int currentAlphabetVal , std::string pCur
 
 }
 
-void WWGameScene::createGrid()
+float WWGameScene::createGrid()
 {
-    float startXPos = origin.x + 100;
-    float startYPos = origin.y + visibleSize.height / 1.5;
+    float startXPos = origin.x + 90;
+    float startYPos = origin.y + visibleSize.height / 1.25;
     int gridArrayCount = 0;
     for (int i = 0; i < ROWGRIDCOUNT; i++)
     {
@@ -204,15 +229,23 @@ void WWGameScene::createGrid()
             sprheight = alphaBetSpr->getContentSize().height;
             gridArrayCount++;
         }
-        startXPos = origin.x + 100;
+        startXPos = origin.x + 90;
         startYPos = startYPos - sprheight;
     }
+    
+    return startYPos;
 }
 
 #pragma mark - button Action
 void WWGameScene::onSubmitClicked(Ref* sender)
 {
     log("Submit Action");
+    
+    if(currentSelectedStr.size() < MinAlphabetsRequired)
+    {
+        MessageBox("Please Select 3 Letter", "Error");
+        return;
+    }
     
     //loop array & Check Selected String
     std::string _tSelectedStr = "";
@@ -249,6 +282,11 @@ void WWGameScene::onSubmitClicked(Ref* sender)
     }
 }
 
+void WWGameScene::onPowerUpClicked(Ref* sender)
+{
+    
+}
+
 #pragma mark - reset Animation
 void WWGameScene::resetGrid()
 {
@@ -267,7 +305,6 @@ void WWGameScene::resetgameAfterSomeTime()
     resultSelectedStr->setString("Play new game");
     
     currentSelectedStr.clear();
-
 }
 
 void WWGameScene::resetAfterLost()
@@ -291,3 +328,104 @@ Vector<WWAlphabetSprite*> WWGameScene::shuffleArray(Vector<WWAlphabetSprite*> pA
     return pArray;
 }
 
+#pragma mark - Power Up
+void WWGameScene::createPowerUpIcon()
+{
+    //Bg
+    Sprite* pbgSpr = Sprite::create("UI/Marble-texture.png");
+    pbgSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, origin.y + pbgSpr->getContentSize().height/2));
+    addChild(pbgSpr);
+    
+    //Down Icon
+    Sprite* downIconSpr = Sprite::create("UI/Down-Arrow.png");
+    downIconSpr->setPosition(Vec2(pbgSpr->getContentSize().width * 0.5, pbgSpr->getContentSize().height));
+    pbgSpr->addChild(downIconSpr);
+    
+    float startXPos = origin.x + 100;
+    float startYPos = pbgSpr->getPositionY() + 40;
+    
+    //Power Up Icon
+    WWPowerUpSprite* icon1 = WWPowerUpSprite::create("GameScene/Fire.png");
+    icon1->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon1);
+    icon1->initUI();
+    
+    startXPos = startXPos + icon1->getContentSize().width + 50;
+    WWPowerUpSprite* icon2 = WWPowerUpSprite::create("GameScene/Earth.png");
+    icon2->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon2);
+    icon2->initUI();
+    
+    startXPos = startXPos + icon2->getContentSize().width + 50;
+    WWPowerUpSprite* icon3 = WWPowerUpSprite::create("GameScene/Poison.png");
+    icon3->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon3);
+    icon3->initUI();
+    
+    startXPos = startXPos + icon3->getContentSize().width + 50;
+    WWPowerUpSprite* icon4 = WWPowerUpSprite::create("GameScene/Shield.png");
+    icon4->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon4);
+    icon4->initUI();
+    
+    startXPos = startXPos + icon4->getContentSize().width + 50;
+    WWPowerUpSprite* icon5 = WWPowerUpSprite::create("GameScene/Cure-All.png");
+    icon5->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon5);
+    icon5->initUI();
+    
+    startYPos = startYPos - icon5->getContentSize().height - 10;
+    startXPos = origin.x + 100;
+    
+    WWPowerUpSprite* icon6 = WWPowerUpSprite::create("GameScene/Water.png");
+    icon6->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon6);
+    icon6->initUI();
+    
+    startXPos = startXPos + icon6->getContentSize().width + 50;
+    WWPowerUpSprite* icon7 = WWPowerUpSprite::create("GameScene/Air.png");
+    icon7->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon7);
+    icon7->initUI();
+    
+    startXPos = startXPos + icon7->getContentSize().width + 50;
+    WWPowerUpSprite* icon8 = WWPowerUpSprite::create("GameScene/Antidote.png");
+    icon8->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon8);
+    icon8->initUI();
+
+    startXPos = startXPos + icon8->getContentSize().width + 50;
+    WWPowerUpSprite* icon9 = WWPowerUpSprite::create("GameScene/Hint.png");
+    icon9->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon9);
+    icon9->initUI();
+
+    
+    startXPos = startXPos + icon9->getContentSize().width + 50;
+    WWPowerUpSprite* icon10 = WWPowerUpSprite::create("GameScene/Time-Booster.png");
+    icon10->setPosition(Vec2(startXPos, startYPos));
+    addChild(icon10);
+    icon10->initUI();
+
+}
+
+void WWGameScene::updateTimerLabel()
+{
+    secVal = secVal - 1;
+    if (secVal <= 0) {
+        secVal = 60;
+        minVal = minVal - 1;
+    }
+    if (minVal <= 0) {
+        minVal = 59;
+        hourVal = hourVal - 1;
+    }
+    std::string _tStr = ":";
+    std::string _tTimerStr = toString(hourVal) + _tStr + toString(minVal) + _tStr + toString(secVal);
+    pTimerLabel->setString(_tTimerStr);
+}
+
+void WWGameScene::updateFunc(float dt)
+{
+    this->updateTimerLabel();
+}

@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "WWGameScene.hpp"
+#include "WWGameScene.h"
 #include <vector>
 #include <string>
 #include "WWLoginScreen.h"

@@ -10,10 +10,11 @@
 #define WWGameScene_hpp
 
 #include <stdio.h>
-#include "WWAlphabetSprite.hpp"
+#include "WWAlphabetSprite.h"
 #include "cocos2d.h"
 #include <vector>
 #include <string>
+#include "WWPowerUpSprite.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -45,15 +46,24 @@ public:
     void initializeAlphabets();
     void createAlphabetGridArray();
     void createCustomAlphabet(int currentAlphabetVal , std::string pCurrentStr);
-    void createGrid();
+    float createGrid();
     
     //Score
     Label* currentScore;
     Label* resultSelectedStr;
-    void addUI();
+    void addUI(float pYpos);
+    
+    //timer
+    Label* pTimerLabel;
+    int hourVal;
+    int minVal;
+    int secVal;
+    void updateFunc(float dt);
+    void updateTimerLabel();
     
     //Submit
     void onSubmitClicked(Ref* sender);
+    void onPowerUpClicked(Ref* sender);
     
     //reset
     void resetGrid();
@@ -62,6 +72,9 @@ public:
     
     //Shuffle
     Vector<WWAlphabetSprite*> shuffleArray(Vector<WWAlphabetSprite*> pArray);
+    
+    //Power Up
+    void createPowerUpIcon();
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWGameScene);

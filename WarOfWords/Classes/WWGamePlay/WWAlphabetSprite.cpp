@@ -6,8 +6,9 @@
 //
 //
 
-#include "WWAlphabetSprite.hpp"
-#include "WWGameScene.hpp"
+#include "WWAlphabetSprite.h"
+#include "WWGameScene.h"
+#include "WWGameConstant.h"
 
 #pragma mark - constructor,destructor
 WWAlphabetSprite::WWAlphabetSprite()
@@ -31,6 +32,7 @@ WWAlphabetSprite* WWAlphabetSprite::create(const char *pszFileName)
     WWAlphabetSprite *sprite = new (std::nothrow) WWAlphabetSprite();
     if (sprite && sprite->initWithFile(pszFileName))
     {
+        sprite->sprName = pszFileName;
         sprite->autorelease();
         return sprite;
     }
@@ -44,16 +46,28 @@ void WWAlphabetSprite::initializeFunc(int currentAlphabetVal , std::string pCurr
     isAlreadyPressed = false;
     alphabetValue = currentAlphabetVal;
     
+    //Set Color to Sprite
+    this->setColor(getColorValue(FC_GAME_TILES_1_DARK));
+    
+    //create One more Sprite Above that
+    spriteLayer = Sprite::create(sprName);
+    spriteLayer->setPosition(getContentSize() * 0.5);
+    addChild(spriteLayer,1);
+    spriteLayer->setScale(0.95);
+    
+    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+    
     //Create Label
-    currentAlphabet = Label::createWithTTF(pCurrentStr.c_str(), "fonts/Marker Felt.ttf", 30);
+    currentAlphabet = Label::createWithTTF(pCurrentStr.c_str(), FN_GAME_FONT_NAME, FN_GAME_ALPHABET_FONT_SIZE);
     currentAlphabet->setPosition(getContentSize() * 0.5);
-    addChild(currentAlphabet);
+    addChild(currentAlphabet,2);
+    currentAlphabet->setColor(getColorValue(FC_GAME_TILES_1_DARK));
     
     std::string alphaVal = toString(currentAlphabetVal);
-    currentAlphabetValLabel =  Label::createWithTTF(alphaVal.c_str(), "fonts/Marker Felt.ttf", 25);
-    currentAlphabetValLabel->setPosition(getContentSize() * 0.8);
-    addChild(currentAlphabetValLabel);
-    currentAlphabetValLabel->setColor(Color3B::GREEN);
+    currentAlphabetValLabel =  Label::createWithTTF(alphaVal.c_str(), FN_GAME_FONT_NAME, FN_GAME_ALPHABET_SCORE_SIZE);
+    currentAlphabetValLabel->setPosition(Vec2(getContentSize().width * 0.75, getContentSize().height * 0.2));
+    addChild(currentAlphabetValLabel,2);
+    currentAlphabetValLabel->setColor(getColorValue(FC_GAME_TILES_1_DARK));
 }
 
 #pragma mark - touches
@@ -64,14 +78,16 @@ bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event
     {
         if (isAlreadyPressed)
         {
-            this->setTexture("square.png");
+            //this->setTexture("square.png");
+            spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
             isAlreadyPressed = false;
             if (this->objref->currentSelectedStr.contains(this))
                 this->objref->currentSelectedStr.eraseObject(this);
         }
         else
         {
-            this->setTexture("square_pressed.png");
+            //this->setTexture("square_pressed.png");
+            spriteLayer->setColor(getColorValue(FC_GAME_TILES_3_DARK));
             isAlreadyPressed = true;
             this->objref->currentSelectedStr.pushBack(this);
         }
@@ -86,7 +102,8 @@ void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event
 
 void WWAlphabetSprite::resetSprite()
 {
-    this->setTexture("square.png");
+    //this->setTexture("square.png");
+    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
     isAlreadyPressed = false;
     
     //fade off Action
@@ -101,7 +118,8 @@ void WWAlphabetSprite::resetSprite()
 
 void WWAlphabetSprite::resetSpriteAfterLost()
 {
-    this->setTexture("square.png");
+    //this->setTexture("square.png");
+    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
     isAlreadyPressed = false;
 }
 

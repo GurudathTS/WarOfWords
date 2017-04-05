@@ -14,14 +14,6 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
-template<typename T>
-std::string toString(const T& value)
-{
-    std::ostringstream oss;
-    oss << value;
-    return oss.str();
-}
-
 class WWGameScene;
 
 class WWAlphabetSprite:public Sprite
@@ -32,8 +24,10 @@ public:
     ~WWAlphabetSprite();
     
     static WWAlphabetSprite* create(const char *pSpriteFrame);
+    std::string sprName;
     
     //property
+    Sprite* spriteLayer;
     bool isAlreadyPressed;
     Label* currentAlphabet;
     Label* currentAlphabetValLabel;
