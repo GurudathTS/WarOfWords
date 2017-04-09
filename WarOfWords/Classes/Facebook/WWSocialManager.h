@@ -20,7 +20,7 @@ enum enumSocialSharingType {
 #define WWSocialManagerRef     WWSocialManager::getInstance()
 class WWSocialFriendDetail;
 
-class WWSocialManager : public cocos2d::Node
+class WWSocialManager : public cocos2d::Ref
 {
      bool            _mHasLoadingPopup;
 public:

@@ -17,28 +17,18 @@ using namespace cocos2d;
 
 static WWSocialManager *_mInstance = nullptr;
 WWSocialManager* WWSocialManager::getInstance()
-{
+{    
     if (!_mInstance)
     {
         _mInstance = new (std::nothrow) WWSocialManager();
-        if(_mInstance)
-        {
-            _mInstance->autorelease();
-        }
-        else
-        {
-            CC_SAFE_RELEASE(_mInstance);
-            _mInstance = nullptr;
-        }
-        
+        _mInstance->retain();
     }
+    
     return _mInstance;
 }
 WWSocialManager::WWSocialManager()
 :_mDelegate(nullptr)
 {
-    Node::init();
-    setAnchorPoint(Vec2(0.5, 0.5));
      _mHasLoadingPopup = false;
     currentLoginUserDetail = nullptr;
 }
