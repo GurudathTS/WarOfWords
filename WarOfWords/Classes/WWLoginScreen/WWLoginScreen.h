@@ -11,9 +11,11 @@
 
 #include "WWSocialManager.h"
 #include <stdio.h>
+#include "WWGameUtility.h"
 
 #include "cocos2d.h"
 using namespace cocos2d;
+using namespace cocos2d::network;
 
 class WWLoginScreen : public cocos2d::Layer
 {
@@ -28,6 +30,13 @@ public:
     virtual bool init();
     
     void onClickOnLogin(Ref* pSender);
+    
+    
+    
+    //connecting server functions
+    void loginToServer();
+    void onLoginRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWLoginScreen);

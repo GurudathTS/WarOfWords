@@ -55,6 +55,9 @@
 #define FC_GAME_SPELL_5_MID               0xcd608b
 #define FC_GAME_SPELL_5_LIGHTER           0xe895b8
 
+//API base url
+#define BASE_URL "http://52.24.37.30/wow/wowapi/api/"
+
 
 //Function
 static Color3B getColorValue(unsigned int pHexColorValue)

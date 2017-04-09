@@ -9,6 +9,7 @@
 #include "WWLoginScreen.h"
 #include "WWSocialManager.h"
 #include "WWSocialFriendDetail.h"
+#include "WWGameConstant.h"
 
 Scene* WWLoginScreen::createScene()
 {
@@ -24,7 +25,7 @@ Scene* WWLoginScreen::createScene()
     // return the scene
     return scene;
 }
-
+#pragma mark - Init
 // on "init" you need to initialize your instance
 bool WWLoginScreen::init()
 {
@@ -101,4 +102,63 @@ void WWLoginScreen::afterLoginCompleted(bool pIsDone)
 
 void WWLoginScreen::afterFetchUserFriendDetail(bool pIsDone)
 {
+}
+#pragma mark - Login API
+void WWLoginScreen::loginToServer()
+{
+    
+//http: //52.24.37.30/wow/wowapi/api/signin?user_id=&facebook_id=1424&email=email@email.com&password=123456&name=Ganesh&gender=male&country=US&facebook_thumbnail=profile.ak.fbcdn.net/hprofile-ak-ash3&ios_push_id=3b989a98d7efe
+
+
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"signin?";
+    
+    url =url+"user_id"+"="+""+"&";
+    
+    url=url+"facebook_id"+"="+"100001527270712"+"&";
+    
+    url=url+"email"+"="+"email@email.com"+"&";
+
+    url=url+"password"+"="+"hgjg"+"&";
+    
+    
+    url=url+"name"+"="+"kfkfk"+"&";
+    
+    url=url+"gender"+"="+"male"+"&";
+    
+    url=url+"country"+"="+"ud"+"&";
+    
+    url=url+"facebook_thumbnail"+"="+"jkk"+"&";
+    
+    url=url+"ios_push_id"+"="+"j89jj";
+
+    
+    
+    request->setUrl(url.c_str());
+    CCLOG("%s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWLoginScreen::onLoginRequestCompleted, this));
+    request->setTag("SignIN");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWLoginScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    if(!document.IsNull())
+    {
+        
+    }
+    
 }

@@ -44,6 +44,7 @@
 		06C9840D1E5B00B700B0660C /* WWAlphabetSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C9840B1E5B00B700B0660C /* WWAlphabetSprite.cpp */; };
 		06E685DE1E7B901A00833065 /* WWLoginScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06E685DC1E7B901A00833065 /* WWLoginScreen.cpp */; };
 		06E7A6C21E8F7BC1003125BD /* WWPowerUpSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06E7A6C01E8F7BC0003125BD /* WWPowerUpSprite.cpp */; };
+		0E15E3F21E994CED00DF9A3B /* WWGameUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -192,6 +193,8 @@
 		06E7A6BD1E8F6500003125BD /* WWGameConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWGameConstant.h; sourceTree = "<group>"; };
 		06E7A6C01E8F7BC0003125BD /* WWPowerUpSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWPowerUpSprite.cpp; sourceTree = "<group>"; };
 		06E7A6C11E8F7BC1003125BD /* WWPowerUpSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPowerUpSprite.h; sourceTree = "<group>"; };
+		0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWGameUtility.cpp; sourceTree = "<group>"; };
+		0E15E3F11E994CED00DF9A3B /* WWGameUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWGameUtility.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -440,6 +443,15 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		0E15E3EF1E994CAF00DF9A3B /* WWGameUtility */ = {
+			isa = PBXGroup;
+			children = (
+				0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */,
+				0E15E3F11E994CED00DF9A3B /* WWGameUtility.h */,
+			);
+			path = WWGameUtility;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -534,6 +546,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0E15E3EF1E994CAF00DF9A3B /* WWGameUtility */,
 				06E7A6BB1E8F64E5003125BD /* WWGameConstant */,
 				061ED5181E6BF635000DD216 /* Facebook */,
 				06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */,
@@ -747,6 +760,7 @@
 				061ED52A1E6BF635000DD216 /* WWFacebookShare.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				06E685DE1E7B901A00833065 /* WWLoginScreen.cpp in Sources */,
+				0E15E3F21E994CED00DF9A3B /* WWGameUtility.cpp in Sources */,
 				061ED5791E6C44EC000DD216 /* WWSocialManager.cpp in Sources */,
 				06E7A6C21E8F7BC1003125BD /* WWPowerUpSprite.cpp in Sources */,
 				06C9840A1E5AE32B00B0660C /* WWGameScene.cpp in Sources */,
