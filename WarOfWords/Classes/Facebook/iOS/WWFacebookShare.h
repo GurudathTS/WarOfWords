@@ -28,6 +28,8 @@
 -(void)logOut;
 
 -(void)updateScore:(int)pScore;
+-(void)getUserDetail;
+
 -(void)getTotalFreindCount;
 
 -(void)shareMessageOnFacebook:(NSString*) shareMessage;

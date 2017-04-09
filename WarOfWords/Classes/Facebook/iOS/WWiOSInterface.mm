@@ -85,6 +85,12 @@ void WWiOSInterface::updateScore(int pScore)
     [ZIFBShare updateScore:pScore];
 }
 
+//Current login User
+void WWiOSInterface::getCurrentUser()
+{
+    [ZIFBShare getUserDetail];
+}
+
 //Invite Friends
 void WWiOSInterface::getInvitableFriendsList(int pTotalFriendsCount)
 {

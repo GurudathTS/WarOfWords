@@ -38,34 +38,14 @@ WWSocialManager::WWSocialManager()
 :_mDelegate(nullptr)
 {
     Node::init();
-    setAnchorPoint(cocos2d::Vec2(0, 0));
+    setAnchorPoint(Vec2(0.5, 0.5));
      _mHasLoadingPopup = false;
-    _mBGLayer = nullptr;
+    currentLoginUserDetail = nullptr;
 }
 
 WWSocialManager::~WWSocialManager()
 {
     
-}
-
-#pragma mark - Init
-
-void WWSocialManager::addTransparentLayer()
-{
-    if (!_mBGLayer) {
-        _mBGLayer = LayerColor::create(Color4B::BLACK);
-        _mBGLayer->setOpacity(255 * 0.6);
-        addChild(_mBGLayer, -2);
-        _mIsShareOpened = true;
-    }
-}
-void WWSocialManager::removeTransparentLayer()
-{
-    if (_mBGLayer) {
-        _mBGLayer->removeFromParentAndCleanup(true);
-    }
-    _mBGLayer=nullptr;
-    _mIsShareOpened = false;
 }
 
 #pragma mark - Call Backs
@@ -133,7 +113,9 @@ void WWSocialManager::checkForPermissions()
 void WWSocialManager::setTotalUserCount(int pTotalUserCount)
 {
     _mTotalFbFriendsCount = pTotalUserCount;
-    this->executeCallback(true);
+    
+    this->getCurrentUserInfo(enumSocialSharingType::kFacebook);
+    //this->executeCallback(true);
 }
 
 void WWSocialManager::logOut(enumSocialSharingType pShareType)
@@ -229,6 +211,25 @@ void WWSocialManager::quickSort(std::vector<WWSocialFriendDetail*> arr, int left
     if (i < right)
         quickSort(arr, i, right);
     
+}
+
+#pragma mark - Get Current User Detail
+void WWSocialManager::getCurrentUserInfo(enumSocialSharingType pShareType)
+{
+    if (pShareType==kFacebook) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        WWiOSInterfaceRef->getCurrentUser();
+#endif
+        
+    }
+}
+
+void WWSocialManager::readCurrentUserInfo(std::string pId, std::string pUserName, std::string pUrl, int pScore)
+{
+    WWSocialFriendDetail* _tUserPlayedInfo = new WWSocialFriendDetail(pUserName, pUrl, pId,pScore);
+    currentLoginUserDetail = _tUserPlayedInfo;
+    
+    this->executeCallback(true);
 }
 
 //Invite Freinds Callback - Enum & Callbackas

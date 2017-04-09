@@ -51,6 +51,9 @@ public:
     void getTotalFreindCount();
     void updateScore(int pScore);
     
+    //Current User
+    void getCurrentUser();
+    
     void shareFacebookMessage(std::string pMessageStr);
     void sharePhotoOnFacebook(std::string pImageName);
     void inviteFreinds();

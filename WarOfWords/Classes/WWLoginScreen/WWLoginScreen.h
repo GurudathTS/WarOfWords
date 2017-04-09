@@ -23,6 +23,7 @@ private:
 public:
     static cocos2d::Scene* createScene();
     void afterLoginCompleted(bool pIsDone);
+    void afterFetchUserFriendDetail(bool pIsDone);
     
     virtual bool init();
     

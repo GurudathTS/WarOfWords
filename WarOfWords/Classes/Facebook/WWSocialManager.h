@@ -28,12 +28,6 @@ public:
     ~WWSocialManager();
     static  WWSocialManager* getInstance(void);
     
-    
-    //TransparentLayer
-    void addTransparentLayer();
-    void removeTransparentLayer();
-
-    
     //Callback
     void executeCallback(bool);
     void setCallback(const std::function<void(bool)> pCallback);
@@ -44,6 +38,10 @@ public:
     void checkForPermissions();
     void setTotalUserCount(int pTotalUserCount);
     void logOut(enumSocialSharingType pShareType);
+    
+    //Current login User
+    void getCurrentUserInfo(enumSocialSharingType pShareType);
+    void readCurrentUserInfo(std::string pId, std::string pUserName, std::string pUrl, int pScore);
     
     //Share Message with Enum Type
     void shareSocialMessageWithEnum(enumSocialSharingType shareType,std::string pMessageStr);
@@ -69,12 +67,10 @@ public:
     CC_SYNTHESIZE_READONLY(bool, _mIsFacebookLoggedIn, FacebookLoggedIn);
     CC_SYNTHESIZE_READONLY(bool, _mIsFacebookDeclined, FacebookDeclined);
     CC_SYNTHESIZE_READONLY(int, _mTotalFbFriendsCount, TotalFbFriendsCount);
-    
-    //Transparent Layer
-    LayerColor*    _mBGLayer;
-    
+        
     //User Detail Array
      CC_SYNTHESIZE_READONLY(std::vector<WWSocialFriendDetail*>, _mFbInviteUserInfo, FbInviteUserInfo);
+    WWSocialFriendDetail* currentLoginUserDetail;
 
     //Call Backs
     std::function<void(bool)> _mDelegate;

@@ -8,6 +8,7 @@
 
 #include "WWLoginScreen.h"
 #include "WWSocialManager.h"
+#include "WWSocialFriendDetail.h"
 
 Scene* WWLoginScreen::createScene()
 {
@@ -93,5 +94,11 @@ void WWLoginScreen::onClickOnLogin(Ref* pSender)
 
 void WWLoginScreen::afterLoginCompleted(bool pIsDone)
 {
-    WWSocialManagerRef->getGameFriendsList(enumSocialSharingType::kFacebook);
+    //Fetch Current User Detail
+    log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
+
+}
+
+void WWLoginScreen::afterFetchUserFriendDetail(bool pIsDone)
+{
 }

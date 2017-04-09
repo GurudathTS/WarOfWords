@@ -206,6 +206,54 @@
     
 }
 
+-(void)getUserDetail
+{
+    //Get Freind List
+    NSMutableString *facebookRequest = [NSMutableString new];
+    [facebookRequest appendString:@"/"];
+    [facebookRequest appendString:[FBSDKAccessToken currentAccessToken].userID];
+    
+    NSDictionary *params1 = @{
+                              @"fields": @"id,name,picture,score",
+                              };
+    //Get Freind List
+    
+    FBSDKGraphRequest *request3 = [[FBSDKGraphRequest alloc]
+                                   initWithGraphPath:facebookRequest
+                                   parameters:params1
+                                   HTTPMethod:@"GET"];
+    [request3 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                           id result,
+                                           NSError *error) {
+        
+        if (error) {
+            
+            //Error pop up
+        }
+        else
+        {
+            
+            //Get Root Array
+            
+            //Loop Data  Array
+                NSString* _tFbId = [result objectForKey:@"id"];
+                NSString* _tFbName = [result objectForKey:@"name"];
+                
+                //Profile Picture
+                NSString* _tFbUrl = [[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"];
+                
+                NSNumber *_tFbScore = [NSNumber numberWithInt:0];
+                if ([result objectForKey:@"score"])
+                {
+                    _tFbScore = [[[[result objectForKey:@"score"] objectForKey:@"data"] objectAtIndex:0] objectForKey:@"score"];
+                }
+                
+                WWSocialManagerRef->readCurrentUserInfo(std::string([_tFbId UTF8String]), std::string([_tFbName UTF8String]), std::string([_tFbUrl UTF8String]),[_tFbScore intValue]);
+            //
+        }
+    }];
+}
+
 -(void)getInvitableFriendsList:(int)pTotalFriendsCount
 {
     NSDictionary *params1 = @{
