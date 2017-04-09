@@ -9,6 +9,8 @@
 #include "WWGameScene.h"
 #include "WWObjectiveCCalls.h"
 #include "WWGameConstant.h"
+#include "WWSocialManager.h"
+#include "WWSocialFriendDetail.h"
 
 USING_NS_CC;
 
@@ -105,6 +107,29 @@ void WWGameScene::addUI(float pYpos)
     
     this->updateTimerLabel();
     this->schedule(CC_SCHEDULE_SELECTOR(WWGameScene::updateFunc), 1.0f);
+    
+    //User Name & Profle
+    auto* profilePict = Sprite::create("square.png");
+    profilePict->setPosition(Vec2(visibleSize.width/8 + origin.x, visibleSize.height / 1.05 + origin.y));
+    addChild(profilePict);
+    
+    if(WWSocialManagerRef->currentLoginUserDetail->getTexture())
+    {
+        profilePict->setTexture(WWSocialManagerRef->currentLoginUserDetail->getTexture());
+    }
+    
+    std::string userName = "Guest";
+    if(WWSocialManagerRef->currentLoginUserDetail)
+    {
+        log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
+        userName = WWSocialManagerRef->currentLoginUserDetail->getName();
+    }
+    
+    auto* userNameLabel = Label::createWithTTF(userName, FN_GAME_FONT_NAME, FN_GAME_ALPHABET_SCORE_SIZE);
+    userNameLabel->setPosition(Vec2(visibleSize.width/8 + origin.x, visibleSize.height / 1.05 + origin.y - profilePict->getContentSize().height ));
+    addChild(userNameLabel);
+    userNameLabel->setHorizontalAlignment(cocos2d::TextHAlignment::LEFT);
+    
     
     //Submit Button
     auto* submitButton = MenuItemFont::create("SUBMIT", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));

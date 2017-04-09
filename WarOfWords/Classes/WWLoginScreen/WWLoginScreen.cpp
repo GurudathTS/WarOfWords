@@ -10,6 +10,7 @@
 #include "WWSocialManager.h"
 #include "WWSocialFriendDetail.h"
 #include "WWGameConstant.h"
+#include "WWGameScene.h"
 
 Scene* WWLoginScreen::createScene()
 {
@@ -41,6 +42,11 @@ bool WWLoginScreen::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    // Background
+    auto backgroundSpr = Sprite::create("UI/Background.png");
+    backgroundSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    this->addChild(backgroundSpr);
+    
     
     /////////////////////////////
     // 3. add your codes below...
@@ -58,7 +64,9 @@ bool WWLoginScreen::init()
     this->addChild(label, 1);
     
     // add a "close" icon to exit the progress. it's an autorelease object
-    loginBtn = MenuItemLabel::create(Label::createWithTTF("Login", "fonts/Marker Felt.ttf", 40) , CC_CALLBACK_1(WWLoginScreen::onClickOnLogin, this));
+    Label* LoginLabel = Label::createWithTTF("LOGIN", "fonts/Marker Felt.ttf", 60);
+    LoginLabel->setColor(Color3B::BLACK);
+    loginBtn = MenuItemLabel::create(LoginLabel, CC_CALLBACK_1(WWLoginScreen::onClickOnLogin, this));
     
     loginBtn->setPosition(Vec2(origin.x + visibleSize.width/2,
                                 origin.y + visibleSize.height/6));
@@ -69,10 +77,10 @@ bool WWLoginScreen::init()
     this->addChild(menu, 1);
     
     //Check for Facebook Login
-    if (WWSocialManagerRef->getFacebookLoggedIn())
-    {
-        loginBtn->setString("Logout");
-    }
+//    if (WWSocialManagerRef->getFacebookLoggedIn())
+//    {
+//        loginBtn->setString("Logout");
+//    }
     
     return true;
 }
@@ -80,35 +88,33 @@ bool WWLoginScreen::init()
 void WWLoginScreen::onClickOnLogin(Ref* pSender)
 {
 
-    if(WWSocialManagerRef->getFacebookLoggedIn())
-    {
+    //if(WWSocialManagerRef->getFacebookLoggedIn())
+    //{
          WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
-    }
-    else
-    {
+    //}
+    //else
+    //{
         WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLoginScreen::afterLoginCompleted, this));
         WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
         log("......Login .. ....");
-    }
+    //}
 }
 
 void WWLoginScreen::afterLoginCompleted(bool pIsDone)
 {
     //Fetch Current User Detail
     log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
+    
+    //replace to Game Scene
+    Director::getInstance()->replaceScene(WWGameScene::createScene());
 
 }
 
-void WWLoginScreen::afterFetchUserFriendDetail(bool pIsDone)
-{
-}
 #pragma mark - Login API
 void WWLoginScreen::loginToServer()
 {
     
 //http: //52.24.37.30/wow/wowapi/api/signin?user_id=&facebook_id=1424&email=email@email.com&password=123456&name=Ganesh&gender=male&country=US&facebook_thumbnail=profile.ak.fbcdn.net/hprofile-ak-ash3&ios_push_id=3b989a98d7efe
-
-
     
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
@@ -134,7 +140,6 @@ void WWLoginScreen::loginToServer()
     
     url=url+"ios_push_id"+"="+"j89jj";
 
-    
     
     request->setUrl(url.c_str());
     CCLOG("%s",request->getUrl());

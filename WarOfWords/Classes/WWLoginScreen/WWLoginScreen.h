@@ -24,14 +24,10 @@ private:
     
 public:
     static cocos2d::Scene* createScene();
-    void afterLoginCompleted(bool pIsDone);
-    void afterFetchUserFriendDetail(bool pIsDone);
-    
+    void afterLoginCompleted(bool pIsDone);    
     virtual bool init();
     
     void onClickOnLogin(Ref* pSender);
-    
-    
     
     //connecting server functions
     void loginToServer();
