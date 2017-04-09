@@ -36,7 +36,6 @@ bool WWLoginScreen::init()
         return false;
     }
     
-    addChild(WWSocialManagerRef);
     WWSocialManagerRef->initWithEnum(enumSocialSharingType::kFacebook);
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
