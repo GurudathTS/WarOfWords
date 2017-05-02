@@ -59,15 +59,25 @@
 #define BASE_URL "http://52.24.37.30/wow/wowapi/api/"
 
 
+//Enum
+enum FORGOTPASSWORDTYPE
+{
+    kForgotPassword,
+    kVerificationCode,
+    kChangePassword,
+    kNone
+    
+};
+
 //Function
-static Color3B getColorValue(unsigned int pHexColorValue)
+static cocos2d::Color3B getColorValue(unsigned int pHexColorValue)
 {
     GLubyte r, g, b;
     b = pHexColorValue & 0xFF;
     g = (pHexColorValue >> 8) & 0xFF;
     r = (pHexColorValue >> 16) & 0xFF;
     
-    return Color3B(r, g, b);
+    return cocos2d::Color3B(r, g, b);
 }
 
 template<typename T>

@@ -11,6 +11,8 @@
 #include "WWSocialFriendDetail.h"
 #include "WWGameConstant.h"
 #include "WWGameScene.h"
+#include "WWLandingScreen.h"
+#include "WWForgotScreen.h"
 
 Scene* WWLoginScreen::createScene()
 {
@@ -36,53 +38,115 @@ bool WWLoginScreen::init()
     {
         return false;
     }
-    
     WWSocialManagerRef->initWithEnum(enumSocialSharingType::kFacebook);
     
-    auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    this->visibleSize = Director::getInstance()->getVisibleSize();
+    this->origin = Director::getInstance()->getVisibleOrigin();
     
     // Background
-    auto backgroundSpr = Sprite::create("UI/Background.png");
-    backgroundSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
+    backgroundSpr->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x, this->visibleSize.height/2 + this->origin.y));
     this->addChild(backgroundSpr);
     
-    
-    /////////////////////////////
-    // 3. add your codes below...
-    
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = Label::createWithTTF("Login Screen", "fonts/Marker Felt.ttf", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-    
-    // add the label as a child to this layer
-    this->addChild(label, 1);
-    
-    // add a "close" icon to exit the progress. it's an autorelease object
-    Label* LoginLabel = Label::createWithTTF("LOGIN", "fonts/Marker Felt.ttf", 60);
-    LoginLabel->setColor(Color3B::BLACK);
-    loginBtn = MenuItemLabel::create(LoginLabel, CC_CALLBACK_1(WWLoginScreen::onClickOnLogin, this));
-    
-    loginBtn->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height/6));
-    
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(loginBtn, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-    
-    //Check for Facebook Login
-//    if (WWSocialManagerRef->getFacebookLoggedIn())
-//    {
-//        loginBtn->setString("Logout");
-//    }
+    //Add Ui
+    this->addUI();
     
     return true;
+}
+
+void WWLoginScreen::addUI()
+{
+    //logo Image
+    auto logoImage = Sprite::create("LoadingScreen/Logo.png");
+    logoImage->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x , this->visibleSize.height/2 + this->origin.y + logoImage->getContentSize().height/1.6));
+    this->addChild(logoImage);
+    
+    //Back Button
+    this->backBtn = MenuItemImage::create("LoginScreen/BackBtn.png", "LoginScreen/BackBtn.png", CC_CALLBACK_1(WWLoginScreen::onClickOnBackBtn, this));
+    this->backBtn->setPosition(Vec2(this->origin.x + this->backBtn->getContentSize().width * 0.8, (this->visibleSize.height) + this->origin.y - (this->backBtn->getContentSize().height * 0.8)));
+    this->backBtn->setScale(0.9);
+    
+    //Login Button
+    this->logInBtn = MenuItemImage::create("LoginScreen/LoginBtn.png", "LoginScreen/LoginBtn.png", CC_CALLBACK_1(WWLoginScreen::onClickOnLogin, this));
+    this->logInBtn->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x, this->visibleSize.height /8 + this->origin.y + this->logInBtn->getContentSize().height));
+    this->logInBtn->setScale(0.9);
+    
+    //Forgot password
+    this->forgotpasswordBtn = MenuItemImage::create("LoginScreen/ForgotPasswordBtn.png", "LoginScreen/ForgotPasswordBtn.png", CC_CALLBACK_1(WWLoginScreen::onClickOnForgot, this));
+    this->forgotpasswordBtn->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x, this->visibleSize.height /8 + this->origin.y - 20));
+    
+
+    //Music Btn
+    MenuItemImage* musicOn = MenuItemImage::create("LandingScreen/MusicBtn.png", "LandingScreen/MusicBtn.png");
+    MenuItemImage* musicOff = MenuItemImage::create("LandingScreen/MusicBtnMute.png", "LandingScreen/MusicBtnMute.png");
+    this->musinBtn = MenuItemToggle::createWithCallback(CC_CALLBACK_1(WWLoginScreen::onClickOnMusicbtn, this), musicOn,musicOff,NULL);
+    this->musinBtn->setPosition(Vec2(this->visibleSize.width + this->origin.x - musicOn->getContentSize().width, this->visibleSize.height + this->origin.y - musicOn->getContentSize().height));
+    
+    //Sound Btn
+    MenuItemImage* soundOn = MenuItemImage::create("LandingScreen/SoundBtn.png", "LandingScreen/SoundBtn.png");
+    MenuItemImage* soundOff = MenuItemImage::create("LandingScreen/SoundMuteBtn.png", "LandingScreen/SoundMuteBtn.png");
+    this->soundbtn = MenuItemToggle::createWithCallback(CC_CALLBACK_1(WWLoginScreen::onClickOnSoundbtn, this), soundOn,soundOff,NULL);
+    this->soundbtn->setPosition(Vec2(this->visibleSize.width + this->origin.x - musicOn->getContentSize().width - soundOn->getContentSize().width - 20, this->visibleSize.height + this->origin.y - musicOn->getContentSize().height));
+    
+    //Menu
+    Menu* menuBtn = Menu::create(this->backBtn,this->logInBtn,this->forgotpasswordBtn,this->musinBtn,this->soundbtn, NULL);
+    menuBtn->setPosition(Vec2::ZERO);
+    this->addChild(menuBtn);
+    
+    //Editbox
+    std::string pNormalSprite = "LoginScreen/NameColm.png";
+    auto* sprRef = Sprite::create("LoginScreen/NameColm.png");
+    this->userName = EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
+    this->userName->setPosition(Vec2(this->logInBtn->getPositionX(), this->logInBtn->getPositionY() + (sprRef->getContentSize().height * 2) + 50));
+    this->userName->setFontColor(Color3B::BLACK);
+    this->userName->setPlaceHolder("   UserName");
+    this->userName->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+    this->userName->setPlaceholderFontColor(Color3B::WHITE);
+    this->userName->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
+    this->userName->setDelegate(this);
+    this->userName->setVisible(true);
+    this->userName->setFontSize(sprRef->getContentSize().height/2);
+    this->addChild(this->userName);
+    this->userName->setScale(0.9);
+    
+    //Password
+    this->passWord = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
+    this->passWord->setPosition(Vec2(this->logInBtn->getPositionX(), this->logInBtn->getPositionY() + sprRef->getContentSize().height + 35));
+    this->passWord->setFontColor(Color3B::BLACK);
+    this->passWord->setPlaceHolder("   Password");
+    this->passWord->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+    this->passWord->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+    this->passWord->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
+    this->passWord->setDelegate(this);
+    this->passWord->setVisible(true);
+    this->passWord->setFontSize(sprRef->getContentSize().height/2);
+    this->addChild(this->passWord);
+    this->passWord->setScale(0.9);
+
+}
+
+#pragma mark - Button
+void WWLoginScreen::onClickOnBackBtn(Ref* pSender)
+{
+    //replace Scene
+    Director::getInstance()->replaceScene(WWLandingScreen::createScene());
+}
+
+void WWLoginScreen::onClickOnMusicbtn(Ref* pSender)
+{
+    
+}
+
+void WWLoginScreen::onClickOnSoundbtn(Ref* pSender)
+{
+    
+}
+
+void WWLoginScreen::onClickOnForgot(Ref* pSender)
+{
+    //replace Scene
+    FORGOTPASSWORDTYPE currentType = kForgotPassword;
+    Director::getInstance()->replaceScene(WWForgotPasswordScreen::createScene(currentType));
 }
 
 void WWLoginScreen::onClickOnLogin(Ref* pSender)
@@ -90,12 +154,12 @@ void WWLoginScreen::onClickOnLogin(Ref* pSender)
 
     //if(WWSocialManagerRef->getFacebookLoggedIn())
     //{
-         WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
+         //WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
     //}
     //else
     //{
-        WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLoginScreen::afterLoginCompleted, this));
-        WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
+        //WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLoginScreen::afterLoginCompleted, this));
+        //WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
         log("......Login .. ....");
     //}
 }
@@ -141,7 +205,7 @@ void WWLoginScreen::loginToServer()
     url=url+"ios_push_id"+"="+"j89jj";
 
     
-    request->setUrl(url.c_str());
+    request->setUrl("");
     CCLOG("%s",request->getUrl());
     request->setRequestType(HttpRequest::Type::GET);
     
@@ -164,5 +228,25 @@ void WWLoginScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *re
     {
         
     }
-    
+}
+
+#pragma mark - Editbox
+void WWLoginScreen::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
+{
+    log("editBox %p DidBegin !", editBox);
+}
+
+void WWLoginScreen::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
+{
+    log("editBox %p DidEnd !", editBox);
+}
+
+void WWLoginScreen::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
+{
+    log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
+}
+
+void WWLoginScreen::editBoxReturn(ui::EditBox* editBox)
+{
+    log("editBox %p was returned !",editBox);
 }

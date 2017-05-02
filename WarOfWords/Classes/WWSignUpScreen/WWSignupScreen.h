@@ -1,42 +1,38 @@
 //
-//  WWLoginScreen.hpp
+//  WWSignupScreen.h
 //  WarOfWords
 //
-//  Created by Gurudath on 3/17/17.
+//  Created by Gurudath on 5/1/17.
 //
 //
 
-#ifndef WWLoginScreen_h
-#define WWLoginScreen_h
+#ifndef WWSignupScreen_h
+#define WWSignupScreen_h
 
-#include "WWSocialManager.h"
 #include <stdio.h>
-#include "WWGameUtility.h"
 #include "ui/UIEditBox/UIEditBox.h"
 
 #include "cocos2d.h"
 using namespace cocos2d;
-using namespace cocos2d::network;
 using namespace cocos2d::ui;
 
-class WWLoginScreen : public cocos2d::Layer,public EditBoxDelegate
+class WWSignUpScreen : public cocos2d::Layer,public EditBoxDelegate
 {
 private:
     MenuItemToggle* musinBtn, *soundbtn;
+    MenuItemImage* backBtn, *signUpBtn;
     
-    MenuItemImage* backBtn, *forgotpasswordBtn, *logInBtn;
-    
-    EditBox* userName, *passWord;
+    EditBox* userName, *email, *confirmpassword, *passWord;
     
     //Variable
     Size visibleSize;
     Vec2 origin;
     
     //Button
+    void onClickOnSignUp(Ref* pSender);
     void onClickOnMusicbtn(Ref* pSender);
     void onClickOnSoundbtn(Ref* pSender);
     void onClickOnBackBtn(Ref* pSender);
-    void onClickOnForgot(Ref* pSender);
     
     //Editbox
     virtual void editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)override;
@@ -46,22 +42,14 @@ private:
     
 public:
     static cocos2d::Scene* createScene();
-    void afterLoginCompleted(bool pIsDone);    
     virtual bool init();
     
     //UI
     void addUI();
     
-    void onClickOnLogin(Ref* pSender);
-    
-    //connecting server functions
-    void loginToServer();
-    void onLoginRequestCompleted(HttpClient *sender, HttpResponse *response);
-    
-    
     // implement the "static create()" method manually
-    CREATE_FUNC(WWLoginScreen);
+    CREATE_FUNC(WWSignUpScreen);
 };
 
 
-#endif /* WWLoginScreen_hpp */
+#endif /* WWSignupScreen_h */

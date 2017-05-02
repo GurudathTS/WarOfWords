@@ -1,8 +1,7 @@
 #include "AppDelegate.h"
-#include "WWGameScene.h"
 #include <vector>
 #include <string>
-#include "WWLoginScreen.h"
+#include "WWLandingScreen.h"
 
 USING_NS_CC;
 using namespace std;
@@ -78,7 +77,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = WWLoginScreen::createScene();
+    auto scene = WWLandingScreen::createScene();
 
     // run
     director->runWithScene(scene);
