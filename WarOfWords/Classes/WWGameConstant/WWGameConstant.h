@@ -56,7 +56,7 @@
 #define FC_GAME_SPELL_5_LIGHTER           0xe895b8
 
 //API base url
-#define BASE_URL "http://52.24.37.30/wow/wowapi/api/"
+#define BASE_URL "http://52.24.37.30:3000/api/"
 
 
 //Enum
