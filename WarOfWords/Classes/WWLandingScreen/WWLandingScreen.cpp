@@ -9,6 +9,9 @@
 #include "WWLandingScreen.h"
 #include "WWLoginScreen.h"
 #include "WWSignupScreen.h"
+#include "WWSocialManager.h"
+#include "WWSocialFriendDetail.h"
+#include "WWGameConstant.h"
 
 Scene* WWLandingScreen::createScene()
 {
@@ -37,6 +40,9 @@ bool WWLandingScreen::init()
 
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
+    
+    //Facebook
+    WWSocialManagerRef->initWithEnum(enumSocialSharingType::kFacebook);
     
     // Background
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
@@ -95,6 +101,26 @@ void WWLandingScreen::addUI()
 #pragma mark - Button Action
 void WWLandingScreen::onClickOnLoginFacebook(Ref* pSender)
 {
+    if(WWSocialManagerRef->getFacebookLoggedIn())
+    {
+        WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLandingScreen::afterLoginCompleted, this));
+        WWSocialManagerRef->getCurrentUserInfo(enumSocialSharingType::kFacebook);
+    }
+    else
+    {
+        WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLandingScreen::afterLoginCompleted, this));
+        WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
+        log("......Login .. ....");
+    }
+}
+
+void WWLandingScreen::afterLoginCompleted(bool pIsDone)
+{
+    //Fetch Current User Detail
+    log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
+    
+    //replace to Game Scene
+    //Director::getInstance()->replaceScene(WWGameScene::createScene());
     
 }
 

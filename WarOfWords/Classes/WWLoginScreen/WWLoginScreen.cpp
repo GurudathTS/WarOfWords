@@ -38,7 +38,6 @@ bool WWLoginScreen::init()
     {
         return false;
     }
-    WWSocialManagerRef->initWithEnum(enumSocialSharingType::kFacebook);
     
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
@@ -151,26 +150,6 @@ void WWLoginScreen::onClickOnForgot(Ref* pSender)
 
 void WWLoginScreen::onClickOnLogin(Ref* pSender)
 {
-
-    //if(WWSocialManagerRef->getFacebookLoggedIn())
-    //{
-         //WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
-    //}
-    //else
-    //{
-        //WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLoginScreen::afterLoginCompleted, this));
-        //WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
-        log("......Login .. ....");
-    //}
-}
-
-void WWLoginScreen::afterLoginCompleted(bool pIsDone)
-{
-    //Fetch Current User Detail
-    log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
-    
-    //replace to Game Scene
-    Director::getInstance()->replaceScene(WWGameScene::createScene());
 
 }
 

@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "WWLandingScreen.h"
+#include "WWMainMenuScreen.h"
 
 USING_NS_CC;
 using namespace std;
@@ -77,7 +78,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = WWLandingScreen::createScene();
+    auto scene = WWMainMenu::createScene();
 
     // run
     director->runWithScene(scene);
