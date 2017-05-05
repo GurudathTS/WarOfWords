@@ -50,6 +50,8 @@ bool WWLoginScreen::init()
     //Add Ui
     this->addUI();
     
+    this->loginToServer();
+    
     return true;
 }
 
@@ -159,33 +161,40 @@ void WWLoginScreen::loginToServer()
     
 //http: //52.24.37.30/wow/wowapi/api/signin?user_id=&facebook_id=1424&email=email@email.com&password=123456&name=Ganesh&gender=male&country=US&facebook_thumbnail=profile.ak.fbcdn.net/hprofile-ak-ash3&ios_push_id=3b989a98d7efe
     
+    
+    //ht tp://52.24.37.30:3000/api/signin?user_id=&authId=867796020040913&name=Manju MN&email=manjunathareddyn@gmail.com&password=&thumbnail=https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=df01630bb28d905025f6ed83bee71510&oe=5987FB2F&deviceId=j89jj&deviceType=IOS
+    
+    
+    http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
+    
+    
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
     url=url+"signin?";
     
-    url =url+"user_id"+"="+""+"&";
     
-    url=url+"facebook_id"+"="+"100001527270712"+"&";
+    url=url+"authId"+"="+"100001527270712"+"&";
+    url=url+"name"+"="+"kfkfk"+"&";
+
     
-    url=url+"email"+"="+"email@email.com"+"&";
+    url=url+"email"+"="+"manjunathareddyn@gmail.com"+"&";
 
     url=url+"password"+"="+"hgjg"+"&";
     
     
-    url=url+"name"+"="+"kfkfk"+"&";
     
-    url=url+"gender"+"="+"male"+"&";
     
-    url=url+"country"+"="+"ud"+"&";
+    url=url+"thumbnail"+"="+"jkk"+"&";
     
-    url=url+"facebook_thumbnail"+"="+"jkk"+"&";
+    url=url+"deviceId"+"="+"j89jj"+"&";
     
-    url=url+"ios_push_id"+"="+"j89jj";
+    url=url+"deviceType"+"="+"IOS";
+
 
     
-    request->setUrl("");
-    CCLOG("%s",request->getUrl());
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
     request->setRequestType(HttpRequest::Type::GET);
     
     

@@ -11,9 +11,11 @@
 
 #include <stdio.h>
 #include "ui/UIEditBox/UIEditBox.h"
+#include "WWGameUtility.h"
 
 #include "cocos2d.h"
 using namespace cocos2d;
+using namespace cocos2d::network;
 using namespace cocos2d::ui;
 
 class WWSignUpScreen : public cocos2d::Layer,public EditBoxDelegate
@@ -39,6 +41,11 @@ private:
     virtual void editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)override;
     virtual void editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)override;
     virtual void editBoxReturn(cocos2d::ui::EditBox* editBox)override;
+    
+    //API
+    void signUpAPI();
+    void onsignUpAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+
     
 public:
     static cocos2d::Scene* createScene();

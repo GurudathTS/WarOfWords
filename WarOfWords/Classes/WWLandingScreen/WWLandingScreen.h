@@ -14,6 +14,8 @@
 
 #include "cocos2d.h"
 using namespace cocos2d;
+using namespace cocos2d::network;
+using namespace cocos2d::ui;
 
 class WWLandingScreen : public cocos2d::Layer
 {
@@ -37,10 +39,18 @@ public:
     
     //Button
     void onClickOnLoginFacebook(Ref* sender);
+    void afterLoginCompleted(bool pIsDone);
+
+    
     void onClickOnLoginbtn(Ref* pSender);
     void onClickOnSinUpbtn(Ref* pSender);
     void onClickOnMusicbtn(Ref* pSender);
     void onClickOnSoundbtn(Ref* pSender);
+    
+    //API
+    void loginToServer();
+    void onLoginRequestCompleted(HttpClient *sender, HttpResponse *response);
+
 
     // implement the "static create()" method manually
     CREATE_FUNC(WWLandingScreen);

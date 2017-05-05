@@ -8,6 +8,7 @@
 
 #include "WWSignupScreen.h"
 #include "WWLandingScreen.h"
+#include "WWGameConstant.h"
 
 Scene* WWSignUpScreen::createScene()
 {
@@ -168,7 +169,7 @@ void WWSignUpScreen::onClickOnSoundbtn(Ref* pSender)
 void WWSignUpScreen::onClickOnSignUp(Ref* pSender)
 {
 
-    
+    this->signUpAPI();
 }
 
 #pragma mark - Editbox
@@ -190,4 +191,56 @@ void WWSignUpScreen::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std
 void WWSignUpScreen::editBoxReturn(ui::EditBox* editBox)
 {
     log("editBox %p was returned !",editBox);
+}
+#pragma mark - SignUp API
+void WWSignUpScreen::signUpAPI()
+{
+    
+    //http: //52.24.37.30/wow/wowapi/api/signin?user_id=&facebook_id=1424&email=email@email.com&password=123456&name=Ganesh&gender=male&country=US&facebook_thumbnail=profile.ak.fbcdn.net/hprofile-ak-ash3&ios_push_id=3b989a98d7efe
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"signup?";
+    
+    std::string name = std::urlencode(this->userName->getText());
+    url=url+"name"+"="+name+"&";
+    
+    
+    url=url+"email"+"="+std::urlencode(this->email->getText())+"&";
+    
+    url=url+"password"+"="+this->passWord->getText()+"&";
+    
+    
+    url=url+"thumbnail"+"="+"nothing"+"&";
+    
+    url=url+"deviceId"+"="+"j89jj"+"&";
+    
+    url=url+"deviceType"+"="+"IOS";
+    
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWSignUpScreen::onsignUpAPIRequestCompleted, this));
+    request->setTag("SignIN");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWSignUpScreen::onsignUpAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    if(!document.IsNull())
+    {
+        
+    }
 }

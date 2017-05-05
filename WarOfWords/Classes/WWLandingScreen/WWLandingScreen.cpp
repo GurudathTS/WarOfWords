@@ -37,7 +37,7 @@ bool WWLandingScreen::init()
     {
         return false;
     }
-
+    
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
     
@@ -71,13 +71,13 @@ void WWLandingScreen::addUI()
     this->loginBtn = MenuItemImage::create("LandingScreen/LoginBtn.png", "LandingScreen/LoginBtn.png", CC_CALLBACK_1(WWLandingScreen::onClickOnLoginbtn, this));
     this->loginBtn->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x - this->loginBtn->getContentSize().width/2, this->visibleSize.height/8 + this->origin.y - 10));
     this->loginBtn->setScale(0.85);
-
+    
     
     //Sign Up
     this->signUpBtn = MenuItemImage::create("LandingScreen/SignUpBtn.png", "LandingScreen/SignUpBtn.png", CC_CALLBACK_1(WWLandingScreen::onClickOnSinUpbtn, this));
     this->signUpBtn->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x + this->loginBtn->getContentSize().width/2, this->visibleSize.height/8 + this->origin.y - 10));
     this->signUpBtn->setScale(0.85);
-
+    
     
     //Music Btn
     MenuItemImage* musicOn = MenuItemImage::create("LandingScreen/MusicBtn.png", "LandingScreen/MusicBtn.png");
@@ -89,7 +89,7 @@ void WWLandingScreen::addUI()
     MenuItemImage* soundOn = MenuItemImage::create("LandingScreen/SoundBtn.png", "LandingScreen/SoundBtn.png");
     MenuItemImage* soundOff = MenuItemImage::create("LandingScreen/SoundMuteBtn.png", "LandingScreen/SoundMuteBtn.png");
     this->soundbtn = MenuItemToggle::createWithCallback(CC_CALLBACK_1(WWLandingScreen::onClickOnSoundbtn, this), soundOn,soundOff,NULL);
-     this->soundbtn->setPosition(Vec2(this->visibleSize.width + this->origin.x - musicOn->getContentSize().width - soundOn->getContentSize().width - 20, this->visibleSize.height + this->origin.y - musicOn->getContentSize().height));
+    this->soundbtn->setPosition(Vec2(this->visibleSize.width + this->origin.x - musicOn->getContentSize().width - soundOn->getContentSize().width - 20, this->visibleSize.height + this->origin.y - musicOn->getContentSize().height));
     
     //Menu
     Menu* menuBtn = Menu::create(this->loginFacebookBtn,this->loginBtn,this->signUpBtn,this->musinBtn,this->soundbtn, NULL);
@@ -98,13 +98,14 @@ void WWLandingScreen::addUI()
     
 }
 
-#pragma mark - Button Action
+#pragma mark - Facebook login
 void WWLandingScreen::onClickOnLoginFacebook(Ref* pSender)
 {
     if(WWSocialManagerRef->getFacebookLoggedIn())
     {
         WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLandingScreen::afterLoginCompleted, this));
         WWSocialManagerRef->getCurrentUserInfo(enumSocialSharingType::kFacebook);
+
     }
     else
     {
@@ -119,23 +120,79 @@ void WWLandingScreen::afterLoginCompleted(bool pIsDone)
     //Fetch Current User Detail
     log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
     
+
+    this->loginToServer();
     //replace to Game Scene
     //Director::getInstance()->replaceScene(WWGameScene::createScene());
     
 }
+#pragma mark - Login API
+void WWLandingScreen::loginToServer()
+{
+    
+    //http: //52.24.37.30/wow/wowapi/api/signin?user_id=&facebook_id=1424&email=email@email.com&password=123456&name=Ganesh&gender=male&country=US&facebook_thumbnail=profile.ak.fbcdn.net/hprofile-ak-ash3&ios_push_id=3b989a98d7efe
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"signin?";
+    
+    std::string name = std::urlencode(WWSocialManagerRef->currentLoginUserDetail->getName());
+    url=url+"authId"+"="+WWSocialManagerRef->currentLoginUserDetail->getID()+"&";
+    url=url+"name"+"="+name+"&";
+    
+    
+    url=url+"email"+"="+"manjunathareddyn@gmail.com"+"&";
+    
+    url=url+"password"+"="+"fgh"+"&";
+    
+    
+    url=url+"thumbnail"+"="+WWSocialManagerRef->currentLoginUserDetail->getImageURL()+"&";
+    
+    url=url+"deviceId"+"="+"j89jj"+"&";
+    
+    url=url+"deviceType"+"="+"IOS";
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWLandingScreen::onLoginRequestCompleted, this));
+    request->setTag("SignIN");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWLandingScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    if(!document.IsNull())
+    {
+        
+    }
+}
 
+#pragma mark - Guest login
 void WWLandingScreen::onClickOnLoginbtn(Ref* pSender)
 {
     //replace Scene
     Director::getInstance()->replaceScene(WWLoginScreen::createScene());
 }
 
+#pragma mark - SignUp
 void WWLandingScreen::onClickOnSinUpbtn(Ref* pSender)
 {
     //replace Scene
     Director::getInstance()->replaceScene(WWSignUpScreen::createScene());
 }
 
+#pragma mark - Sound
 void WWLandingScreen::onClickOnMusicbtn(Ref* pSender)
 {
     
