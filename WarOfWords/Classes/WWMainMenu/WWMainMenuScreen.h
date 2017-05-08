@@ -17,6 +17,8 @@ using namespace cocos2d;
 #include "extensions/cocos-ext.h"
 using namespace cocos2d::extension;
 
+#include "WWSettingPageLayer.h"
+
 class WWMainMenu : public cocos2d::Layer
 {
 private:
@@ -24,6 +26,7 @@ private:
     Sprite* profileBackground, *profileCircleSpr, *CommonPoupBg;
     Label* userNameLabel, *userDescriptionLabel;
     ScrollView *activeGameListScrollView;
+     WWSettingsPannel* settingPannelLayer;
     
     //Variable
     Size visibleSize;

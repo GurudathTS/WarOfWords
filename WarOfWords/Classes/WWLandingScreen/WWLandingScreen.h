@@ -39,8 +39,6 @@ public:
     
     //Button
     void onClickOnLoginFacebook(Ref* sender);
-    void afterLoginCompleted(bool pIsDone);
-
     
     void onClickOnLoginbtn(Ref* pSender);
     void onClickOnSinUpbtn(Ref* pSender);

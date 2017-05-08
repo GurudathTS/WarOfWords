@@ -50,6 +50,7 @@ bool WWMainMenu::init()
     
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
+    this->settingPannelLayer = nullptr;
     
     // Background
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
@@ -179,7 +180,13 @@ void WWMainMenu::addActiveGamesList()
 #pragma mark - Button
 void WWMainMenu::onClickOnSettingBtn(Ref* pSender)
 {
-    //Director::getInstance()->replaceScene(WWLoginScreen::createScene());
+
+    if (this->settingPannelLayer == nullptr) {
+        
+        this->settingPannelLayer = WWSettingsPannel::getSettingsBtn();
+        this->settingPannelLayer->setPosition(Vec2::ZERO);
+        this->addChild(this->settingPannelLayer,100);
+    }
 }
 
 void WWMainMenu::onClickOnInAppBtn(Ref* pSender)
