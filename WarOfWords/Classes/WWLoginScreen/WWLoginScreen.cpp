@@ -51,7 +51,7 @@ bool WWLoginScreen::init()
     //Add Ui
     this->addUI();
     
-    this->loginToServer();
+    
     
     return true;
 }
@@ -154,6 +154,7 @@ void WWLoginScreen::onClickOnForgot(Ref* pSender)
 void WWLoginScreen::onClickOnLogin(Ref* pSender)
 {
 
+    this->loginToServer();
     //if(WWSocialManagerRef->getFacebookLoggedIn())
     //{
          //WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
@@ -195,18 +196,18 @@ void WWLoginScreen::loginToServer()
     url=url+"signin?";
     
     
-    url=url+"authId"+"="+"100001527270712"+"&";
-    url=url+"name"+"="+"kfkfk"+"&";
+    url=url+"authId"+"="+""+"&";
+    url=url+"name"+"="+this->userName->getText()+"&";
 
     
-    url=url+"email"+"="+"manjunathareddyn@gmail.com"+"&";
+    url=url+"email"+"="+""+"&";
 
-    url=url+"password"+"="+"hgjg"+"&";
+    url=url+"password"+"="+this->passWord->getText()+"&";
     
     
     
     
-    url=url+"thumbnail"+"="+"jkk"+"&";
+    url=url+"thumbnail"+"="+""+"&";
     
     url=url+"deviceId"+"="+"j89jj"+"&";
     

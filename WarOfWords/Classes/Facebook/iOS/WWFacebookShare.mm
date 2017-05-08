@@ -88,7 +88,7 @@
         AppController *controller = (AppController *) [UIApplication sharedApplication].delegate;
         FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
         
-        [loginManager logInWithReadPermissions:@[@"user_friends",@"public_profile"]
+        [loginManager logInWithReadPermissions:@[@"user_friends",@"public_profile",@"email",]
                             fromViewController:(UIViewController*)controller.viewController
                                        handler:^(FBSDKLoginManagerLoginResult *result, NSError *error)
                                        {
