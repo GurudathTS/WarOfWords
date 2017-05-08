@@ -38,6 +38,8 @@
 		061ED5731E6C08AB000DD216 /* WWSocialFriendDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5711E6C08AB000DD216 /* WWSocialFriendDetail.cpp */; };
 		061ED5761E6C43EB000DD216 /* WWiOSInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */; };
 		061ED5791E6C44EC000DD216 /* WWSocialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */; };
+		0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */; };
+		0685C6851EB85B5900139015 /* WWMainMenuActiveList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */; };
 		06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */; };
 		06A1FF591EB72F0A006A1FE7 /* WWForgotScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */; };
 		06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */; };
@@ -183,6 +185,10 @@
 		061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWiOSInterface.mm; sourceTree = "<group>"; };
 		061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSocialManager.cpp; sourceTree = "<group>"; };
 		061ED5781E6C44EC000DD216 /* WWSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSocialManager.h; sourceTree = "<group>"; };
+		0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWMainMenuScreen.cpp; sourceTree = "<group>"; };
+		0685C6811EB83B8800139015 /* WWMainMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuScreen.h; sourceTree = "<group>"; };
+		0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWMainMenuActiveList.cpp; sourceTree = "<group>"; };
+		0685C6841EB85B5900139015 /* WWMainMenuActiveList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuActiveList.h; sourceTree = "<group>"; };
 		06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSignupScreen.cpp; sourceTree = "<group>"; };
 		06A1FF541EB72591006A1FE7 /* WWSignupScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSignupScreen.h; sourceTree = "<group>"; };
 		06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWForgotScreen.cpp; sourceTree = "<group>"; };
@@ -396,6 +402,17 @@
 			path = Facebook;
 			sourceTree = "<group>";
 		};
+		0685C67E1EB83B1800139015 /* WWMainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */,
+				0685C6811EB83B8800139015 /* WWMainMenuScreen.h */,
+				0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */,
+				0685C6841EB85B5900139015 /* WWMainMenuActiveList.h */,
+			);
+			path = WWMainMenu;
+			sourceTree = "<group>";
+		};
 		06A1FF511EB7255D006A1FE7 /* WWSignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +599,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0685C67E1EB83B1800139015 /* WWMainMenu */,
 				06A1FF561EB72EF5006A1FE7 /* WWForgotScreen */,
 				06A1FF511EB7255D006A1FE7 /* WWSignUpScreen */,
 				06ECB2EF1EB6F774004C6DB6 /* WWLandingScreen */,
@@ -796,6 +814,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06C9840D1E5B00B700B0660C /* WWAlphabetSprite.cpp in Sources */,
+				0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				06ECB2F31EB6F79B004C6DB6 /* WWLandingScreen.cpp in Sources */,
 				06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */,
@@ -809,6 +828,7 @@
 				06E685DE1E7B901A00833065 /* WWLoginScreen.cpp in Sources */,
 				0E15E3F21E994CED00DF9A3B /* WWGameUtility.cpp in Sources */,
 				061ED5791E6C44EC000DD216 /* WWSocialManager.cpp in Sources */,
+				0685C6851EB85B5900139015 /* WWMainMenuActiveList.cpp in Sources */,
 				06E7A6C21E8F7BC1003125BD /* WWPowerUpSprite.cpp in Sources */,
 				06C9840A1E5AE32B00B0660C /* WWGameScene.cpp in Sources */,
 				061ED5731E6C08AB000DD216 /* WWSocialFriendDetail.cpp in Sources */,

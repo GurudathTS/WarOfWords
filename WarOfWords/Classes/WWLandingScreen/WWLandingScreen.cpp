@@ -41,6 +41,9 @@ bool WWLandingScreen::init()
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
     
+    //Facebook
+    WWSocialManagerRef->initWithEnum(enumSocialSharingType::kFacebook);
+    
     // Background
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
     backgroundSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
@@ -100,22 +103,24 @@ void WWLandingScreen::onClickOnLoginFacebook(Ref* pSender)
 {
     if(WWSocialManagerRef->getFacebookLoggedIn())
     {
-        WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
+        WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLandingScreen::afterLoginCompleted, this));
+        WWSocialManagerRef->getCurrentUserInfo(enumSocialSharingType::kFacebook);
+
     }
     else
     {
         WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLandingScreen::afterLoginCompleted, this));
         WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
         log("......Login .. ....");
-        //}
-        
     }
 }
+
 void WWLandingScreen::afterLoginCompleted(bool pIsDone)
 {
     //Fetch Current User Detail
     log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
     
+
     this->loginToServer();
     //replace to Game Scene
     //Director::getInstance()->replaceScene(WWGameScene::createScene());
@@ -147,8 +152,6 @@ void WWLandingScreen::loginToServer()
     url=url+"deviceId"+"="+"j89jj"+"&";
     
     url=url+"deviceType"+"="+"IOS";
-    
-    
     
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());

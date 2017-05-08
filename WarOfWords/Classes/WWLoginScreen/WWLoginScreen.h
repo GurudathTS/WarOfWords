@@ -23,7 +23,6 @@ class WWLoginScreen : public cocos2d::Layer,public EditBoxDelegate
 {
 private:
     MenuItemToggle* musinBtn, *soundbtn;
-    
     MenuItemImage* backBtn, *forgotpasswordBtn, *logInBtn;
     
     EditBox* userName, *passWord;
@@ -46,8 +45,7 @@ private:
     
 public:
     static cocos2d::Scene* createScene();
-    void afterLoginCompleted(bool pIsDone);    
-    virtual bool init();
+    virtual bool init()override;
     
     //UI
     void addUI();

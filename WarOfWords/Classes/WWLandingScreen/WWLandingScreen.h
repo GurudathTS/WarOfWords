@@ -28,6 +28,8 @@ private:
     MenuItemImage* loginFacebookBtn, *signUpBtn, *loginBtn;
     MenuItemToggle* musinBtn, *soundbtn;
     
+    void afterLoginCompleted(bool pIsDone);
+    
 public:
     static cocos2d::Scene* createScene();
     virtual bool init();
