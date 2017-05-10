@@ -78,7 +78,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = WWMainMenu::createScene();
+    auto scene = WWLandingScreen::createScene();
 
     // run
     director->runWithScene(scene);

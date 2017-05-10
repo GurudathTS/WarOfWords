@@ -12,6 +12,9 @@
 #include "WWSocialManager.h"
 #include "WWSocialFriendDetail.h"
 #include "WWGameConstant.h"
+#include "WWDatamanager.h"
+#include "WWCommonUtilty.h"
+#include "WWMainMenuScreen.h"
 
 Scene* WWLandingScreen::createScene()
 {
@@ -101,6 +104,7 @@ void WWLandingScreen::addUI()
 #pragma mark - Facebook login
 void WWLandingScreen::onClickOnLoginFacebook(Ref* pSender)
 {
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
     if(WWSocialManagerRef->getFacebookLoggedIn())
     {
         WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLandingScreen::afterLoginCompleted, this));
@@ -174,6 +178,22 @@ void WWLandingScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *
     WWGameUtility::getResponseBuffer(response, document);
     if(!document.IsNull())
     {
+        if(document["errorCode"].GetInt() == 0 && (strcmp(document["msg"].GetString(), "Success")==0))
+        {
+            std::string userId = document["user"]["id"].GetString();
+            std::string apiKey = document["user"]["apiKey"].GetString();
+            
+            WWDatamanager::sharedManager()->setAPIKey(apiKey);
+            WWDatamanager::sharedManager()->setUserId(userId);
+            
+            ActivtyIndicator::PopIfActiveFromScene(this);
+            Director::getInstance()->replaceScene(WWMainMenu::createScene());
+        }
+        else{
+            log("server error");
+        }
+        
+        
         
     }
 }

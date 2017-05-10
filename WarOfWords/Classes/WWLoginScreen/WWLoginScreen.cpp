@@ -155,36 +155,13 @@ void WWLoginScreen::onClickOnLogin(Ref* pSender)
 {
 
     this->loginToServer();
-    //if(WWSocialManagerRef->getFacebookLoggedIn())
-    //{
-         //WWSocialManagerRef->logOut(enumSocialSharingType::kFacebook);
-    //}
-    //else
-    //{
-        //WWSocialManagerRef->setCallback(CC_CALLBACK_1(WWLoginScreen::afterLoginCompleted, this));
-        //WWSocialManagerRef->logIn(enumSocialSharingType::kFacebook);
-        log("......Login .. ....");
-    //}
+   
 }
 
-void WWLoginScreen::afterLoginCompleted(bool pIsDone)
-{
-    //Fetch Current User Detail
-    log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
-    
-    //replace to Game Scene
-    Director::getInstance()->replaceScene(WWGameScene::createScene());
-
-}
 
 #pragma mark - Login API
 void WWLoginScreen::loginToServer()
 {
-    
-//http: //52.24.37.30/wow/wowapi/api/signin?user_id=&facebook_id=1424&email=email@email.com&password=123456&name=Ganesh&gender=male&country=US&facebook_thumbnail=profile.ak.fbcdn.net/hprofile-ak-ash3&ios_push_id=3b989a98d7efe
-    
-    
-    //ht tp://52.24.37.30:3000/api/signin?user_id=&authId=867796020040913&name=Manju MN&email=manjunathareddyn@gmail.com&password=&thumbnail=https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?oh=df01630bb28d905025f6ed83bee71510&oe=5987FB2F&deviceId=j89jj&deviceType=IOS
     
     
     http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS

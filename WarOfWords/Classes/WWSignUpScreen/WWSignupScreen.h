@@ -46,6 +46,8 @@ private:
     void signUpAPI();
     void onsignUpAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
 
+    Label *_errorInfoLabel;
+    bool checkEnteredDataIsValid();
     
 public:
     static cocos2d::Scene* createScene();

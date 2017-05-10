@@ -51,6 +51,8 @@
 		06E7A6C21E8F7BC1003125BD /* WWPowerUpSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06E7A6C01E8F7BC0003125BD /* WWPowerUpSprite.cpp */; };
 		06ECB2F31EB6F79B004C6DB6 /* WWLandingScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06ECB2F11EB6F79B004C6DB6 /* WWLandingScreen.cpp */; };
 		0E15E3F21E994CED00DF9A3B /* WWGameUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */; };
+		0EFE7B631EC365880068A527 /* WWDatamanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7B611EC365880068A527 /* WWDatamanager.cpp */; };
+		0EFE7B671EC371580068A527 /* WWCommonUtilty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7B651EC371580068A527 /* WWCommonUtilty.cpp */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -213,6 +215,10 @@
 		06ECB2F21EB6F79B004C6DB6 /* WWLandingScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWLandingScreen.h; sourceTree = "<group>"; };
 		0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWGameUtility.cpp; sourceTree = "<group>"; };
 		0E15E3F11E994CED00DF9A3B /* WWGameUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWGameUtility.h; sourceTree = "<group>"; };
+		0EFE7B611EC365880068A527 /* WWDatamanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWDatamanager.cpp; sourceTree = "<group>"; };
+		0EFE7B621EC365880068A527 /* WWDatamanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWDatamanager.h; sourceTree = "<group>"; };
+		0EFE7B651EC371580068A527 /* WWCommonUtilty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWCommonUtilty.cpp; sourceTree = "<group>"; };
+		0EFE7B661EC371580068A527 /* WWCommonUtilty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWCommonUtilty.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -517,6 +523,24 @@
 			path = WWGameUtility;
 			sourceTree = "<group>";
 		};
+		0EFE7B5F1EC365650068A527 /* WWDatamanager */ = {
+			isa = PBXGroup;
+			children = (
+				0EFE7B611EC365880068A527 /* WWDatamanager.cpp */,
+				0EFE7B621EC365880068A527 /* WWDatamanager.h */,
+			);
+			path = WWDatamanager;
+			sourceTree = "<group>";
+		};
+		0EFE7B641EC3713F0068A527 /* WWCommonUtilty */ = {
+			isa = PBXGroup;
+			children = (
+				0EFE7B651EC371580068A527 /* WWCommonUtilty.cpp */,
+				0EFE7B661EC371580068A527 /* WWCommonUtilty.h */,
+			);
+			path = WWCommonUtilty;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,6 +635,8 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0EFE7B641EC3713F0068A527 /* WWCommonUtilty */,
+				0EFE7B5F1EC365650068A527 /* WWDatamanager */,
 				06BCE5C71EC0E0B50011C87A /* WWSettingPage */,
 				0685C67E1EB83B1800139015 /* WWMainMenu */,
 				06A1FF561EB72EF5006A1FE7 /* WWForgotScreen */,
@@ -829,8 +855,10 @@
 				06C9840D1E5B00B700B0660C /* WWAlphabetSprite.cpp in Sources */,
 				0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				0EFE7B671EC371580068A527 /* WWCommonUtilty.cpp in Sources */,
 				06ECB2F31EB6F79B004C6DB6 /* WWLandingScreen.cpp in Sources */,
 				06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */,
+				0EFE7B631EC365880068A527 /* WWDatamanager.cpp in Sources */,
 				061ED55C1E6BFEF7000DD216 /* WWNetworkManager.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */,

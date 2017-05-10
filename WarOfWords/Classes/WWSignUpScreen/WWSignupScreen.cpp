@@ -9,6 +9,9 @@
 #include "WWSignupScreen.h"
 #include "WWLandingScreen.h"
 #include "WWGameConstant.h"
+#include "WWDatamanager.h"
+#include "WWCommonUtilty.h"
+#include "WWMainMenuScreen.h"
 
 Scene* WWSignUpScreen::createScene()
 {
@@ -46,46 +49,16 @@ bool WWSignUpScreen::init()
     //Add Ui
     this->addUI();
     
+    //Error Info label
+    _errorInfoLabel = Label::createWithTTF("", "fonts/JosefinSlab-Bold.ttf", 42);
+    _errorInfoLabel->setPosition(this->visibleSize.width/2+this->origin.x,this->visibleSize.height*.05+this->origin.y);
+    this->addChild(_errorInfoLabel,100);
+    _errorInfoLabel->setColor(Color3B::RED);
+    _errorInfoLabel->setOpacity(0);
+    
     return true;
 }
-int spc_email_isvalid(const char *address) {
-    int        count = 0;
-    const char *c, *domain;
-    static char *rfc822_specials = "()<>@,;:\\\"[]";
-    
-    /* first we validate the name portion (name@domain) */
-    for (c = address;  *c;  c++) {
-        if (*c == '\"' && (c == address || *(c - 1) == '.' || *(c - 1) ==
-                           '\"')) {
-            while (*++c) {
-                if (*c == '\"') break;
-                if (*c == '\\' && (*++c == ' ')) continue;
-                if (*c <= ' ' || *c >= 127) return 0;
-            }
-            if (!*c++) return 0;
-            if (*c == '@') break;
-            if (*c != '.') return 0;
-            continue;
-        }
-        if (*c == '@') break;
-        if (*c <= ' ' || *c >= 127) return 0;
-        if (strchr(rfc822_specials, *c)) return 0;
-    }
-    if (c == address || *(c - 1) == '.') return 0;
-    
-    /* next we validate the domain portion (name@domain) */
-    if (!*(domain = ++c)) return 0;
-    do {
-        if (*c == '.') {
-            if (c == domain || *(c - 1) == '.') return 0;
-            count++;
-        }
-        if (*c <= ' ' || *c >= 127) return 0;
-        if (strchr(rfc822_specials, *c)) return 0;
-    } while (*++c);
-    
-    return (count >= 1);
-}
+
 
 void WWSignUpScreen::addUI()
 {
@@ -204,10 +177,18 @@ void WWSignUpScreen::onClickOnSoundbtn(Ref* pSender)
     
 }
 
+#pragma mark - SignUp button
 void WWSignUpScreen::onClickOnSignUp(Ref* pSender)
 {
 
-    this->signUpAPI();
+    bool isValid = this->checkEnteredDataIsValid();
+    if(isValid)
+    {
+        ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+        this->signUpAPI();
+
+    }
+    
 }
 
 #pragma mark - Editbox
@@ -230,6 +211,96 @@ void WWSignUpScreen::editBoxReturn(ui::EditBox* editBox)
 {
     log("editBox %p was returned !",editBox);
 }
+
+#pragma mark - Data validation
+int spc_email_isvalid(const char *address) {
+    int        count = 0;
+    const char *c, *domain;
+    static char *rfc822_specials = "()<>@,;:\\\"[]";
+    
+    /* first we validate the name portion (name@domain) */
+    for (c = address;  *c;  c++) {
+        if (*c == '\"' && (c == address || *(c - 1) == '.' || *(c - 1) ==
+                           '\"')) {
+            while (*++c) {
+                if (*c == '\"') break;
+                if (*c == '\\' && (*++c == ' ')) continue;
+                if (*c <= ' ' || *c >= 127) return 0;
+            }
+            if (!*c++) return 0;
+            if (*c == '@') break;
+            if (*c != '.') return 0;
+            continue;
+        }
+        if (*c == '@') break;
+        if (*c <= ' ' || *c >= 127) return 0;
+        if (strchr(rfc822_specials, *c)) return 0;
+    }
+    if (c == address || *(c - 1) == '.') return 0;
+    
+    /* next we validate the domain portion (name@domain) */
+    if (!*(domain = ++c)) return 0;
+    do {
+        if (*c == '.') {
+            if (c == domain || *(c - 1) == '.') return 0;
+            count++;
+        }
+        if (*c <= ' ' || *c >= 127) return 0;
+        if (strchr(rfc822_specials, *c)) return 0;
+    } while (*++c);
+    
+    return (count >= 1);
+}
+bool WWSignUpScreen::checkEnteredDataIsValid()
+{
+    bool isEmpty = false;
+    std::string errorText = "";
+    if(strcmp(this->userName->getText(), "")==0)
+    {
+        isEmpty = true;
+        errorText = "username is empty";
+    }
+    else if(strcmp(this->email->getText(), "")==0)
+    {
+        isEmpty = true;
+        errorText = "email is empty";
+
+
+    }
+    else if(strcmp(this->userName->getText(), "")==0)
+    {
+        isEmpty = true;
+        errorText = "password is empty";
+
+
+    }
+    if(isEmpty)
+    {
+        _errorInfoLabel->setString(errorText);
+        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+        return false;
+    }
+    
+    
+    bool isEmailValid = spc_email_isvalid(this->email->getText());
+    if(!isEmailValid)
+    {
+        _errorInfoLabel->setString("Email is not vaild");
+        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+        return false;
+    }
+    
+    if(strcmp(this->passWord->getText(), this->confirmpassword->getText())!=0)
+    {
+        _errorInfoLabel->setString("Password is not maching");
+        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+        return false;
+    }
+    
+    return true;
+    
+}
+
 #pragma mark - SignUp API
 void WWSignUpScreen::signUpAPI()
 {
@@ -279,6 +350,25 @@ void WWSignUpScreen::onsignUpAPIRequestCompleted(HttpClient *sender, HttpRespons
     WWGameUtility::getResponseBuffer(response, document);
     if(!document.IsNull())
     {
+        if(document["errorCode"].GetInt() == 0 && (strcmp(document["msg"].GetString(), "Success")==0))
+        {
+            std::string userId = document["user"]["id"].GetString();
+            std::string apiKey = document["user"]["apiKey"].GetString();
+            
+            WWDatamanager::sharedManager()->setAPIKey(apiKey);
+            WWDatamanager::sharedManager()->setUserId(userId);
+            
+            
+            ActivtyIndicator::PopIfActiveFromScene(this);
+            Director::getInstance()->replaceScene(WWMainMenu::createScene());
+            
+            
+        }
+        else{
+            log("server error");
+        }
+        
+        
         
     }
 }
