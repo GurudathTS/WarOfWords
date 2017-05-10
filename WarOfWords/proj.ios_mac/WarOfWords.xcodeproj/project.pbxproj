@@ -42,6 +42,7 @@
 		0685C6851EB85B5900139015 /* WWMainMenuActiveList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */; };
 		06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */; };
 		06A1FF591EB72F0A006A1FE7 /* WWForgotScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */; };
+		06BCE5CB1EC0E13C0011C87A /* WWSettingPageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06BCE5C91EC0E13C0011C87A /* WWSettingPageLayer.cpp */; };
 		06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */; };
 		06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C984011E5AC38900B0660C /* WWObjectiveCCalls.mm */; };
 		06C9840A1E5AE32B00B0660C /* WWGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C984081E5AE32B00B0660C /* WWGameScene.cpp */; };
@@ -193,6 +194,8 @@
 		06A1FF541EB72591006A1FE7 /* WWSignupScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSignupScreen.h; sourceTree = "<group>"; };
 		06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWForgotScreen.cpp; sourceTree = "<group>"; };
 		06A1FF581EB72F0A006A1FE7 /* WWForgotScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWForgotScreen.h; sourceTree = "<group>"; };
+		06BCE5C91EC0E13C0011C87A /* WWSettingPageLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSettingPageLayer.cpp; sourceTree = "<group>"; };
+		06BCE5CA1EC0E13C0011C87A /* WWSettingPageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSettingPageLayer.h; sourceTree = "<group>"; };
 		06C983FE1E5AC38900B0660C /* WWObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveC.h; sourceTree = "<group>"; };
 		06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWObjectiveC.mm; sourceTree = "<group>"; };
 		06C984001E5AC38900B0660C /* WWObjectiveCCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveCCalls.h; sourceTree = "<group>"; };
@@ -431,6 +434,15 @@
 			path = WWForgotScreen;
 			sourceTree = "<group>";
 		};
+		06BCE5C71EC0E0B50011C87A /* WWSettingPage */ = {
+			isa = PBXGroup;
+			children = (
+				06BCE5C91EC0E13C0011C87A /* WWSettingPageLayer.cpp */,
+				06BCE5CA1EC0E13C0011C87A /* WWSettingPageLayer.h */,
+			);
+			path = WWSettingPage;
+			sourceTree = "<group>";
+		};
 		06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +611,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				06BCE5C71EC0E0B50011C87A /* WWSettingPage */,
 				0685C67E1EB83B1800139015 /* WWMainMenu */,
 				06A1FF561EB72EF5006A1FE7 /* WWForgotScreen */,
 				06A1FF511EB7255D006A1FE7 /* WWSignUpScreen */,
@@ -834,6 +847,7 @@
 				061ED5731E6C08AB000DD216 /* WWSocialFriendDetail.cpp in Sources */,
 				061ED5761E6C43EB000DD216 /* WWiOSInterface.mm in Sources */,
 				06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */,
+				06BCE5CB1EC0E13C0011C87A /* WWSettingPageLayer.cpp in Sources */,
 				06A1FF591EB72F0A006A1FE7 /* WWForgotScreen.cpp in Sources */,
 				061ED5591E6BFEE2000DD216 /* Reachability.mm in Sources */,
 			);
