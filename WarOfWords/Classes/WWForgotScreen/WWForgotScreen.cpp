@@ -8,6 +8,8 @@
 
 #include "WWForgotScreen.h"
 #include "WWLoginScreen.h"
+#include "WWCommonUtilty.h"
+#include "WWDatamanager.h"
 
 Scene* WWForgotPasswordScreen::createScene(FORGOTPASSWORDTYPE type)
 {
@@ -62,6 +64,14 @@ bool WWForgotPasswordScreen::init()
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
     backgroundSpr->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x, this->visibleSize.height/2 + this->origin.y));
     this->addChild(backgroundSpr);
+    
+    
+    //Error Info label
+    _errorInfoLabel = Label::createWithTTF("", "fonts/JosefinSlab-Bold.ttf", 42);
+    _errorInfoLabel->setPosition(this->visibleSize.width/2+this->origin.x,this->visibleSize.height*.05+this->origin.y);
+    this->addChild(_errorInfoLabel,100);
+    _errorInfoLabel->setColor(Color3B::RED);
+    _errorInfoLabel->setOpacity(0);
     
 
     return true;
@@ -196,16 +206,34 @@ void WWForgotPasswordScreen::onClickOnBackBtn(Ref* pSender)
 void WWForgotPasswordScreen::onClickOnSubmitBtn(Ref* pSender)
 {
     
-    if (passwordType == kForgotPassword) {
-        
-        FORGOTPASSWORDTYPE currentType = kVerificationCode;
-        Director::getInstance()->replaceScene(WWForgotPasswordScreen::createScene(currentType));
+    if (passwordType == kForgotPassword)
+    {
+        if(this->checkEnteredDataIsValid())
+        {
+            this->sumbitEmailApi();
+        }
     }
     else if(passwordType == kVerificationCode)
     {
-        FORGOTPASSWORDTYPE currentType = kChangePassword;
-        Director::getInstance()->replaceScene(WWForgotPasswordScreen::createScene(currentType));
+        
+        if(this->checkEnteredDataIsValid())
+        {
+            this->sumbitVerificationCodeApi();
+        }
+       
+        
     }
+    else if(passwordType == kChangePassword)
+    {
+        
+        if(this->checkEnteredDataIsValid())
+        {
+            this->newPasswordSubmitApi();
+        }
+        
+        
+    }
+    
     
     
 }
@@ -230,3 +258,248 @@ void WWForgotPasswordScreen::editBoxReturn(ui::EditBox* editBox)
 {
     log("editBox %p was returned !",editBox);
 }
+#pragma mark - Submit emailAPI
+void WWForgotPasswordScreen::sumbitEmailApi()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"sendverification?";
+
+    
+    
+    
+    url=url+"email"+"="+this->email->getText()+"&";
+    
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWForgotPasswordScreen::onSubmitApiRequestCompleted, this));
+    request->setTag("SendVerification");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWForgotPasswordScreen::onSubmitApiRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    if(!document.IsNull())
+    {
+        WWDatamanager::sharedManager()->_forgotPasswordEmailId = this->email->getText();
+        FORGOTPASSWORDTYPE currentType = kVerificationCode;
+        Director::getInstance()->replaceScene(WWForgotPasswordScreen::createScene(currentType));
+
+    }
+    
+}
+#pragma mark - Verification code API
+void WWForgotPasswordScreen::sumbitVerificationCodeApi()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"verifyemail?";
+    
+    
+    
+    
+    url=url+"email"+"="+WWDatamanager::sharedManager()->_forgotPasswordEmailId+"&";
+    url=url+"code"+"="+this->email->getText()+"&";
+
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWForgotPasswordScreen::onVerificationCodeApiRequestCompleted, this));
+    request->setTag("SendVerification");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWForgotPasswordScreen::onVerificationCodeApiRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    if(!document.IsNull())
+    {
+        int code = document["errorCode"].GetInt();
+        if(code == 0)
+        {
+            FORGOTPASSWORDTYPE currentType = kChangePassword;
+            Director::getInstance()->replaceScene(WWForgotPasswordScreen::createScene(currentType));
+            
+        }
+        else
+        {
+            ActivtyIndicator::PopIfActiveFromScene(this);
+            _errorInfoLabel->setString("Enter valid code");
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            
+        }
+        
+    }
+    
+}
+#pragma mark - New password API
+void WWForgotPasswordScreen::newPasswordSubmitApi()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"changepassword?";
+    
+    
+    
+    
+    url=url+"email"+"="+WWDatamanager::sharedManager()->_forgotPasswordEmailId+"&";
+    url=url+"password"+"="+this->newPassword->getText()+"&";
+    
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWForgotPasswordScreen::onNewPasswordSubmitApiRequestCompleted, this));
+    request->setTag("Changepassword");
+    HttpClient::getInstance()->send(request);
+    request->release();
+
+}
+void WWForgotPasswordScreen::onNewPasswordSubmitApiRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    if(!document.IsNull())
+    {
+        if(document["errorCode"].GetInt() == 0 && (strcmp(document["msg"].GetString(), "Password changed successfully")==0))
+
+        Director::getInstance()->replaceScene(WWLoginScreen::createScene());
+        
+    }
+    else
+    {
+        ActivtyIndicator::PopIfActiveFromScene(this);
+        
+    }
+    
+}
+
+#pragma mark - Data validation
+bool WWForgotPasswordScreen::checkEnteredDataIsValid()
+{
+    
+    bool isEmpty = false;
+    std::string errorText = "";
+    
+    
+    if(passwordType == kForgotPassword)
+    {
+        if(strcmp(this->email->getText(), "")==0)
+        {
+            isEmpty = true;
+            errorText = "email is empty";
+            
+            
+        }
+        if(isEmpty)
+        {
+            _errorInfoLabel->setString(errorText);
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            return false;
+        }
+        bool isEmailValid = std::spc_email_isvalid(this->email->getText());
+        if(!isEmailValid)
+        {
+            _errorInfoLabel->setString("Email is not vaild");
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            return false;
+        }
+        
+    }
+    else  if(passwordType == kVerificationCode)
+
+    {
+        if(strcmp(this->email->getText(), "")==0)
+        {
+            isEmpty = true;
+            errorText = "code is empty";
+            
+            
+        }
+        if(isEmpty)
+        {
+            _errorInfoLabel->setString(errorText);
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            return false;
+        }
+        
+    }
+    else  if(passwordType == kChangePassword)
+    {
+        if(strcmp(this->newPassword->getText(), "")==0)
+        {
+            isEmpty = true;
+            errorText = "password is empty";
+        }
+        
+        if(isEmpty)
+        {
+            _errorInfoLabel->setString(errorText);
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            return false;
+        }
+        
+        
+        if(strcmp(this->newPassword->getText(), this->confirmPassword->getText())!=0)
+        {
+            _errorInfoLabel->setString("Password is not maching");
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            return false;
+        }
+
+    }
+
+    
+    return true;
+    
+    
+}
+

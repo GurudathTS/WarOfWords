@@ -30,6 +30,8 @@ public:
     void setUserId(std::string userId);
     std::string getUserId();
     
+    std::string _forgotPasswordEmailId;
+    
     
     
 };

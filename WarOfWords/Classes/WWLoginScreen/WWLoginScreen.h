@@ -56,7 +56,10 @@ public:
     void loginToServer();
     void onLoginRequestCompleted(HttpClient *sender, HttpResponse *response);
     
+    Label *_errorInfoLabel;
+    bool checkEnteredDataIsValid();
     
+
     // implement the "static create()" method manually
     CREATE_FUNC(WWLoginScreen);
 };

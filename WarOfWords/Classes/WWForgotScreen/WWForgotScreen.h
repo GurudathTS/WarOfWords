@@ -12,10 +12,13 @@
 #include <stdio.h>
 #include "ui/UIEditBox/UIEditBox.h"
 #include "WWGameConstant.h"
+#include "WWGameUtility.h"
 
 #include "cocos2d.h"
 using namespace cocos2d;
 using namespace cocos2d::ui;
+using namespace cocos2d::network;
+
 
 class WWForgotPasswordScreen : public cocos2d::Layer,public EditBoxDelegate
 {
@@ -38,6 +41,23 @@ private:
     virtual void editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)override;
     virtual void editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)override;
     virtual void editBoxReturn(cocos2d::ui::EditBox* editBox)override;
+    
+    //connecting server functions
+    void sumbitEmailApi();
+    void onSubmitApiRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    void sumbitVerificationCodeApi();
+    void onVerificationCodeApiRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    
+    void newPasswordSubmitApi();
+    void onNewPasswordSubmitApiRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    
+    
+    Label *_errorInfoLabel;
+    bool checkEnteredDataIsValid();
+    
     
 public:
     static cocos2d::Scene* createScene(FORGOTPASSWORDTYPE type);

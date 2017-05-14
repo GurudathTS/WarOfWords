@@ -14,6 +14,11 @@
 #include "WWLandingScreen.h"
 #include "WWForgotScreen.h"
 
+#include "WWDatamanager.h"
+#include "WWCommonUtilty.h"
+#include "WWMainMenuScreen.h"
+
+
 Scene* WWLoginScreen::createScene()
 {
     // 'scene' is an autorelease object
@@ -51,6 +56,12 @@ bool WWLoginScreen::init()
     //Add Ui
     this->addUI();
     
+    //Error Info label
+    _errorInfoLabel = Label::createWithTTF("", "fonts/JosefinSlab-Bold.ttf", 42);
+    _errorInfoLabel->setPosition(this->visibleSize.width/2+this->origin.x,this->visibleSize.height*.05+this->origin.y);
+    this->addChild(_errorInfoLabel,100);
+    _errorInfoLabel->setColor(Color3B::RED);
+    _errorInfoLabel->setOpacity(0);
     
     
     return true;
@@ -153,17 +164,60 @@ void WWLoginScreen::onClickOnForgot(Ref* pSender)
 
 void WWLoginScreen::onClickOnLogin(Ref* pSender)
 {
+    
 
+if(this->checkEnteredDataIsValid())
+{
     this->loginToServer();
+
+}
+    
    
 }
 
+#pragma mark - Data validation
+bool WWLoginScreen::checkEnteredDataIsValid()
+{
+
+    bool isEmpty = false;
+    std::string errorText = "";
+    if(strcmp(this->userName->getText(), "")==0)
+    {
+        isEmpty = true;
+        errorText = "email is empty";
+    }
+    else if(strcmp(this->passWord->getText(), "")==0)
+    {
+        isEmpty = true;
+        errorText = "password is empty";
+        
+        
+    }
+    if(isEmpty)
+    {
+        _errorInfoLabel->setString(errorText);
+        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+        return false;
+    }
+    bool isEmailValid = std::spc_email_isvalid(this->userName->getText());
+    if(!isEmailValid)
+    {
+        _errorInfoLabel->setString("Email is not vaild");
+        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+        return false;
+    }
+    
+    return true;
+
+    
+}
 
 #pragma mark - Login API
 void WWLoginScreen::loginToServer()
 {
     
-    
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+
     http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
     
     
@@ -177,7 +231,7 @@ void WWLoginScreen::loginToServer()
     url=url+"name"+"="+this->userName->getText()+"&";
 
     
-    url=url+"email"+"="+""+"&";
+    url=url+"email"+"="+this->userName->getText()+"&";
 
     url=url+"password"+"="+this->passWord->getText()+"&";
     
@@ -213,6 +267,33 @@ void WWLoginScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *re
     WWGameUtility::getResponseBuffer(response, document);
     if(!document.IsNull())
     {
+        int errorCode = document["errorCode"].GetInt();
+        std::string msg = document["msg"].GetString();
+        if(errorCode == 0 && (strcmp(msg.c_str(), "Success")==0))
+        {
+            std::string userId = document["user"]["id"].GetString();
+            std::string apiKey = document["user"]["apiKey"].GetString();
+            
+            WWDatamanager::sharedManager()->setAPIKey(apiKey);
+            WWDatamanager::sharedManager()->setUserId(userId);
+            
+            
+            ActivtyIndicator::PopIfActiveFromScene(this);
+            Director::getInstance()->replaceScene(WWMainMenu::createScene());
+            
+            
+        }
+        else  if(errorCode == 1 && (strcmp(msg.c_str(), "Wrong Email or Password")==0))
+
+        {
+            ActivtyIndicator::PopIfActiveFromScene(this);
+            _errorInfoLabel->setString("Wrong Email or Password");
+            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+
+            log("server error");
+        }
+        
+        
         
     }
 }
