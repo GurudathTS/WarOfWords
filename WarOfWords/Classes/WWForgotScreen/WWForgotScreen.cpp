@@ -119,11 +119,13 @@ void WWForgotPasswordScreen::addUI()
         this->email->setPosition(Vec2(startPos.x,startPos.y));
         this->email->setFontColor(Color3B::BLACK);
         this->email->setPlaceHolder(placeHolderText.c_str());
-        this->email->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+        this->email->setPlaceholderFontSize(40);
+        this->email->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+        this->email->setPlaceholderFontColor(Color3B(124, 37, 61));
         this->email->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
         this->email->setDelegate(this);
         this->email->setVisible(true);
-        this->email->setFontSize(sprRef->getContentSize().height/2);
+        this->email->setFontSize(40);
         this->addChild(email);
         this->email->setScale(0.85);
     }
@@ -133,12 +135,14 @@ void WWForgotPasswordScreen::addUI()
         this->confirmPassword->setPosition(Vec2(startPos.x,startPos.y));
         this->confirmPassword->setFontColor(Color3B::BLACK);
         this->confirmPassword->setPlaceHolder("   Confirm password");
-        this->confirmPassword->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+        this->confirmPassword->setPlaceholderFontSize(20);
+        this->confirmPassword->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+        this->confirmPassword->setPlaceholderFontColor(Color3B(124, 37, 61));
         this->confirmPassword->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
         this->confirmPassword->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
         this->confirmPassword->setDelegate(this);
         this->confirmPassword->setVisible(true);
-        this->confirmPassword->setFontSize(sprRef->getContentSize().height/2);
+        this->confirmPassword->setFontSize(40);
         this->addChild(confirmPassword);
         this->confirmPassword->setScale(0.85);
         
@@ -147,12 +151,14 @@ void WWForgotPasswordScreen::addUI()
         this->newPassword->setPosition(Vec2(startPos.x,startPos.y));
         this->newPassword->setFontColor(Color3B::BLACK);
         this->newPassword->setPlaceHolder("   New password");
-        this->newPassword->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+        this->newPassword->setPlaceholderFontSize(20);
+        this->newPassword->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+        this->newPassword->setPlaceholderFontColor(Color3B(124, 37, 61));
         this->newPassword->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
         this->newPassword->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
         this->newPassword->setDelegate(this);
         this->newPassword->setVisible(true);
-        this->newPassword->setFontSize(sprRef->getContentSize().height/2);
+        this->newPassword->setFontSize(40);
         this->addChild(newPassword);
         this->newPassword->setScale(0.85);
 
@@ -188,7 +194,7 @@ void WWForgotPasswordScreen::addUI()
     descriptionbg->addChild(headerLabel);
     headerLabel->setScale(1.15, 1.0 - (scaleVal - 1.0));
     
-    auto* descriptionLabel = Label::createWithTTF(descriptiontext, "fonts/JosefinSlab-Bold.ttf", 34);
+    auto* descriptionLabel = Label::createWithTTF(descriptiontext, "fonts/JosefinSlab-SemiBold.ttf", 34);
     descriptionLabel->setPosition(Vec2(descriptionbg->getContentSize().width/2, descriptionbg->getContentSize().height / 2.8));
     descriptionbg->addChild(descriptionLabel);
     descriptionLabel->setAlignment(cocos2d::TextHAlignment::CENTER);

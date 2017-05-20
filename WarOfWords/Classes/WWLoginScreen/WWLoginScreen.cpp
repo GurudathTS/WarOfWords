@@ -113,12 +113,13 @@ void WWLoginScreen::addUI()
     this->userName->setPosition(Vec2(this->logInBtn->getPositionX(), this->logInBtn->getPositionY() + (sprRef->getContentSize().height * 2) + 50));
     this->userName->setFontColor(Color3B::BLACK);
     this->userName->setPlaceHolder("   UserName");
-    this->userName->setPlaceholderFontSize(sprRef->getContentSize().height/2);
-    this->userName->setPlaceholderFontColor(Color3B::WHITE);
+    this->userName->setPlaceholderFontSize(40);
+    this->userName->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+    this->userName->setPlaceholderFontColor(Color3B(124, 37, 61));
     this->userName->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
     this->userName->setDelegate(this);
     this->userName->setVisible(true);
-    this->userName->setFontSize(sprRef->getContentSize().height/2);
+    this->userName->setFontSize(40);
     this->addChild(this->userName);
     this->userName->setScale(0.9);
     
@@ -127,12 +128,14 @@ void WWLoginScreen::addUI()
     this->passWord->setPosition(Vec2(this->logInBtn->getPositionX(), this->logInBtn->getPositionY() + sprRef->getContentSize().height + 35));
     this->passWord->setFontColor(Color3B::BLACK);
     this->passWord->setPlaceHolder("   Password");
-    this->passWord->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+    this->passWord->setPlaceholderFontSize(40);
+    this->passWord->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+    this->passWord->setPlaceholderFontColor(Color3B(124, 37, 61));
     this->passWord->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
     this->passWord->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
     this->passWord->setDelegate(this);
     this->passWord->setVisible(true);
-    this->passWord->setFontSize(sprRef->getContentSize().height/2);
+    this->passWord->setFontSize(40);
     this->addChild(this->passWord);
     this->passWord->setScale(0.9);
 

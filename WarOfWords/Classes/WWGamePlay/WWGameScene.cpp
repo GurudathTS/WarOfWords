@@ -113,10 +113,10 @@ void WWGameScene::addUI(float pYpos)
     profilePict->setPosition(Vec2(visibleSize.width/8 + origin.x, visibleSize.height / 1.05 + origin.y));
     addChild(profilePict);
     
-    if(WWSocialManagerRef->currentLoginUserDetail->getTexture())
-    {
-        profilePict->setTexture(WWSocialManagerRef->currentLoginUserDetail->getTexture());
-    }
+//    if(WWSocialManagerRef->currentLoginUserDetail->getTexture())
+//    {
+//        profilePict->setTexture(WWSocialManagerRef->currentLoginUserDetail->getTexture());
+//    }
     
     std::string userName = "Guest";
     if(WWSocialManagerRef->currentLoginUserDetail)

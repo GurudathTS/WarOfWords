@@ -106,12 +106,14 @@ void WWSignUpScreen::addUI()
     this->confirmpassword->setPosition(Vec2(startPos.x,startPos.y));
     this->confirmpassword->setFontColor(Color3B::BLACK);
     this->confirmpassword->setPlaceHolder("   Confirm Password");
-    this->confirmpassword->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+    this->confirmpassword->setPlaceholderFontSize(40);
+    this->confirmpassword->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+    this->confirmpassword->setPlaceholderFontColor(Color3B(124, 37, 61));
     this->confirmpassword->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
     this->confirmpassword->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
     this->confirmpassword->setDelegate(this);
     this->confirmpassword->setVisible(true);
-    this->confirmpassword->setFontSize(sprRef->getContentSize().height/2);
+    this->confirmpassword->setFontSize(40);
     this->addChild(this->confirmpassword);
     this->confirmpassword->setScale(0.9);
     
@@ -120,12 +122,14 @@ void WWSignUpScreen::addUI()
     this->passWord->setPosition(Vec2(startPos.x,startPos.y));
     this->passWord->setFontColor(Color3B::BLACK);
     this->passWord->setPlaceHolder("   Password");
-    this->passWord->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+    this->passWord->setPlaceholderFontSize(40);
+    this->passWord->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+    this->passWord->setPlaceholderFontColor(Color3B(124, 37, 61));
     this->passWord->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
     this->passWord->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
     this->passWord->setDelegate(this);
     this->passWord->setVisible(true);
-    this->passWord->setFontSize(sprRef->getContentSize().height/2);
+    this->passWord->setFontSize(40);
     this->addChild(this->passWord);
     this->passWord->setScale(0.9);
     
@@ -135,11 +139,13 @@ void WWSignUpScreen::addUI()
     this->email->setPosition(Vec2(startPos.x,startPos.y));
     this->email->setFontColor(Color3B::BLACK);
     this->email->setPlaceHolder("   Email");
-    this->email->setPlaceholderFontSize(sprRef->getContentSize().height/2);
+    this->email->setPlaceholderFontSize(40);
+    this->email->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+    this->email->setPlaceholderFontColor(Color3B(124, 37, 61));
     this->email->setInputMode(ui::EditBox::InputMode::SINGLE_LINE);
     this->email->setDelegate(this);
     this->email->setVisible(true);
-    this->email->setFontSize(sprRef->getContentSize().height/2);
+    this->email->setFontSize(40);
     this->addChild(email);
     this->email->setScale(0.9);
     
@@ -150,12 +156,13 @@ void WWSignUpScreen::addUI()
     this->userName->setPosition(Vec2(startPos.x,startPos.y));
     this->userName->setFontColor(Color3B::BLACK);
     this->userName->setPlaceHolder("   User Name");
-    this->userName->setPlaceholderFontSize(sprRef->getContentSize().height/2);
-    this->userName->setPlaceholderFontColor(Color3B::WHITE);
+    this->userName->setPlaceholderFontSize(40);
+    this->userName->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
+    this->userName->setPlaceholderFontColor(Color3B(124, 37, 61));
     this->userName->setReturnType(ui::EditBox::KeyboardReturnType::DONE);
     this->userName->setDelegate(this);
     this->userName->setVisible(true);
-    this->userName->setFontSize(sprRef->getContentSize().height/2);
+    this->userName->setFontSize(40);
     this->addChild(this->userName);
     this->userName->setScale(0.9);
     

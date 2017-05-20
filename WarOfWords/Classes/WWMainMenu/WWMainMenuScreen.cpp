@@ -8,6 +8,7 @@
 
 #include "WWMainMenuScreen.h"
 #include "WWMainMenuActiveList.h"
+#include "WWBattleScreen.h"
 
 Scene* WWMainMenu::createScene()
 {
@@ -82,10 +83,10 @@ void WWMainMenu::addUI()
     this->quickMatchBtn->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x, this->origin.y + this->quickMatchBtn->getContentSize().height));
     this->quickMatchBtn->setScale(0.85);
     
-    auto* quickmatchLabel = Label::createWithTTF("Quick Match", "fonts/JosefinSlab-Bold.ttf", 42);
+    auto* quickmatchLabel = Label::createWithTTF("Quick Match", "fonts/Kingthings Sans.ttf", 44);
     quickmatchLabel->setPosition(this->quickMatchBtn->getContentSize() * 0.5);
     this->quickMatchBtn->addChild(quickmatchLabel);
-    quickmatchLabel->setColor(Color3B::BLUE);
+    quickmatchLabel->setColor(Color3B(164,74,76));
     
     //How to play & guild
     this->howtoPlaybtn = MenuItemImage::create("MainMenu/BlueCommonBtnSamll.png", "MainMenu/BlueCommonBtnSamll.png", CC_CALLBACK_1(WWMainMenu::onClickOnHowToPlaybtnBtn, this));
@@ -93,20 +94,20 @@ void WWMainMenu::addUI()
     this->howtoPlaybtn->setScale(0.85);
 
     
-    auto* howToPlayLabel = Label::createWithTTF("How to Play", "fonts/JosefinSlab-Bold.ttf", 32);
+    auto* howToPlayLabel = Label::createWithTTF("How to Play", "fonts/Kingthings Sans.ttf", 46);
     howToPlayLabel->setPosition(this->howtoPlaybtn->getContentSize() * 0.5);
     this->howtoPlaybtn->addChild(howToPlayLabel);
-    howToPlayLabel->setColor(Color3B::BLACK);
+    howToPlayLabel->setColor(Color3B(29, 61, 187));
 
     
     this->createbuildbtn = MenuItemImage::create("MainMenu/CommonBtnSmall_Desable.png", "MainMenu/CommonBtnSmall_Desable.png", CC_CALLBACK_1(WWMainMenu::onClickOnGuildbtnBtn, this));
     this->createbuildbtn->setPosition(Vec2(this->quickMatchBtn->getPositionX() + this->createbuildbtn->getContentSize().width/2 , this->quickMatchBtn->getPositionY() + this->createbuildbtn->getContentSize().height * 1.1));
     this->createbuildbtn->setScale(0.85);
     
-    auto* buildLabel = Label::createWithTTF("Guilds", "fonts/JosefinSlab-Bold.ttf", 32);
+    auto* buildLabel = Label::createWithTTF("Guilds", "fonts/Kingthings Sans.ttf", 46);
     buildLabel->setPosition(this->createbuildbtn->getContentSize() * 0.5);
     this->createbuildbtn->addChild(buildLabel);
-    buildLabel->setColor(Color3B::BLACK);
+    buildLabel->setColor(Color3B(126, 126, 126));
 
     //Menu
     Menu* menuBtn = Menu::create(this->settingButton,this->quickMatchBtn,this->inappbtn,this->howtoPlaybtn,this->createbuildbtn, NULL);
@@ -121,14 +122,15 @@ void WWMainMenu::addUI()
     this->profileCircleSpr = Sprite::create("MainMenu/ProfilePicColom.png");
     this->profileCircleSpr->setPosition(Vec2(this->profileCircleSpr->getContentSize().width * 0.4,this->profileBackground->getContentSize().height * 0.5));
     this->profileBackground->addChild(this->profileCircleSpr);
+    this->profileCircleSpr->setTexture("MainMenu/round.png");
     
     //User Name Label
-    this->userNameLabel = Label::createWithTTF("Gurudtaha T S", "fonts/JosefinSlab-Bold.ttf", 32);
+    this->userNameLabel = Label::createWithTTF("Gurudtaha T S", "fonts/JosefinSlab-Bold.ttf", 34);
     this->userNameLabel->setPosition(Vec2(this->profileCircleSpr->getPositionX() + this->profileCircleSpr->getContentSize().width * 0.65,this->profileBackground->getContentSize().height * 0.65));
     this->profileBackground->addChild(this->userNameLabel);
     this->userNameLabel->setAnchorPoint(Vec2(0,0.5));
     
-    this->userDescriptionLabel = Label::createWithTTF("Guild of the Mad badges", "fonts/JosefinSlab-Bold.ttf", 28);
+    this->userDescriptionLabel = Label::createWithTTF("Guild of the Mad badges", "fonts/JosefinSlab-SemiBold.ttf", 28);
     this->userDescriptionLabel->setPosition(Vec2(this->profileCircleSpr->getPositionX() + this->profileCircleSpr->getContentSize().width * 0.65,this->profileBackground->getContentSize().height * 0.35));
     this->profileBackground->addChild(this->userDescriptionLabel);
     this->userDescriptionLabel->setAnchorPoint(Vec2(0,0.5));
@@ -138,7 +140,7 @@ void WWMainMenu::addUI()
     this->addChild(this->CommonPoupBg);
     this->CommonPoupBg->setScale(0.9);
 
-    auto* headerLabel = Label::createWithTTF("Your Active Games", "fonts/JosefinSlab-Bold.ttf", 34);
+    auto* headerLabel = Label::createWithTTF("Your Active Games", "fonts/JosefinSlab-Bold.ttf", 36);
     headerLabel->setPosition(Vec2(this->CommonPoupBg->getContentSize().width * 0.5,this->CommonPoupBg->getContentSize().height * 0.9));
     this->CommonPoupBg->addChild(headerLabel);
     
@@ -147,7 +149,7 @@ void WWMainMenu::addUI()
 
 void WWMainMenu::addActiveGamesList()
 {
-    int totalNoFriends = 5;
+    int totalNoFriends = 3;
     int offsetval = 5;
     int totalContentSize = (this->profileBackground->getContentSize().height + offsetval) * totalNoFriends;
     
@@ -158,7 +160,7 @@ void WWMainMenu::addActiveGamesList()
     this->activeGameListScrollView->setPosition(0, this->CommonPoupBg->getContentSize().height * 0.025);
     this->activeGameListScrollView->setBounceable(true);
     this->activeGameListScrollView->setAnchorPoint(Vec2(0.5, 0.5));
-    //this->activeGameListScrollView->setContentOffset(Vec2(0, -totalContentSize/2));
+    this->activeGameListScrollView->setContentOffset(Vec2(0, this->CommonPoupBg->getContentSize().height * 0.1));
     
     this->activeGameListScrollView->setContentSize(Size(this->profileBackground->getContentSize().width, totalContentSize));
     
@@ -196,7 +198,7 @@ void WWMainMenu::onClickOnInAppBtn(Ref* pSender)
 
 void WWMainMenu::onClickOnQuickmatchBtn(Ref* pSender)
 {
-
+    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
 }
 
 void WWMainMenu::onClickOnHowToPlaybtnBtn(Ref* pSender)
@@ -206,5 +208,5 @@ void WWMainMenu::onClickOnHowToPlaybtnBtn(Ref* pSender)
 
 void WWMainMenu::onClickOnGuildbtnBtn(Ref* pSender)
 {
-    
+    MessageBox("", "COMING SOON!!");
 }

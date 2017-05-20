@@ -38,6 +38,7 @@
 		061ED5731E6C08AB000DD216 /* WWSocialFriendDetail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5711E6C08AB000DD216 /* WWSocialFriendDetail.cpp */; };
 		061ED5761E6C43EB000DD216 /* WWiOSInterface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */; };
 		061ED5791E6C44EC000DD216 /* WWSocialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */; };
+		064EE7681ECFFF7100FD9331 /* WWBattleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 064EE7661ECFFF7100FD9331 /* WWBattleScreen.cpp */; };
 		0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */; };
 		0685C6851EB85B5900139015 /* WWMainMenuActiveList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */; };
 		06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */; };
@@ -188,6 +189,8 @@
 		061ED5751E6C43EB000DD216 /* WWiOSInterface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWiOSInterface.mm; sourceTree = "<group>"; };
 		061ED5771E6C44EC000DD216 /* WWSocialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSocialManager.cpp; sourceTree = "<group>"; };
 		061ED5781E6C44EC000DD216 /* WWSocialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSocialManager.h; sourceTree = "<group>"; };
+		064EE7661ECFFF7100FD9331 /* WWBattleScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWBattleScreen.cpp; sourceTree = "<group>"; };
+		064EE7671ECFFF7100FD9331 /* WWBattleScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWBattleScreen.h; sourceTree = "<group>"; };
 		0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWMainMenuScreen.cpp; sourceTree = "<group>"; };
 		0685C6811EB83B8800139015 /* WWMainMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuScreen.h; sourceTree = "<group>"; };
 		0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWMainMenuActiveList.cpp; sourceTree = "<group>"; };
@@ -409,6 +412,15 @@
 				061ED5651E6C07D0000DD216 /* FBSDKShareKit.framework */,
 			);
 			path = Facebook;
+			sourceTree = "<group>";
+		};
+		064EE7641ECFFF4000FD9331 /* WWBattleScreen */ = {
+			isa = PBXGroup;
+			children = (
+				064EE7661ECFFF7100FD9331 /* WWBattleScreen.cpp */,
+				064EE7671ECFFF7100FD9331 /* WWBattleScreen.h */,
+			);
+			path = WWBattleScreen;
 			sourceTree = "<group>";
 		};
 		0685C67E1EB83B1800139015 /* WWMainMenu */ = {
@@ -635,6 +647,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				064EE7641ECFFF4000FD9331 /* WWBattleScreen */,
 				0EFE7B641EC3713F0068A527 /* WWCommonUtilty */,
 				0EFE7B5F1EC365650068A527 /* WWDatamanager */,
 				06BCE5C71EC0E0B50011C87A /* WWSettingPage */,
@@ -752,7 +765,7 @@
 				LastUpgradeCheck = 0730;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 29B9535QW2;
+						DevelopmentTeam = QSLY5SF2LD;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -853,6 +866,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06C9840D1E5B00B700B0660C /* WWAlphabetSprite.cpp in Sources */,
+				064EE7681ECFFF7100FD9331 /* WWBattleScreen.cpp in Sources */,
 				0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				0EFE7B671EC371580068A527 /* WWCommonUtilty.cpp in Sources */,
@@ -914,7 +928,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 29B9535QW2;
+				DEVELOPMENT_TEAM = QSLY5SF2LD;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -955,7 +969,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 29B9535QW2;
+				DEVELOPMENT_TEAM = QSLY5SF2LD;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
