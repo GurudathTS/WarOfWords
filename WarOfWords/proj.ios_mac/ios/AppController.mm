@@ -28,6 +28,7 @@
 #import "RootViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#include "WWDatamanager.h"
 
 @implementation AppController
 
@@ -65,11 +66,116 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden:true];
+    
+    
+    //for Notification
+    
+    float ver = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if(ver<8)
+    {
+        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
+                                                         UIRemoteNotificationTypeAlert |
+                                                         UIRemoteNotificationTypeSound)];
+    }
+    else{
+        /// Register the supported interaction types.
+        UIUserNotificationType types = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *mySettings =
+        [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+        
+        // Register for remote notifications.
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+        
+    }
+    
+
 
 
     return YES;
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    UIApplicationState state = [application applicationState];
+    if (state == UIApplicationStateActive) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reminder"
+                                                        message:notification.alertBody
+                                                       delegate:self cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    
+    // Request to reload table view data
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadData" object:self];
+    
+    // Set icon badge number to zero
+    
+    [application cancelAllLocalNotifications];
+    application.applicationIconBadgeNumber=0;
+    
+    
+}
+// Handle remote notification registration.
+- (void)application:(UIApplication *)app
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
+{
+    
+    
+    deviceToken = [[devToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    deviceToken = [deviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"content---%@", deviceToken);
+    
+    
+    WWDatamanager::sharedManager()->dmdeviceToken=[deviceToken UTF8String];
+}
+
+- (void)application:(UIApplication *)app
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
+}
+
+
+#pragma mark - Device ID
+-(NSString *)getDeviceToken
+{
+    //    const char *bar = [deviceToken UTF8String];
+    //    return bar;
+    NSLog(@"In controller %@", deviceToken);
+    return deviceToken;
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"In Did Recieve");
+    
+    
+    //    challengeId= [[userInfo objectForKey:@"challengeId"]integerValue];
+    //    bool isResigned= [[userInfo objectForKey:@"isResigned"]boolValue];
+    NSDictionary *  dict = [userInfo valueForKey:@"aps"];
+    NSDictionary * alertDict = [dict valueForKey:@"alert"];
+    NSDictionary * locArgsDict = [alertDict valueForKey:@"loc-args"];
+    
+//    bool isPlayerLogedIn= UserDefault::getInstance()->getBoolForKey("IsPlayerLogedIn",false);
+//    
+//    
+//    if( !CGDataManager::sharedManager()->isAddedFriendInviteDialog && isPlayerLogedIn)
+//    {
+//        //int userId=[[locArgsDict valueForKey:@"userId"]integerValue];
+//        int userRoomId=[[locArgsDict valueForKey:@"userRoomId"]integerValue];
+//        CGDataManager::sharedManager()->roomIdfromNotificationMessage=userRoomId;
+//        std::string userName=[[locArgsDict objectForKey:@"name"]UTF8String];
+//        std::string textMessage;
+//        textMessage=userName+" challenged you in Card War!";
+//        
+//        Director::getInstance()->getRunningScene()->addChild(RequestAcceptDialog::create("Invite", textMessage));
+//    }
+//    
+    
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*

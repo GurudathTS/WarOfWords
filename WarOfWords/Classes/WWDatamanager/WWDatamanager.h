@@ -32,6 +32,8 @@ public:
     
     std::string _forgotPasswordEmailId;
     
+    std::string dmdeviceToken;
+    
     
     
 };
