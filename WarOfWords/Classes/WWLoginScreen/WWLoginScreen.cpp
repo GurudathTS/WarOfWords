@@ -243,7 +243,7 @@ void WWLoginScreen::loginToServer()
     
     url=url+"thumbnail"+"="+""+"&";
     
-    url=url+"deviceId"+"="+"j89jj"+"&";
+    url=url+"deviceId"+"="+WWDatamanager::sharedManager()->dmdeviceToken+"&";
     
     url=url+"deviceType"+"="+"IOS";
 

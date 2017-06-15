@@ -292,7 +292,7 @@ void WWSignUpScreen::signUpAPI()
     
     url=url+"thumbnail"+"="+"nothing"+"&";
     
-    url=url+"deviceId"+"="+"j89jj"+"&";
+    url=url+"deviceId"+"="+WWDatamanager::sharedManager()->dmdeviceToken+"&";
     
     url=url+"deviceType"+"="+"IOS";
     
