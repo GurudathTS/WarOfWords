@@ -32,18 +32,25 @@ public:
     Label* currentAlphabet;
     Label* currentAlphabetValLabel;
     int alphabetValue;
+    int gridRefValue;
     
     WWGameScene* objref;
     
     //Func
     void initializeFunc(int currentAlphabetVal, std::string pCurrentStr);
+    void updatedGridReferenceValue(int pGridrefVal);
+    
     void resetSprite();
     void resetSpriteAfterLost();
     void createRandomAlphabet();
     void updateNewAlphabet(int currentAlphabetVal , std::string pCurrentStr);
     
+    void checkIfCurrentCellNearToPreviousSeelctedCell();
+    void removeSetOfLetterFromArray();
+    
     //touches
     bool onTouchBegan(Touch* touch, Event* event);
+    void onTouchMoved(Touch* touch, Event* event);
     void onTouchEnded(Touch* touch, Event* event);
 
 };

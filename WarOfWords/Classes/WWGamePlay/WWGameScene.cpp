@@ -45,6 +45,7 @@ bool WWGameScene::init()
     
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
+    this->currentGridRefvalue = 0;
     
     // Background
     auto backgroundSpr = Sprite::create("UI/Background.png");
@@ -82,11 +83,7 @@ bool WWGameScene::init()
 #pragma mark - UI
 void WWGameScene::addUI(float pYpos)
 {
-    currentScore = Label::createWithTTF("Score: 0", "fonts/Marker Felt.ttf", 40);
-    currentScore->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.2 + origin.y));
-    addChild(currentScore);
-    currentScore->setVisible(false);
-    
+   
     resultSelectedStr = Label::createWithTTF("", "fonts/Marker Felt.ttf", 40);
     resultSelectedStr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.1 + origin.y));
     addChild(resultSelectedStr);
@@ -98,7 +95,7 @@ void WWGameScene::addUI(float pYpos)
     
     //timer label
     this->pTimerLabel = Label::createWithTTF("", FN_GAME_FONT_NAME, FN_GAME_ALPHABET_FONT_SIZE);
-    this->pTimerLabel->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.05 + origin.y - pbatterSpr->getContentSize().height/2 - 50));
+    this->pTimerLabel->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.05 + origin.y - pbatterSpr->getContentSize().height/2 - 25));
     addChild(this->pTimerLabel);
     
     this->hourVal = 23;
@@ -108,33 +105,53 @@ void WWGameScene::addUI(float pYpos)
     this->updateTimerLabel();
     this->schedule(CC_SCHEDULE_SELECTOR(WWGameScene::updateFunc), 1.0f);
     
-    //User Name & Profle
-    auto* profilePict = Sprite::create("square.png");
-    profilePict->setPosition(Vec2(visibleSize.width/8 + origin.x, visibleSize.height / 1.05 + origin.y));
-    addChild(profilePict);
+    //profile Icon
+    auto* currentPlayerProgressBar = Sprite::create("GameScene/HelthBar.png");
+    currentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    addChild(currentPlayerProgressBar);
     
-//    if(WWSocialManagerRef->currentLoginUserDetail->getTexture())
-//    {
-//        profilePict->setTexture(WWSocialManagerRef->currentLoginUserDetail->getTexture());
-//    }
+    auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
+    currentPlayerProfile->setPosition(Vec2(0, currentPlayerProfile->getContentSize().height * 0.1));
+    currentPlayerProgressBar->addChild(currentPlayerProfile);
+    currentPlayerProfile->setTexture("MainMenu/round.png");
+    currentPlayerProfile->setScale(0.4);
     
-    std::string userName = "Guest";
-    if(WWSocialManagerRef->currentLoginUserDetail)
-    {
-        log("Current USer Info %s",WWSocialManagerRef->currentLoginUserDetail->getName().c_str());
-        userName = WWSocialManagerRef->currentLoginUserDetail->getName();
-    }
+    //Name
+    auto* userNameLabel = Label::createWithTTF("Gurudatha T S", "fonts/JosefinSlab-Bold.ttf", 24);
+    userNameLabel->setPosition(Vec2(currentPlayerProgressBar->getContentSize().width * 0.5 , -currentPlayerProgressBar->getContentSize().height * 0.8));
+    currentPlayerProgressBar->addChild(userNameLabel);
     
-    auto* userNameLabel = Label::createWithTTF(userName, FN_GAME_FONT_NAME, FN_GAME_ALPHABET_SCORE_SIZE);
-    userNameLabel->setPosition(Vec2(visibleSize.width/8 + origin.x, visibleSize.height / 1.05 + origin.y - profilePict->getContentSize().height ));
-    addChild(userNameLabel);
-    userNameLabel->setHorizontalAlignment(cocos2d::TextHAlignment::LEFT);
+    //opponent Player Progress bar
+    auto* opponentPlayerProgressBar = Sprite::create("GameScene/HelthBar.png");
+    opponentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    addChild(opponentPlayerProgressBar);
+    
+    auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
+    opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 0.9, opponentPlayerprofile->getContentSize().height * 0.1));
+    opponentPlayerProgressBar->addChild(opponentPlayerprofile);
+    opponentPlayerprofile->setTexture("MainMenu/round.png");
+    opponentPlayerprofile->setScale(0.4);
+
+    
+    //Name
+    auto* opponentNameLabel = Label::createWithTTF("Manjunath", "fonts/JosefinSlab-Bold.ttf", 24);
+    opponentNameLabel->setPosition(Vec2(opponentPlayerProgressBar->getContentSize().width * 0.5 , -opponentPlayerProgressBar->getContentSize().height * 0.8));
+    opponentPlayerProgressBar->addChild(opponentNameLabel);
+    
+    //Star
+    auto* pPointsColumn = Sprite::create("GameScene/PointsColom.png");
+    pPointsColumn->setPosition(Vec2(visibleSize.width/2 + origin.x, pYpos ));
+    addChild(pPointsColumn);
+    
+    
+    currentScore = Label::createWithTTF("11 Points", "fonts/JosefinSlab-SemiBold.ttf", 24);
+    currentScore->setPosition(Vec2(pPointsColumn->getContentSize().width * 0.6, pPointsColumn->getContentSize().height * 0.5));
+    pPointsColumn->addChild(currentScore);
     
     
     //Submit Button
-    auto* submitButton = MenuItemFont::create("SUBMIT", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));
-    submitButton->setPosition(Vec2(visibleSize.width/2 + origin.x, pYpos - 50));
-    submitButton->setFontSize(35);
+    auto* submitButton = MenuItemImage::create("GameScene/SubmitBtn.png", "GameScene/SubmitBtn.png", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));
+    submitButton->setPosition(Vec2(visibleSize.width/2 + origin.x, pPointsColumn->getPositionY() - submitButton->getContentSize().height * 1.05));
     
     Menu* menubtn = Menu::create(submitButton, NULL);
     menubtn->setPosition(Vec2::ZERO);
@@ -229,7 +246,7 @@ void WWGameScene::createCustomAlphabet(int currentAlphabetVal , std::string pCur
 {
     if (pTotalGridAlphabet.size() < TOTALGRID)
     {
-        WWAlphabetSprite* _tAlphabetStr = WWAlphabetSprite::create("square.png");
+        WWAlphabetSprite* _tAlphabetStr = WWAlphabetSprite::create("GameScene/LetterBox01.png");
         addChild(_tAlphabetStr);
         _tAlphabetStr->objref = this;
         _tAlphabetStr->initializeFunc(currentAlphabetVal, pCurrentStr);
@@ -240,8 +257,8 @@ void WWGameScene::createCustomAlphabet(int currentAlphabetVal , std::string pCur
 
 float WWGameScene::createGrid()
 {
-    float startXPos = origin.x + 90;
-    float startYPos = origin.y + visibleSize.height / 1.25;
+    float startXPos = origin.x + 120;
+    float startYPos = origin.y + visibleSize.height / 1.2;
     int gridArrayCount = 0;
     for (int i = 0; i < ROWGRIDCOUNT; i++)
     {
@@ -250,11 +267,12 @@ float WWGameScene::createGrid()
         {
             WWAlphabetSprite* alphaBetSpr = this->pTotalGridAlphabet.at(gridArrayCount);
             alphaBetSpr->setPosition(Vec2(startXPos, startYPos));
+            alphaBetSpr->updatedGridReferenceValue(gridArrayCount);
             startXPos = startXPos + alphaBetSpr->getContentSize().width;
             sprheight = alphaBetSpr->getContentSize().height;
             gridArrayCount++;
         }
-        startXPos = origin.x + 90;
+        startXPos = origin.x + 120;
         startYPos = startYPos - sprheight;
     }
     
@@ -265,7 +283,6 @@ float WWGameScene::createGrid()
 void WWGameScene::onSubmitClicked(Ref* sender)
 {
     log("Submit Action");
-    
     if(currentSelectedStr.size() < MinAlphabetsRequired)
     {
         MessageBox("Please Select 3 Letter", "Error");
@@ -327,7 +344,7 @@ void WWGameScene::resetGrid()
 void WWGameScene::resetgameAfterSomeTime()
 {
     currentScore->setString("Score: 0");
-    resultSelectedStr->setString("Play new game");
+    resultSelectedStr->setString("");
     
     currentSelectedStr.clear();
 }
@@ -357,80 +374,79 @@ Vector<WWAlphabetSprite*> WWGameScene::shuffleArray(Vector<WWAlphabetSprite*> pA
 void WWGameScene::createPowerUpIcon()
 {
     //Bg
-    Sprite* pbgSpr = Sprite::create("UI/Marble-texture.png");
+    Sprite* pbgSpr = Sprite::create("GameScene/BottomDropdown.png");
     pbgSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, origin.y + pbgSpr->getContentSize().height/2));
     addChild(pbgSpr);
     
     //Down Icon
-    Sprite* downIconSpr = Sprite::create("UI/Down-Arrow.png");
-    downIconSpr->setPosition(Vec2(pbgSpr->getContentSize().width * 0.5, pbgSpr->getContentSize().height));
+    Sprite* downIconSpr = Sprite::create("GameScene/ArrwBtn.png");
+    downIconSpr->setPosition(Vec2(pbgSpr->getContentSize().width * 0.5, pbgSpr->getContentSize().height * 0.95));
     pbgSpr->addChild(downIconSpr);
     
     float startXPos = origin.x + 100;
     float startYPos = pbgSpr->getPositionY() + 40;
     
     //Power Up Icon
-    WWPowerUpSprite* icon1 = WWPowerUpSprite::create("GameScene/Fire.png");
+    WWPowerUpSprite* icon1 = WWPowerUpSprite::create("GameScene/PowerUp01.png");
     icon1->setPosition(Vec2(startXPos, startYPos));
     addChild(icon1);
-    icon1->initUI();
+    icon1->initUI("GameScene/PowerUp01_CountColm.png");
     
-    startXPos = startXPos + icon1->getContentSize().width + 50;
-    WWPowerUpSprite* icon2 = WWPowerUpSprite::create("GameScene/Earth.png");
+    startXPos = startXPos + icon1->getContentSize().width + 40;
+    WWPowerUpSprite* icon2 = WWPowerUpSprite::create("GameScene/PowerUp02.png");
     icon2->setPosition(Vec2(startXPos, startYPos));
     addChild(icon2);
-    icon2->initUI();
+    icon2->initUI("GameScene/PowerUp02_CountColm.png");
     
-    startXPos = startXPos + icon2->getContentSize().width + 50;
-    WWPowerUpSprite* icon3 = WWPowerUpSprite::create("GameScene/Poison.png");
+    startXPos = startXPos + icon2->getContentSize().width + 40;
+    WWPowerUpSprite* icon3 = WWPowerUpSprite::create("GameScene/PowerUp03.png");
     icon3->setPosition(Vec2(startXPos, startYPos));
     addChild(icon3);
-    icon3->initUI();
+    icon3->initUI("GameScene/PowerUp03_CountColm.png");
     
-    startXPos = startXPos + icon3->getContentSize().width + 50;
-    WWPowerUpSprite* icon4 = WWPowerUpSprite::create("GameScene/Shield.png");
+    startXPos = startXPos + icon3->getContentSize().width + 40;
+    WWPowerUpSprite* icon4 = WWPowerUpSprite::create("GameScene/PowerUp04.png");
     icon4->setPosition(Vec2(startXPos, startYPos));
     addChild(icon4);
-    icon4->initUI();
+    icon4->initUI("GameScene/PowerUp04_colm.png");
     
-    startXPos = startXPos + icon4->getContentSize().width + 50;
-    WWPowerUpSprite* icon5 = WWPowerUpSprite::create("GameScene/Cure-All.png");
+    startXPos = startXPos + icon4->getContentSize().width + 40;
+    WWPowerUpSprite* icon5 = WWPowerUpSprite::create("GameScene/PowerUp05.png");
     icon5->setPosition(Vec2(startXPos, startYPos));
     addChild(icon5);
-    icon5->initUI();
+    icon5->initUI("GameScene/PowerUp05_CountColm.png");
     
-    startYPos = startYPos - icon5->getContentSize().height - 10;
+    startYPos = startYPos - icon5->getContentSize().height - 30;
     startXPos = origin.x + 100;
     
-    WWPowerUpSprite* icon6 = WWPowerUpSprite::create("GameScene/Water.png");
+    WWPowerUpSprite* icon6 = WWPowerUpSprite::create("GameScene/PowerUp06.png");
     icon6->setPosition(Vec2(startXPos, startYPos));
     addChild(icon6);
-    icon6->initUI();
+    icon6->initUI("");
     
-    startXPos = startXPos + icon6->getContentSize().width + 50;
-    WWPowerUpSprite* icon7 = WWPowerUpSprite::create("GameScene/Air.png");
+    startXPos = startXPos + icon6->getContentSize().width + 40;
+    WWPowerUpSprite* icon7 = WWPowerUpSprite::create("GameScene/PowerUp07.png");
     icon7->setPosition(Vec2(startXPos, startYPos));
     addChild(icon7);
-    icon7->initUI();
+    icon7->initUI("");
     
-    startXPos = startXPos + icon7->getContentSize().width + 50;
-    WWPowerUpSprite* icon8 = WWPowerUpSprite::create("GameScene/Antidote.png");
+    startXPos = startXPos + icon7->getContentSize().width + 40;
+    WWPowerUpSprite* icon8 = WWPowerUpSprite::create("GameScene/PowerUp08.png");
     icon8->setPosition(Vec2(startXPos, startYPos));
     addChild(icon8);
-    icon8->initUI();
+    icon8->initUI("");
 
-    startXPos = startXPos + icon8->getContentSize().width + 50;
-    WWPowerUpSprite* icon9 = WWPowerUpSprite::create("GameScene/Hint.png");
+    startXPos = startXPos + icon8->getContentSize().width + 40;
+    WWPowerUpSprite* icon9 = WWPowerUpSprite::create("GameScene/PowerUp09.png");
     icon9->setPosition(Vec2(startXPos, startYPos));
     addChild(icon9);
-    icon9->initUI();
+    icon9->initUI("");
 
-    
-    startXPos = startXPos + icon9->getContentSize().width + 50;
-    WWPowerUpSprite* icon10 = WWPowerUpSprite::create("GameScene/Time-Booster.png");
+    startXPos = startXPos + icon9->getContentSize().width + 40;
+    WWPowerUpSprite* icon10 = WWPowerUpSprite::create("GameScene/PowerUp10.png");
     icon10->setPosition(Vec2(startXPos, startYPos));
     addChild(icon10);
-    icon10->initUI();
+    icon10->initUI("");
 
 }
 

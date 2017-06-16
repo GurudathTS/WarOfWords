@@ -33,7 +33,7 @@ public:
     WWGameScene* objref;
     
     //Ui
-    void initUI();
+    void initUI(std::string pImageName);
         
 };
 

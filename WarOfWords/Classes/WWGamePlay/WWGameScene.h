@@ -47,6 +47,7 @@ public:
     void createAlphabetGridArray();
     void createCustomAlphabet(int currentAlphabetVal , std::string pCurrentStr);
     float createGrid();
+    int currentGridRefvalue;
     
     //Score
     Label* currentScore;

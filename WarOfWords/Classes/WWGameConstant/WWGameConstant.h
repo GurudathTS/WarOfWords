@@ -18,12 +18,12 @@
 
 //Font Size
 #define FN_GAME_FONT_SIZE      21
-#define FN_GAME_ALPHABET_FONT_SIZE      35
-#define FN_GAME_ALPHABET_SCORE_SIZE      25
+#define FN_GAME_ALPHABET_FONT_SIZE      42
+#define FN_GAME_ALPHABET_SCORE_SIZE      24
 
 
 //Font Color
-#define FC_GAME_TILES_1_DARK              0x94c6cd
+#define FC_GAME_TILES_1_DARK              0x699894
 #define FC_GAME_TILES_1_MID               0xbbe0e9
 #define FC_GAME_TILES_1_LIGHTER           0xcdebf2
 

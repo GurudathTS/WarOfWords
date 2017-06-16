@@ -16,6 +16,7 @@ WWAlphabetSprite::WWAlphabetSprite()
     auto listener = EventListenerTouchOneByOne::create();
     
     listener->onTouchBegan = CC_CALLBACK_2(WWAlphabetSprite::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(WWAlphabetSprite::onTouchMoved, this);
     listener->onTouchEnded = CC_CALLBACK_2(WWAlphabetSprite::onTouchEnded, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
@@ -47,15 +48,15 @@ void WWAlphabetSprite::initializeFunc(int currentAlphabetVal , std::string pCurr
     alphabetValue = currentAlphabetVal;
     
     //Set Color to Sprite
-    this->setColor(getColorValue(FC_GAME_TILES_1_DARK));
+    //this->setColor(getColorValue(FC_GAME_TILES_1_DARK));
     
     //create One more Sprite Above that
-    spriteLayer = Sprite::create(sprName);
-    spriteLayer->setPosition(getContentSize() * 0.5);
-    addChild(spriteLayer,1);
-    spriteLayer->setScale(0.95);
-    
-    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+//    spriteLayer = Sprite::create(sprName);
+//    spriteLayer->setPosition(getContentSize() * 0.5);
+//    addChild(spriteLayer,1);
+//    spriteLayer->setScale(0.95);
+//    
+//    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
     
     //Create Label
     currentAlphabet = Label::createWithTTF(pCurrentStr.c_str(), FN_GAME_FONT_NAME, FN_GAME_ALPHABET_FONT_SIZE);
@@ -70,24 +71,29 @@ void WWAlphabetSprite::initializeFunc(int currentAlphabetVal , std::string pCurr
     currentAlphabetValLabel->setColor(getColorValue(FC_GAME_TILES_1_DARK));
 }
 
+void WWAlphabetSprite::updatedGridReferenceValue(int pGridrefVal)
+{
+    this->gridRefValue = pGridrefVal;
+}
+
 #pragma mark - touches
 bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
     auto ptouchLocation = touch->getLocation();
     if (this->getBoundingBox().containsPoint(ptouchLocation))
     {
+        this->objref->currentGridRefvalue = gridRefValue;
         if (isAlreadyPressed)
         {
-            //this->setTexture("square.png");
-            spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
-            isAlreadyPressed = false;
-            if (this->objref->currentSelectedStr.contains(this))
-                this->objref->currentSelectedStr.eraseObject(this);
+            this->removeSetOfLetterFromArray();
+
         }
         else
         {
-            //this->setTexture("square_pressed.png");
-            spriteLayer->setColor(getColorValue(FC_GAME_TILES_3_DARK));
+            //Check is It Neighbour to Any of the Cell
+            this->checkIfCurrentCellNearToPreviousSeelctedCell();
+            
+            this->setTexture("GameScene/LetterBox02.png");
             isAlreadyPressed = true;
             this->objref->currentSelectedStr.pushBack(this);
         }
@@ -95,15 +101,104 @@ bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event
     return true;
 }
 
+void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+    if(this->objref->currentGridRefvalue == gridRefValue)
+        return;
+    
+    auto ptouchLocation = touch->getLocation();
+    if (this->getBoundingBox().containsPoint(ptouchLocation))
+    {
+        this->objref->currentGridRefvalue = gridRefValue;
+        if (isAlreadyPressed)
+        {
+            this->removeSetOfLetterFromArray();
+        }
+        else
+        {
+            this->setTexture("GameScene/LetterBox02.png");
+            isAlreadyPressed = true;
+            this->objref->currentSelectedStr.pushBack(this);
+        }
+    }
+}
+
 void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
     
 }
 
+void WWAlphabetSprite::checkIfCurrentCellNearToPreviousSeelctedCell()
+{
+    //loop array
+    bool pIsNeightbour = false;
+    for(WWAlphabetSprite* alphabetSpr : this->objref->currentSelectedStr)
+    {
+        log("Alphabet gridRef Value %d",alphabetSpr->gridRefValue);
+        log("currentSelectedStr gridRef Value %d",this->gridRefValue);
+        
+        if ((alphabetSpr->gridRefValue + 1) == this->gridRefValue) {
+    
+            pIsNeightbour = true;
+            break;
+        }
+        if ((alphabetSpr->gridRefValue - 1) == this->gridRefValue) {
+            
+            pIsNeightbour = true;
+            break;
+        }
+        if ((alphabetSpr->gridRefValue + 6) == this->gridRefValue) {
+            
+            pIsNeightbour = true;
+            break;
+        }
+        if ((alphabetSpr->gridRefValue - 6) == this->gridRefValue) {
+            
+            pIsNeightbour = true;
+            break;
+        }
+    }
+    
+    if(!pIsNeightbour)
+    {
+        for(WWAlphabetSprite* alphabetSpr : this->objref->currentSelectedStr)
+        {
+            alphabetSpr->resetSpriteAfterLost();
+        }
+        this->objref->currentSelectedStr.clear();
+    }
+}
+
+void WWAlphabetSprite::removeSetOfLetterFromArray()
+{
+    ssize_t currentIndex = this->objref->currentSelectedStr.getIndex(this);
+    log("currentIndex %zd",currentIndex);
+    
+    if (currentIndex < this->objref->currentSelectedStr.size()) {
+        Vector<WWAlphabetSprite*> remainingAlphabetArray;
+        for (int startIndex = 0; startIndex <= currentIndex; startIndex ++ )
+        {
+            WWAlphabetSprite* pRefSpr = this->objref->currentSelectedStr.at(startIndex);
+            remainingAlphabetArray.pushBack(pRefSpr);
+        }
+        
+        for (int index = currentIndex + 1; index < this->objref->currentSelectedStr.size(); index ++ )
+        {
+            WWAlphabetSprite* pRefSprChange = this->objref->currentSelectedStr.at(index);
+            pRefSprChange->resetSpriteAfterLost();
+        }
+        
+        this->objref->currentSelectedStr.clear();
+        this->objref->currentSelectedStr.pushBack(remainingAlphabetArray);
+        log("Array Count %zd",this->objref->currentSelectedStr.size());
+    }
+}
+
 void WWAlphabetSprite::resetSprite()
 {
     //this->setTexture("square.png");
-    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+    //spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+    this->setTexture("GameScene/LetterBox01.png");
     isAlreadyPressed = false;
     
     //fade off Action
@@ -119,7 +214,8 @@ void WWAlphabetSprite::resetSprite()
 void WWAlphabetSprite::resetSpriteAfterLost()
 {
     //this->setTexture("square.png");
-    spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+    //spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+    this->setTexture("GameScene/LetterBox01.png");
     isAlreadyPressed = false;
 }
 

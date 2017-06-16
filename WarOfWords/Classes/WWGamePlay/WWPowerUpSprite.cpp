@@ -35,11 +35,18 @@ WWPowerUpSprite* WWPowerUpSprite::create(const char *pszFileName)
     return nullptr;
 }
 
-void WWPowerUpSprite::initUI()
+void WWPowerUpSprite::initUI(std::string pImageName)
 {
-    this->scoreLabel = Label::createWithTTF("0", FN_GAME_FONT_NAME, FN_GAME_FONT_SIZE);
-    this->scoreLabel->setPosition(Vec2(getContentSize().width * 0.5, getContentSize().height * 0.15));
-    addChild(this->scoreLabel);
+    if(pImageName != "")
+    {
+        auto* pSpr = Sprite::create(pImageName);
+        pSpr->setPosition(Vec2(getContentSize().width * 0.5, getContentSize().height * 0));
+        addChild(pSpr);
+        
+        this->scoreLabel = Label::createWithTTF("0", FN_GAME_FONT_NAME, FN_GAME_FONT_SIZE);
+        this->scoreLabel->setPosition(Vec2(pSpr->getContentSize().width * 0.45, pSpr->getContentSize().height * 0.45));
+        pSpr->addChild(this->scoreLabel);
+    }
 }
 
 #pragma mark - update Score Label
