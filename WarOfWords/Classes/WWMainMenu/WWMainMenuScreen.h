@@ -18,6 +18,7 @@ using namespace cocos2d;
 using namespace cocos2d::extension;
 
 #include "WWSettingPageLayer.h"
+#include "WWPlayerInfo.h"
 
 class WWMainMenu : public cocos2d::Layer
 {

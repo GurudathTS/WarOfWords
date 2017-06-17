@@ -45,6 +45,7 @@
 		06A1FF591EB72F0A006A1FE7 /* WWForgotScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */; };
 		06BCE5CB1EC0E13C0011C87A /* WWSettingPageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06BCE5C91EC0E13C0011C87A /* WWSettingPageLayer.cpp */; };
 		06BDB13C1EF1A8420009446E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06BDB13B1EF1A8420009446E /* StoreKit.framework */; };
+		06BFF47E1EF4C14F00012DF3 /* WWPlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06BFF47C1EF4C14F00012DF3 /* WWPlayerInfo.cpp */; };
 		06C984021E5AC38900B0660C /* WWObjectiveC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */; };
 		06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06C984011E5AC38900B0660C /* WWObjectiveCCalls.mm */; };
 		06C9840A1E5AE32B00B0660C /* WWGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06C984081E5AE32B00B0660C /* WWGameScene.cpp */; };
@@ -204,6 +205,8 @@
 		06BCE5CA1EC0E13C0011C87A /* WWSettingPageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSettingPageLayer.h; sourceTree = "<group>"; };
 		06BDB13A1EF1A8350009446E /* WarOfWords-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WarOfWords-mobile.entitlements"; sourceTree = "<group>"; };
 		06BDB13B1EF1A8420009446E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		06BFF47C1EF4C14F00012DF3 /* WWPlayerInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWPlayerInfo.cpp; sourceTree = "<group>"; };
+		06BFF47D1EF4C14F00012DF3 /* WWPlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWPlayerInfo.h; sourceTree = "<group>"; };
 		06C983FE1E5AC38900B0660C /* WWObjectiveC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveC.h; sourceTree = "<group>"; };
 		06C983FF1E5AC38900B0660C /* WWObjectiveC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WWObjectiveC.mm; sourceTree = "<group>"; };
 		06C984001E5AC38900B0660C /* WWObjectiveCCalls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWObjectiveCCalls.h; sourceTree = "<group>"; };
@@ -465,6 +468,15 @@
 			path = WWSettingPage;
 			sourceTree = "<group>";
 		};
+		06BFF47A1EF4C12A00012DF3 /* WWPlayerInfo */ = {
+			isa = PBXGroup;
+			children = (
+				06BFF47C1EF4C14F00012DF3 /* WWPlayerInfo.cpp */,
+				06BFF47D1EF4C14F00012DF3 /* WWPlayerInfo.h */,
+			);
+			path = WWPlayerInfo;
+			sourceTree = "<group>";
+		};
 		06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +675,7 @@
 				06ECB2EF1EB6F774004C6DB6 /* WWLandingScreen */,
 				0E15E3EF1E994CAF00DF9A3B /* WWGameUtility */,
 				06E7A6BB1E8F64E5003125BD /* WWGameConstant */,
+				06BFF47A1EF4C12A00012DF3 /* WWPlayerInfo */,
 				061ED5181E6BF635000DD216 /* Facebook */,
 				06C983FD1E5AC38900B0660C /* WWObjectiveCWrapper */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -890,6 +903,7 @@
 				06ECB2F31EB6F79B004C6DB6 /* WWLandingScreen.cpp in Sources */,
 				06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */,
 				0EFE7B631EC365880068A527 /* WWDatamanager.cpp in Sources */,
+				06BFF47E1EF4C14F00012DF3 /* WWPlayerInfo.cpp in Sources */,
 				061ED55C1E6BFEF7000DD216 /* WWNetworkManager.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				06C984031E5AC38900B0660C /* WWObjectiveCCalls.mm in Sources */,

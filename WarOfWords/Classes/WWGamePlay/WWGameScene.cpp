@@ -11,6 +11,7 @@
 #include "WWGameConstant.h"
 #include "WWSocialManager.h"
 #include "WWSocialFriendDetail.h"
+#include "WWPlayerInfo.h"
 
 USING_NS_CC;
 
@@ -113,11 +114,15 @@ void WWGameScene::addUI(float pYpos)
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
     currentPlayerProfile->setPosition(Vec2(0, currentPlayerProfile->getContentSize().height * 0.1));
     currentPlayerProgressBar->addChild(currentPlayerProfile);
-    currentPlayerProfile->setTexture("MainMenu/round.png");
     currentPlayerProfile->setScale(0.4);
     
+    if(WWPlayerInfoRef->getCurrentProfilePictureTexture())
+        currentPlayerProfile->setTexture(WWPlayerInfoRef->getCurrentProfilePictureTexture());
+    else
+        currentPlayerProfile->setTexture("MainMenu/round.png");
+    
     //Name
-    auto* userNameLabel = Label::createWithTTF("Gurudatha T S", "fonts/JosefinSlab-Bold.ttf", 24);
+    auto* userNameLabel = Label::createWithTTF(WWPlayerInfoRef->getCurrentUserName(), "fonts/JosefinSlab-Bold.ttf", 24);
     userNameLabel->setPosition(Vec2(currentPlayerProgressBar->getContentSize().width * 0.5 , -currentPlayerProgressBar->getContentSize().height * 0.8));
     currentPlayerProgressBar->addChild(userNameLabel);
     
@@ -129,12 +134,16 @@ void WWGameScene::addUI(float pYpos)
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
     opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 0.9, opponentPlayerprofile->getContentSize().height * 0.1));
     opponentPlayerProgressBar->addChild(opponentPlayerprofile);
-    opponentPlayerprofile->setTexture("MainMenu/round.png");
     opponentPlayerprofile->setScale(0.4);
+    
+    if(WWPlayerInfoRef->getOpponentProfilePictureTexture())
+        opponentPlayerprofile->setTexture(WWPlayerInfoRef->getOpponentProfilePictureTexture());
+    else
+        opponentPlayerprofile->setTexture("MainMenu/round.png");
 
     
     //Name
-    auto* opponentNameLabel = Label::createWithTTF("Manjunath", "fonts/JosefinSlab-Bold.ttf", 24);
+    auto* opponentNameLabel = Label::createWithTTF(WWPlayerInfoRef->getOpponentUserName(), "fonts/JosefinSlab-Bold.ttf", 24);
     opponentNameLabel->setPosition(Vec2(opponentPlayerProgressBar->getContentSize().width * 0.5 , -opponentPlayerProgressBar->getContentSize().height * 0.8));
     opponentPlayerProgressBar->addChild(opponentNameLabel);
     
@@ -285,7 +294,7 @@ void WWGameScene::onSubmitClicked(Ref* sender)
     log("Submit Action");
     if(currentSelectedStr.size() < MinAlphabetsRequired)
     {
-        MessageBox("Please Select 3 Letter", "Error");
+        MessageBox("Please Select 4 Letter", "Error");
         return;
     }
     

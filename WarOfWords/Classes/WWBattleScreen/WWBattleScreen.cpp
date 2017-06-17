@@ -70,20 +70,27 @@ void WWBattleScreen::addUI()
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
     currentPlayerProfile->setPosition(Vec2(battleBg->getContentSize().width * 0.25, battleBg->getContentSize().height * 0.5));
     battleBg->addChild(currentPlayerProfile);
-    currentPlayerProfile->setTexture("MainMenu/round.png");
+    
+    if(WWPlayerInfoRef->getCurrentProfilePictureTexture())
+        currentPlayerProfile->setTexture(WWPlayerInfoRef->getCurrentProfilePictureTexture());
+    else
+        currentPlayerProfile->setTexture("MainMenu/round.png");
     
     //Name
-    auto* userNameLabel = Label::createWithTTF("Gurudatha T S", "fonts/JosefinSlab-Bold.ttf", 32);
+    auto* userNameLabel = Label::createWithTTF(WWPlayerInfoRef->getCurrentUserName(), "fonts/JosefinSlab-Bold.ttf", 32);
     userNameLabel->setPosition(Vec2(currentPlayerProfile->getContentSize().width * 0.5 , -currentPlayerProfile->getContentSize().height * 0.2));
     currentPlayerProfile->addChild(userNameLabel);
     
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
     opponentPlayerprofile->setPosition(Vec2(battleBg->getContentSize().width * 0.75, battleBg->getContentSize().height * 0.5));
     battleBg->addChild(opponentPlayerprofile);
-    opponentPlayerprofile->setTexture("MainMenu/round.png");
+    if(WWPlayerInfoRef->getOpponentProfilePictureTexture())
+        opponentPlayerprofile->setTexture(WWPlayerInfoRef->getOpponentProfilePictureTexture());
+    else
+        opponentPlayerprofile->setTexture("MainMenu/round.png");
     
     //Name
-    auto* opponentNameLabel = Label::createWithTTF("Manjunath", "fonts/JosefinSlab-Bold.ttf", 32);
+    auto* opponentNameLabel = Label::createWithTTF(WWPlayerInfoRef->getOpponentUserName(), "fonts/JosefinSlab-Bold.ttf", 32);
     opponentNameLabel->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 0.5 , -opponentPlayerprofile->getContentSize().height * 0.2));
     opponentPlayerprofile->addChild(opponentNameLabel);
     

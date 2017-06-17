@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "cocos2d.h"
+#include "WWPlayerInfo.h"
 using namespace cocos2d;
 
 class WWBattleScreen : public cocos2d::Layer

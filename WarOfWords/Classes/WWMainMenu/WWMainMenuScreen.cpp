@@ -122,10 +122,15 @@ void WWMainMenu::addUI()
     this->profileCircleSpr = Sprite::create("MainMenu/ProfilePicColom.png");
     this->profileCircleSpr->setPosition(Vec2(this->profileCircleSpr->getContentSize().width * 0.4,this->profileBackground->getContentSize().height * 0.5));
     this->profileBackground->addChild(this->profileCircleSpr);
-    this->profileCircleSpr->setTexture("MainMenu/round.png");
     
+    if(WWPlayerInfoRef->getCurrentProfilePictureTexture())
+        this->profileCircleSpr->setTexture(WWPlayerInfoRef->getCurrentProfilePictureTexture());
+    else
+        this->profileCircleSpr->setTexture("MainMenu/round.png");
+
+
     //User Name Label
-    this->userNameLabel = Label::createWithTTF("Gurudtaha T S", "fonts/JosefinSlab-Bold.ttf", 34);
+    this->userNameLabel = Label::createWithTTF(WWPlayerInfoRef->getCurrentUserName(), "fonts/JosefinSlab-Bold.ttf", 34);
     this->userNameLabel->setPosition(Vec2(this->profileCircleSpr->getPositionX() + this->profileCircleSpr->getContentSize().width * 0.65,this->profileBackground->getContentSize().height * 0.65));
     this->profileBackground->addChild(this->userNameLabel);
     this->userNameLabel->setAnchorPoint(Vec2(0,0.5));
