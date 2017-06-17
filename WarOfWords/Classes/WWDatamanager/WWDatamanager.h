@@ -30,6 +30,16 @@ public:
     void setUserId(std::string userId);
     std::string getUserId();
     
+    
+    //UserName
+    void setUserName(std::string userId);
+    std::string getUserName();
+    
+    
+
+    
+    
+    
     std::string _forgotPasswordEmailId;
     
     std::string dmdeviceToken;

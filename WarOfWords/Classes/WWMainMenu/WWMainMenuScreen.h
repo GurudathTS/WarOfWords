@@ -16,9 +16,14 @@ using namespace cocos2d;
 
 #include "extensions/cocos-ext.h"
 using namespace cocos2d::extension;
+using namespace cocos2d::network;
+using namespace cocos2d::ui;
+
 
 #include "WWSettingPageLayer.h"
 #include "WWPlayerInfo.h"
+#include "WWGameUtility.h"
+
 
 class WWMainMenu : public cocos2d::Layer
 {
@@ -41,6 +46,18 @@ private:
     void onClickOnGuildbtnBtn(Ref* pSender);
     
     void addActiveGamesList();
+    
+    
+    //connecting server functions
+    void getRamdomUserAPI();
+    void onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    
+    //connecting server functions
+    void getUserDetailsAPI();
+    void onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+
+
     
 public:
     static cocos2d::Scene* createScene();

@@ -3,7 +3,7 @@
 #include <string>
 #include "WWLandingScreen.h"
 #include "WWMainMenuScreen.h"
-
+#include "WWDatamanager.h"
 USING_NS_CC;
 using namespace std;
 
@@ -78,7 +78,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = WWLandingScreen::createScene();
+    Scene *scene;
+    std::string apiKey = WWDatamanager::sharedManager()->getAPIKey();
+    if(strcmp(apiKey.c_str(), "NotExist")!=0)
+    {
+        scene = WWMainMenu::createScene();
+
+    }
+    else
+    {
+        
+        scene = WWLandingScreen::createScene();
+
+
+    }
+    
 
     // run
     director->runWithScene(scene);

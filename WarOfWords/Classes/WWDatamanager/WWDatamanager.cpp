@@ -63,4 +63,14 @@ std::string WWDatamanager::getUserId()
 
 }
 
+void WWDatamanager::setUserName(std::string userName)
+{
+    UserDefault::getInstance()->setStringForKey("UserName", userName);
+
+}
+std::string WWDatamanager::getUserName()
+{
+    return UserDefault::getInstance()->getStringForKey("UserName", "NotExist");
+
+}
 

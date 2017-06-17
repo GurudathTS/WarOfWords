@@ -9,6 +9,9 @@
 #include "WWMainMenuScreen.h"
 #include "WWMainMenuActiveList.h"
 #include "WWBattleScreen.h"
+#include "WWCommonUtilty.h"
+#include "WWGameConstant.h"
+#include "WWDatamanager.h"
 
 Scene* WWMainMenu::createScene()
 {
@@ -57,6 +60,8 @@ bool WWMainMenu::init()
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
     backgroundSpr->setPosition(Vec2(this->visibleSize.width/2 + this->origin.x, this->visibleSize.height/2 + this->origin.y));
     this->addChild(backgroundSpr);
+    
+    this->getUserDetailsAPI();
     
     return true;
 }
@@ -203,7 +208,8 @@ void WWMainMenu::onClickOnInAppBtn(Ref* pSender)
 
 void WWMainMenu::onClickOnQuickmatchBtn(Ref* pSender)
 {
-    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+    this->getRamdomUserAPI();
+    
 }
 
 void WWMainMenu::onClickOnHowToPlaybtnBtn(Ref* pSender)
@@ -214,4 +220,128 @@ void WWMainMenu::onClickOnHowToPlaybtnBtn(Ref* pSender)
 void WWMainMenu::onClickOnGuildbtnBtn(Ref* pSender)
 {
     MessageBox("", "COMING SOON!!");
+}
+
+#pragma mark - Get Random userAPI
+void WWMainMenu::getRamdomUserAPI()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getrandomuser?";
+    
+    
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetRamdomUserAPIRequestCompleted, this));
+    request->setTag("getRandomuser");
+    HttpClient::getInstance()->send(request);
+    request->release();
+
+}
+
+
+void WWMainMenu::onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    ActivtyIndicator::PopIfActiveFromScene(this);
+    
+
+    
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    std::string id = document["user"]["id"].GetString();
+    std::string name = document["user"]["name"].GetString();
+
+    std::string email = document["user"]["email"].GetString();
+    
+    std::string thumbnail = document["user"]["thumbnail"].GetString();
+
+    std::string loginType = document["user"]["loginType"].GetString();
+
+    
+    
+    WWPlayerInfo::getInstance()->initializeOpponentinfo(name, thumbnail, "10");
+    
+    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+    
+    
+
+    
+}
+
+#pragma mark - Get user detail API
+void WWMainMenu::getUserDetailsAPI()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getuserdetails?";
+    
+    url=url+"id"+"="+WWDatamanager::sharedManager()->getUserId()+"&";
+
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetUserDetailsAPIRequestCompleted, this));
+    request->setTag("getuserdetails");
+    HttpClient::getInstance()->send(request);
+    request->release();
+ 
+}
+void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    
+    
+    
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    std::string id = document["user"]["id"].GetString();
+    std::string name = document["user"]["name"].GetString();
+    
+    std::string email = document["user"]["email"].GetString();
+    
+    std::string thumbnail = document["user"]["thumbnail"].GetString();
+    
+    std::string loginType = document["user"]["loginType"].GetString();
+    
+    
+    
+    WWPlayerInfo::getInstance()->initializeUserInfo(name, thumbnail, "10");
+    
+    ActivtyIndicator::PopIfActiveFromScene(this);
+
+    
+    
+
 }
