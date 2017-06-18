@@ -365,7 +365,8 @@ void WWMainMenu::requestForPlayAPI()
     std::string url=BASE_URL;
     
     url=url+"play?";
-    
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+
     
    std:string postData = "";
     postData = postData+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
@@ -402,6 +403,8 @@ void WWMainMenu::onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpRes
     }
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
+    
+    this->getGamesAPI();
 
 }
 
@@ -458,9 +461,23 @@ void WWMainMenu::sendPushNotificationToUserAPI()
     
     url=url+"sendpush?";
     
-    url=url+"id"+"="+WWDatamanager::sharedManager()->getUserId()+"&";
-    
+
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+std:string postData = "";
+    postData = postData+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    postData=postData+"&userId"+"="+WWPlayerInfo::getInstance()->getOpponentUserID();
+    
+    postData=postData+"&message"+"="+"PlayWithme";
+    
+    log("postData is %s",postData.c_str());
+    
+    // write the post data
+    //    const char* postData = "apiKey=/"+WWDatamanager::sharedManager()->getAPIKey()+"/"+"&"+"userId"=Extensions Test/NetworkTest&opponentUserId=gfhh";
+    request->setRequestData(postData.c_str(), strlen(postData.c_str()));
+    
     
     
     request->setUrl(url);
@@ -486,7 +503,6 @@ void WWMainMenu::onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sen
     WWGameUtility::getResponseBuffer(response, document);
     
     this->getGamesAPI();
-    
 
  
 }
