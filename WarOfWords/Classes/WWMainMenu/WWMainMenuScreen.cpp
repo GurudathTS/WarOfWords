@@ -270,15 +270,24 @@ void WWMainMenu::onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResp
 
     std::string email = document["user"]["email"].GetString();
     
-    std::string thumbnail = document["user"]["thumbnail"].GetString();
+    std::string thumbnail =  "";//document["user"]["thumbnail"].GetString();
+
+    if(document["user"]["thumbnail"] != NULL)
+    {
+       thumbnail = document["user"]["thumbnail"].GetString();
+
+    }
+    
 
     std::string loginType = document["user"]["loginType"].GetString();
 
     
+    WWPlayerInfo::getInstance()->initializeOpponentinfo(name, id,thumbnail, "10");
+
     
-    WWPlayerInfo::getInstance()->initializeOpponentinfo(name, thumbnail, "10");
+    this->requestForPlayAPI();
     
-    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+    
     
     
 
@@ -290,7 +299,6 @@ void WWMainMenu::getUserDetailsAPI()
 {
     ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
     
-http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&email=manjunathareddyn@gmail.com&password=hgjg&thumbnail=jkk&deviceId=j89jj&deviceType=IOS
     
     
     HttpRequest* request = new (std::nothrow) HttpRequest();
@@ -318,7 +326,6 @@ void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpRes
 {
     
     
-    
     if (!response)
     {
         return;
@@ -337,11 +344,149 @@ void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpRes
     
     
     
-    WWPlayerInfo::getInstance()->initializeUserInfo(name, thumbnail, "10");
+    WWPlayerInfo::getInstance()->initializeUserInfo(name,id, thumbnail, "10");
     
     ActivtyIndicator::PopIfActiveFromScene(this);
 
     
     
 
+}
+#pragma mark - Request For Play API
+void WWMainMenu::requestForPlayAPI()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+  //  2017-06-18 12:11:12.562 WarOfWords-mobile[1255:23397] Starting to load http://52.24.37.30:3000/api/play?apiKey=99946db7d676c03c7dd5cd2e49fb81152a3e3a18fcff1d7af2a1120bbe188ae6&userId	=59462084e90023131ab8988c&opponentUserId=5942b9d9512f3c5985f67660
+
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"play?";
+    
+    
+   std:string postData = "";
+    postData = postData+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    postData=postData+"&userId"+"="+WWPlayerInfo::getInstance()->getCurrentUserID();
+    
+    postData=postData+"&opponentUserId"+"="+WWPlayerInfo::getInstance()->getOpponentUserID();
+    
+    log("postData is %s",postData.c_str());
+    
+    // write the post data
+//    const char* postData = "apiKey=/"+WWDatamanager::sharedManager()->getAPIKey()+"/"+"&"+"userId"=Extensions Test/NetworkTest&opponentUserId=gfhh";
+    request->setRequestData(postData.c_str(), strlen(postData.c_str()));
+    
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::POST);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onRequestForPlayAPIRequestCompleted, this));
+    request->setTag("play");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+
+}
+void WWMainMenu::onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+
+}
+
+#pragma mark - Get Games API
+
+void WWMainMenu::getGamesAPI()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getgames?";
+    
+    url=url+"id"+"="+WWDatamanager::sharedManager()->getUserId()+"&";
+    
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetGamesAPIRequestCompleted, this));
+    request->setTag("getuserdetails");
+    HttpClient::getInstance()->send(request);
+    request->release();
+
+}
+void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+
+
+}
+
+
+void WWMainMenu::sendPushNotificationToUserAPI()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"sendpush?";
+    
+    url=url+"id"+"="+WWDatamanager::sharedManager()->getUserId()+"&";
+    
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onSendPushNotificationToUserAPIRequestCompleted, this));
+    request->setTag("getuserdetails");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+
+
+}
+void WWMainMenu::onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    this->getGamesAPI();
+    
+
+ 
 }

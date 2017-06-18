@@ -24,8 +24,8 @@ WWPlayerInfo* WWPlayerInfo::getInstance()
 WWPlayerInfo::WWPlayerInfo()
 :_mDelegate(nullptr)
 {
-    initializeUserInfo("Gurudath", "", "");
-    initializeOpponentinfo("Manjunath", "", "");
+    initializeUserInfo("Gurudath","", "", "");
+    initializeOpponentinfo("Manjunath","", "", "");
 }
 
 WWPlayerInfo::~WWPlayerInfo()
@@ -34,11 +34,12 @@ WWPlayerInfo::~WWPlayerInfo()
 }
 
 #pragma mark - Initialize User Info
-void WWPlayerInfo::initializeUserInfo(std::string pUserName, std::string pUserProfilePicture, std::string pUserHealthBar)
+void WWPlayerInfo::initializeUserInfo(std::string pUserName,std::string pUserId, std::string pUserProfilePicture, std::string pUserHealthBar)
 {
     _mCurrentUserName = pUserName;
     _mCurrentUserProfilePtcture = pUserProfilePicture;
     _mCurrentUserHealthBar = pUserHealthBar;
+    _mCurrentId = pUserId;
     
     loadUserProfileURL();
     
@@ -123,11 +124,12 @@ void WWPlayerInfo::onHttpRequestCompletedUser(HttpClient *sender, HttpResponse *
 }
 
 #pragma mark - Initialize Opponent User info
-void WWPlayerInfo::initializeOpponentinfo(std::string pOpponentName, std::string pOpponentProfilePicture, std::string pOpponentHealthBar)
+void WWPlayerInfo::initializeOpponentinfo(std::string pOpponentName,std::string pUserId, std::string pOpponentProfilePicture, std::string pOpponentHealthBar)
 {
     _mOpponentUserName = pOpponentName;
     _mOpponentUserHealthBar = pOpponentHealthBar;
     _mOpponentUserProfilePtcture = pOpponentProfilePicture;
+    _mOpponentUserId = pUserId;
     
     loadOpponentProfileURL();
 }

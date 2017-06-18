@@ -42,12 +42,12 @@ public:
 public:
     WWPlayerInfo();
     
-    void initializeUserInfo(std::string pUserName, std::string pUserProfilePicture, std::string pUserHealthBar);
+    void initializeUserInfo(std::string pUserName,std::string pUserId ,std::string pUserProfilePicture, std::string pUserHealthBar);
     void updateUserName(std::string pUserName);
     void updateProfilePicture(std::string pProfilePictureUrl);
     void updateHealthBar(std::string pHealthBar);
     
-    void initializeOpponentinfo(std::string pOpponentName, std::string pOpponentProfilePicture, std::string pOpponentHealthBar);
+    void initializeOpponentinfo(std::string pOpponentName,std::string pUserId, std::string pOpponentProfilePicture, std::string pOpponentHealthBar);
     void updateOpponentUserName(std::string pUserName);
     void updateOpponentProfilePicture(std::string pProfilePictureUrl);
     void updateOpponentHealthBar(std::string pHealthBar);
@@ -56,12 +56,16 @@ public:
     CC_SYNTHESIZE_READONLY(std::string, _mCurrentUserName, CurrentUserName);
     CC_SYNTHESIZE_READONLY(std::string, _mCurrentUserProfilePtcture, CurrentUserProfilePtcture);
     CC_SYNTHESIZE_READONLY(std::string, _mCurrentUserHealthBar, CurrentUserHealthBar);
+    CC_SYNTHESIZE_READONLY(std::string, _mCurrentId, CurrentUserID);
+
     CC_SYNTHESIZE_READONLY(Texture2D*, _mCurrentProfilePictureTexture, CurrentProfilePictureTexture);
     
     //Opponemt User
     CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserName, OpponentUserName);
     CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserProfilePtcture, OpponentUserProfilePtcture);
     CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserHealthBar, OpponentUserHealthBar);
+    CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserId, OpponentUserID);
+
     CC_SYNTHESIZE_READONLY(Texture2D*, _mOpponentProfilePictureTexture, OpponentProfilePictureTexture);
     
     //Call Backs

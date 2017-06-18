@@ -56,6 +56,18 @@ private:
     //connecting server functions
     void getUserDetailsAPI();
     void onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    
+    void requestForPlayAPI();
+    void onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    void getGamesAPI();
+    void onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+
+    
+    void sendPushNotificationToUserAPI();
+    void onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+
 
 
     
