@@ -19,6 +19,9 @@ using namespace cocos2d::extension;
 using namespace cocos2d::network;
 using namespace cocos2d::ui;
 
+#include "json/rapidjson.h"
+#include "json/filestream.h"
+#include "json/document.h"
 
 #include "WWSettingPageLayer.h"
 #include "WWPlayerInfo.h"

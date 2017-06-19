@@ -270,13 +270,13 @@ void WWMainMenu::onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResp
 
     std::string email = document["user"]["email"].GetString();
     
-    std::string thumbnail =  "";//document["user"]["thumbnail"].GetString();
+    std::string thumbnail =  document["user"]["thumbnail"].GetString();
 
-    if(document["user"]["thumbnail"] != NULL)
-    {
-       thumbnail = document["user"]["thumbnail"].GetString();
-
-    }
+//    if(document["user"]["thumbnail"] != NULL)
+//    {
+//       thumbnail = document["user"]["thumbnail"].GetString();
+//
+//    }
     
 
     std::string loginType = document["user"]["loginType"].GetString();
