@@ -133,10 +133,7 @@ void WWAlphabetSprite::checkIfCurrentCellNearToPreviousSeelctedCell()
     //loop array
     bool pIsNeightbour = false;
     for(WWAlphabetSprite* alphabetSpr : this->objref->currentSelectedStr)
-    {
-        log("Alphabet gridRef Value %d",alphabetSpr->gridRefValue);
-        log("currentSelectedStr gridRef Value %d",this->gridRefValue);
-        
+    {        
         if ((alphabetSpr->gridRefValue + 1) == this->gridRefValue) {
     
             pIsNeightbour = true;
@@ -157,6 +154,21 @@ void WWAlphabetSprite::checkIfCurrentCellNearToPreviousSeelctedCell()
             pIsNeightbour = true;
             break;
         }
+        
+        //Check for Daigonal
+        int upperGrid = alphabetSpr->gridRefValue + 6;
+        int lowerGrid = alphabetSpr->gridRefValue - 6;
+        
+        if((upperGrid + 1) == this->gridRefValue || (upperGrid - 1) == this->gridRefValue)
+        {
+            pIsNeightbour = true;
+            break;
+        }
+        if((lowerGrid + 1) == this->gridRefValue || (lowerGrid - 1) == this->gridRefValue)
+        {
+            pIsNeightbour = true;
+            break;
+        }
     }
     
     if(!pIsNeightbour)
@@ -172,7 +184,6 @@ void WWAlphabetSprite::checkIfCurrentCellNearToPreviousSeelctedCell()
 void WWAlphabetSprite::removeSetOfLetterFromArray()
 {
     ssize_t currentIndex = this->objref->currentSelectedStr.getIndex(this);
-    log("currentIndex %zd",currentIndex);
     
     if (currentIndex < this->objref->currentSelectedStr.size()) {
         Vector<WWAlphabetSprite*> remainingAlphabetArray;
