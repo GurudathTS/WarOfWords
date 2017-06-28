@@ -100,7 +100,7 @@ bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event
         }
         return true;
     }
-    return false;
+    return true;
 }
 
 void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
@@ -261,44 +261,13 @@ void WWAlphabetSprite::resetSpriteAfterLost()
 void WWAlphabetSprite::createRandomAlphabet()
 {
     //get random  Num
-    int randval = arc4random() % 7;
+    int randval = arc4random() % 25;
     int randomAlphabetval;
     std::string randomAlphabetStr = "";
-    if (randval == 0)
-    {
-        randomAlphabetStr = this->objref->pOnePointArray.at(arc4random() % this->objref->pOnePointArray.size());
-        randomAlphabetval = 1;
-    }
-    else if(randval == 1)
-    {
-        randomAlphabetStr = this->objref->pTwoPointArray.at(arc4random() % this->objref->pTwoPointArray.size());
-        randomAlphabetval = 2;
-    }
-    else if(randval == 2)
-    {
-        randomAlphabetStr = this->objref->pThreePointArray.at(arc4random() % this->objref->pThreePointArray.size());
-        randomAlphabetval = 3;
-    }
-    else if(randval == 3)
-    {
-        randomAlphabetStr = this->objref->pFourPointArray.at(arc4random() % this->objref->pFourPointArray.size());
-        randomAlphabetval = 4;
-    }
-    else if(randval == 4)
-    {
-        randomAlphabetStr = this->objref->pFivePointArray.at(arc4random() % this->objref->pFivePointArray.size());
-        randomAlphabetval = 5;
-    }
-    else if(randval == 5)
-    {
-        randomAlphabetStr = this->objref->pEightPointArray.at(arc4random() % this->objref->pEightPointArray.size());
-        randomAlphabetval = 8;
-    }
-    else
-    {
-        randomAlphabetStr = this->objref->pTenPointArray.at(arc4random() % this->objref->pTenPointArray.size());
-        randomAlphabetval = 10;
-    }
+    
+    randomAlphabetStr = this->objref->pAllAlphabetsArray.at(randval);
+    randomAlphabetval = this->objref->getAlphabetValue(randomAlphabetStr);
+
     this->updateNewAlphabet(randomAlphabetval, randomAlphabetStr);
     
 }

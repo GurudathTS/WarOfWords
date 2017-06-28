@@ -41,6 +41,7 @@
 		064EE7681ECFFF7100FD9331 /* WWBattleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 064EE7661ECFFF7100FD9331 /* WWBattleScreen.cpp */; };
 		0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */; };
 		0685C6851EB85B5900139015 /* WWMainMenuActiveList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */; };
+		0698817D1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0698817B1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp */; };
 		06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */; };
 		06A1FF591EB72F0A006A1FE7 /* WWForgotScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */; };
 		06BCE5CB1EC0E13C0011C87A /* WWSettingPageLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06BCE5C91EC0E13C0011C87A /* WWSettingPageLayer.cpp */; };
@@ -197,6 +198,8 @@
 		0685C6811EB83B8800139015 /* WWMainMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuScreen.h; sourceTree = "<group>"; };
 		0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWMainMenuActiveList.cpp; sourceTree = "<group>"; };
 		0685C6841EB85B5900139015 /* WWMainMenuActiveList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuActiveList.h; sourceTree = "<group>"; };
+		0698817B1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWmainMenuPlayConfirmation.cpp; sourceTree = "<group>"; };
+		0698817C1F03A02700C5230C /* WWmainMenuPlayConfirmation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWmainMenuPlayConfirmation.h; sourceTree = "<group>"; };
 		06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSignupScreen.cpp; sourceTree = "<group>"; };
 		06A1FF541EB72591006A1FE7 /* WWSignupScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWSignupScreen.h; sourceTree = "<group>"; };
 		06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWForgotScreen.cpp; sourceTree = "<group>"; };
@@ -437,6 +440,8 @@
 				0685C6811EB83B8800139015 /* WWMainMenuScreen.h */,
 				0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */,
 				0685C6841EB85B5900139015 /* WWMainMenuActiveList.h */,
+				0698817B1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp */,
+				0698817C1F03A02700C5230C /* WWmainMenuPlayConfirmation.h */,
 			);
 			path = WWMainMenu;
 			sourceTree = "<group>";
@@ -899,6 +904,7 @@
 				064EE7681ECFFF7100FD9331 /* WWBattleScreen.cpp in Sources */,
 				0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				0698817D1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp in Sources */,
 				0EFE7B671EC371580068A527 /* WWCommonUtilty.cpp in Sources */,
 				06ECB2F31EB6F79B004C6DB6 /* WWLandingScreen.cpp in Sources */,
 				06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */,

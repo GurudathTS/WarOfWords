@@ -24,6 +24,7 @@ using namespace cocos2d::ui;
 #include "json/document.h"
 
 #include "WWSettingPageLayer.h"
+#include "WWmainMenuPlayConfirmation.h"
 #include "WWPlayerInfo.h"
 #include "WWGameUtility.h"
 
@@ -36,6 +37,7 @@ private:
     Label* userNameLabel, *userDescriptionLabel;
     ScrollView *activeGameListScrollView;
      WWSettingsPannel* settingPannelLayer;
+    WWmainMenuPlayConfirmation* playConfirmationPopup;
     
     //Variable
     Size visibleSize;
@@ -70,13 +72,16 @@ private:
     void getAllActiveGamesDetail();
     void onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *response);
 
+    //Player Accept STatus
+    void updatePlayerAcceptStatus(bool pIsAccepted);
+    void onGetUpdateAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
     
     void sendPushNotificationToUserAPI();
     void onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
 
+    //Confirmation Popup
+    void addConfirmationPlayPopUp();
 
-
-    
 public:
     static cocos2d::Scene* createScene();
     virtual bool init()override;
@@ -85,6 +90,8 @@ public:
     
     //UI
     void addUI();
+    
+    void callbackFromConfirmationPopup(bool pIsConfirmed);
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWMainMenu);

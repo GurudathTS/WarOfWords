@@ -55,6 +55,7 @@ bool WWMainMenu::init()
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
     this->settingPannelLayer = nullptr;
+    this->playConfirmationPopup = nullptr;
     
     // Background
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
@@ -406,16 +407,12 @@ void WWMainMenu::onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpRes
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     
-    this->getGamesAPI();
-
 }
 
 
 #pragma mark - get All Active Games
 void WWMainMenu::getAllActiveGamesDetail()
 {
-    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
-    
     
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
@@ -427,7 +424,6 @@ void WWMainMenu::getAllActiveGamesDetail()
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
     request->setRequestType(HttpRequest::Type::GET);
-    
     
     request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetAllActiveGamesDetail, this));
     request->setTag("getAllActiveGames");
@@ -441,13 +437,78 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
     {
         return;
     }
+    
+    int statusCode = (int)response->getResponseCode();
+    if(statusCode == -1)
+    {
+        this->getAllActiveGamesDetail();
+        return;
+
+    }
+    
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
+    
+    //Check error code
+    int errorCodeNo = document["errorCode"].GetInt();
+    
+    if(errorCodeNo == 0)
+    {
+        int arraySize = document["games"].Size();
+        log("Array Size...... %d",arraySize);
+        if (arraySize > 0)
+        {
+            log("Opponent Player Requested...");
+            std::string _tChallengeId = document["games"][0]["challengeId"].GetString();
+            std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
+            std::string _tStatus = document["games"][0]["status"].GetString();
+            
+            WWPlayerInfoRef->updateChallengeID(_tChallengeId);
+            WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
+            
+            if(_tStatus == "3")
+            {
+                
+                //Add Activity Indicator
+                this->addConfirmationPlayPopUp();
+            }
+            else if(_tStatus == "2")
+            {
+                Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+            }
+
+        }
+        else
+        {
+            this->getAllActiveGamesDetail();
+
+        }
+    }
+    
+    
 }
 
-#pragma mark - Get Games API
+void WWMainMenu::addConfirmationPlayPopUp()
+{
+    if(this->playConfirmationPopup == nullptr)
+    {
+        this->playConfirmationPopup = WWmainMenuPlayConfirmation::getConfirmationPopup();
+        this->playConfirmationPopup->setPosition(Vec2::ZERO);
+        this->addChild(this->playConfirmationPopup,100);
+        this->playConfirmationPopup->objref = this;
+    }
+}
 
-void WWMainMenu::getGamesAPI()
+void WWMainMenu::callbackFromConfirmationPopup(bool pIsConfirmed)
+{
+    this->playConfirmationPopup->removeFromParentAndCleanup(true);
+    this->playConfirmationPopup = nullptr;
+    
+    this->updatePlayerAcceptStatus(pIsConfirmed);
+}
+
+
+void WWMainMenu::updatePlayerAcceptStatus(bool pIsAccepted)
 {
     ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
     
@@ -455,25 +516,27 @@ void WWMainMenu::getGamesAPI()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    url=url+"getgame?";
-    
-    url=url+"id"+"="+WWDatamanager::sharedManager()->getUserId()+"&";
-    
+    url=url+"updateplay?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     
-    
+    if(pIsAccepted)
+        url=url+"&status"+"="+"2";
+    else
+        url=url+"&status"+"="+"0";
+
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
-    request->setRequestType(HttpRequest::Type::GET);
+    request->setRequestType(HttpRequest::Type::POST);
     
     
-    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetGamesAPIRequestCompleted, this));
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetUpdateAPIRequestCompleted, this));
     request->setTag("getuserdetails");
     HttpClient::getInstance()->send(request);
     request->release();
-
 }
-void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+
+void WWMainMenu::onGetUpdateAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
     if (!response)
     {
@@ -482,11 +545,15 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     
-    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
-
-
+    log("..........Get Games Detail.......");
+    ActivtyIndicator::PopIfActiveFromScene(this);
+    
+    int errorCodeNo = document["errorCode"].GetInt();
+    if(errorCodeNo == 0)
+    {
+        this->getAllActiveGamesDetail();
+    }
 }
-
 
 void WWMainMenu::sendPushNotificationToUserAPI()
 {
@@ -539,7 +606,4 @@ void WWMainMenu::onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sen
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     
-    this->getGamesAPI();
-
- 
 }

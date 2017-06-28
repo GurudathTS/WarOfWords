@@ -154,9 +154,9 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
     
     //    challengeId= [[userInfo objectForKey:@"challengeId"]integerValue];
     //    bool isResigned= [[userInfo objectForKey:@"isResigned"]boolValue];
-    NSDictionary *  dict = [userInfo valueForKey:@"aps"];
-    NSDictionary * alertDict = [dict valueForKey:@"alert"];
-    NSDictionary * locArgsDict = [alertDict valueForKey:@"loc-args"];
+//    NSDictionary *  dict = [userInfo valueForKey:@"aps"];
+//    NSDictionary * alertDict = [dict valueForKey:@"alert"];
+//    NSDictionary * locArgsDict = [alertDict valueForKey:@"loc-args"];
     
 //    bool isPlayerLogedIn= UserDefault::getInstance()->getBoolForKey("IsPlayerLogedIn",false);
 //    

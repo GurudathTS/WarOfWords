@@ -150,6 +150,21 @@ void WWPlayerInfo::updateOpponentHealthBar(std::string pHealthBar)
     _mOpponentUserHealthBar = pHealthBar;
 }
 
+void WWPlayerInfo::updateOpponentUserID(std::string pUserId)
+{
+    _mOpponentUserId = pUserId;
+}
+
+void WWPlayerInfo::updateChallengeID(std::string pChallengeId)
+{
+    _mChallengeId = pChallengeId;
+}
+
+void WWPlayerInfo::updateTurnUserID(std::string pTurnUserID)
+{
+    _mturnUserId = pTurnUserID;
+}
+
 
 void WWPlayerInfo::loadOpponentProfileURL()
 {

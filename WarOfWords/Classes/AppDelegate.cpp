@@ -4,6 +4,8 @@
 #include "WWLandingScreen.h"
 #include "WWMainMenuScreen.h"
 #include "WWDatamanager.h"
+#include "WWGameScene.h"
+
 USING_NS_CC;
 using namespace std;
 
@@ -87,11 +89,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     else
     {
-        
         scene = WWLandingScreen::createScene();
-
-
     }
+    //scene = WWGameScene::createScene();
     
 
     // run

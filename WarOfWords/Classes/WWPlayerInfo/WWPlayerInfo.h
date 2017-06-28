@@ -51,6 +51,9 @@ public:
     void updateOpponentUserName(std::string pUserName);
     void updateOpponentProfilePicture(std::string pProfilePictureUrl);
     void updateOpponentHealthBar(std::string pHealthBar);
+    void updateOpponentUserID(std::string pUserId);
+    void updateChallengeID(std::string pChallengeId);
+    void updateTurnUserID(std::string pTurnUserID);
     
     //Current User
     CC_SYNTHESIZE_READONLY(std::string, _mCurrentUserName, CurrentUserName);
@@ -65,6 +68,10 @@ public:
     CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserProfilePtcture, OpponentUserProfilePtcture);
     CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserHealthBar, OpponentUserHealthBar);
     CC_SYNTHESIZE_READONLY(std::string, _mOpponentUserId, OpponentUserID);
+
+    CC_SYNTHESIZE_READONLY(std::string, _mChallengeId, ChallengeID);
+    CC_SYNTHESIZE_READONLY(std::string, _mturnUserId, TurnUserID);
+
 
     CC_SYNTHESIZE_READONLY(Texture2D*, _mOpponentProfilePictureTexture, OpponentProfilePictureTexture);
     

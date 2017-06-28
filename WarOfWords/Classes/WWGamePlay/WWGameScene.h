@@ -15,6 +15,19 @@
 #include <vector>
 #include <string>
 #include "WWPowerUpSprite.h"
+#include "WWPlayerInfo.h"
+
+
+#include "extensions/cocos-ext.h"
+using namespace cocos2d::extension;
+using namespace cocos2d::network;
+using namespace cocos2d::ui;
+
+#include "json/rapidjson.h"
+#include "json/filestream.h"
+#include "json/document.h"
+
+#include "WWGameUtility.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -25,6 +38,7 @@ public:
     static cocos2d::Scene* createScene();
     
     virtual bool init();
+    void initGameScene();
     
     //Variable
     Size visibleSize;
@@ -39,12 +53,15 @@ public:
     vector<std::string> pEightPointArray;
     vector<std::string> pTenPointArray;
     
+    vector<std::string> pAllAlphabetsArray;
+    
     Vector<WWAlphabetSprite*> pTotalGridAlphabet;
     Vector<WWAlphabetSprite*> currentSelectedStr;
     
     //Init
     void initializeAlphabets();
     void createAlphabetGridArray();
+    int  getAlphabetValue(std::string pAlphabet);
     void createCustomAlphabet(int currentAlphabetVal , std::string pCurrentStr);
     float createGrid();
     int currentGridRefvalue;
@@ -77,6 +94,14 @@ public:
     
     //Power Up
     void createPowerUpIcon();
+    
+    //Http request
+    void sendAlphabetDetailtoServer();
+    void onSentAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response);
+    void getAlphabetDetailtoServer();
+    void onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response);
+    void createAlphabetFromServer(std::string pAlphabetStr);
+    
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWGameScene);

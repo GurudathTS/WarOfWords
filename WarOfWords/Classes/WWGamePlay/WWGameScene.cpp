@@ -12,6 +12,9 @@
 #include "WWSocialManager.h"
 #include "WWSocialFriendDetail.h"
 #include "WWPlayerInfo.h"
+#include "WWCommonUtilty.h"
+#include "WWGameConstant.h"
+#include "WWDatamanager.h"
 
 USING_NS_CC;
 
@@ -58,9 +61,24 @@ bool WWGameScene::init()
     WWObjectiveCCalls::loadDictionary(_tDictionarypath);
    
     
+    if(WWPlayerInfoRef->getTurnUserID() == WWPlayerInfoRef->getCurrentUserID())
+    {
+        this->initGameScene();
+    }
+    else
+    {
+        this->getAlphabetDetailtoServer();
+    }
+    
+    
+    return true;
+}
+
+void WWGameScene::initGameScene()
+{
     //Initialize Alphabets
     this->initializeAlphabets();
-
+    
     //Create Alphabets Grid
     this->createAlphabetGridArray();
     this->createAlphabetGridArray();
@@ -78,7 +96,8 @@ bool WWGameScene::init()
     //UI
     this->addUI(yPos);
     
-    return true;
+    //Send Alphabet Detail to Server
+    this->sendAlphabetDetailtoServer();
 }
 
 #pragma mark - UI
@@ -174,83 +193,75 @@ void WWGameScene::addUI(float pYpos)
 #pragma mark - Initialize
 void WWGameScene::initializeAlphabets()
 {
-    //Create 1st point Array
-    pOnePointArray.push_back("A");
-    pOnePointArray.push_back("E");
-    pOnePointArray.push_back("I");
-    pOnePointArray.push_back("O");
-    pOnePointArray.push_back("U");
-    pOnePointArray.push_back("L");
-    pOnePointArray.push_back("R");
-    pOnePointArray.push_back("N");
-    pOnePointArray.push_back("S");
-    pOnePointArray.push_back("T");
+    pAllAlphabetsArray.push_back("A");
+    pAllAlphabetsArray.push_back("B");
+    pAllAlphabetsArray.push_back("C");
+    pAllAlphabetsArray.push_back("D");
+    pAllAlphabetsArray.push_back("E");
+    pAllAlphabetsArray.push_back("F");
+    pAllAlphabetsArray.push_back("G");
+    pAllAlphabetsArray.push_back("H");
+    pAllAlphabetsArray.push_back("I");
+    pAllAlphabetsArray.push_back("J");
+    pAllAlphabetsArray.push_back("K");
+    pAllAlphabetsArray.push_back("L");
+    pAllAlphabetsArray.push_back("M");
+    pAllAlphabetsArray.push_back("N");
+    pAllAlphabetsArray.push_back("O");
+    pAllAlphabetsArray.push_back("P");
+    pAllAlphabetsArray.push_back("Q");
+    pAllAlphabetsArray.push_back("R");
+    pAllAlphabetsArray.push_back("S");
+    pAllAlphabetsArray.push_back("T");
+    pAllAlphabetsArray.push_back("U");
+    pAllAlphabetsArray.push_back("V");
+    pAllAlphabetsArray.push_back("W");
+    pAllAlphabetsArray.push_back("X");
+    pAllAlphabetsArray.push_back("Y");
+    pAllAlphabetsArray.push_back("Z");
     
-    //2Nd
-    pTwoPointArray.push_back("D");
-    pTwoPointArray.push_back("G");
-    
-    //3Rd
-    pThreePointArray.push_back("B");
-    pThreePointArray.push_back("C");
-    pThreePointArray.push_back("M");
-    pThreePointArray.push_back("P");
-    
-    //4rth
-    pFourPointArray.push_back("F");
-    pFourPointArray.push_back("H");
-    pFourPointArray.push_back("V");
-    pFourPointArray.push_back("W");
-    pFourPointArray.push_back("Y");
-    
-    //5th
-    pFivePointArray.push_back("K");
+}
 
-    //6th
-    pEightPointArray.push_back("J");
-    pEightPointArray.push_back("X");
+int WWGameScene::getAlphabetValue(std::string pAlphabet)
+{
+   if(pAlphabet == "A" || pAlphabet == "E" || pAlphabet == "I" || pAlphabet == "O" || pAlphabet == "U"|| pAlphabet == "L" || pAlphabet == "R" || pAlphabet == "N" || pAlphabet == "S" || pAlphabet == "T")
+   {
+       return  1;
+   }
+    else if(pAlphabet == "D" || pAlphabet == "G")
+    {
+        return  2;
+    }
+    else if(pAlphabet == "B" || pAlphabet == "C" || pAlphabet == "M" || pAlphabet == "P")
+    {
+        return  3;
+    }
+    else if(pAlphabet == "F" || pAlphabet == "H" || pAlphabet == "V" || pAlphabet == "W" || pAlphabet == "Y")
+    {
+        return  4;
+    }
+    else if(pAlphabet == "K")
+    {
+        return  5;
+    }
+    else if(pAlphabet == "J" || pAlphabet == "X")
+    {
+        return  8;
+    }
+    else if(pAlphabet == "Q" || pAlphabet == "Z")
+    {
+        return  10;
+    }
     
-    //7th
-    pTenPointArray.push_back("Q");
-    pTenPointArray.push_back("Z");
-    
+    return 0;
 }
 
 void WWGameScene::createAlphabetGridArray()
 {
-    for(auto alphabet : pOnePointArray)
+    for(auto alphabet : pAllAlphabetsArray)
     {
-        this->createCustomAlphabet(1, alphabet);
-    }
-    
-    for(auto alphabet1 : pTwoPointArray)
-    {
-        this->createCustomAlphabet(2, alphabet1);
-    }
-    
-    for(auto alphabet2 : pThreePointArray)
-    {
-        this->createCustomAlphabet(3, alphabet2);
-    }
-    
-    for(auto alphabet3 : pFourPointArray)
-    {
-        this->createCustomAlphabet(4, alphabet3);
-    }
-    
-    for(auto alphabet4 : pFivePointArray)
-    {
-        this->createCustomAlphabet(5, alphabet4);
-    }
-    
-    for(auto alphabet5 : pEightPointArray)
-    {
-        this->createCustomAlphabet(8, alphabet5);
-    }
-    
-    for(auto alphabet6 : pTenPointArray)
-    {
-        this->createCustomAlphabet(10, alphabet6);
+        int alphabetvalue = this->getAlphabetValue(alphabet);
+        this->createCustomAlphabet(alphabetvalue, alphabet);
     }
 }
 
@@ -481,4 +492,125 @@ void WWGameScene::updateTimerLabel()
 void WWGameScene::updateFunc(float dt)
 {
     this->updateTimerLabel();
+}
+
+
+#pragma mark - Send Game Data to Server
+void WWGameScene::sendAlphabetDetailtoServer()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    std::string _tFullAlphabetStr = "";
+    for (int i = 0; i < this->pTotalGridAlphabet.size(); i++)
+    {
+        WWAlphabetSprite* alphaBetSpr = this->pTotalGridAlphabet.at(i);
+        _tFullAlphabetStr = _tFullAlphabetStr + alphaBetSpr->currentAlphabet->getString();
+    }
+    
+    log("......... _tFullAlphabetStr ........ %s",_tFullAlphabetStr.c_str());
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"savegame?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&gameConfig"+"="+_tFullAlphabetStr;
+    url=url+"&status"+"="+"2";
+
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::POST);
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onSentAlphabetRequestCompleted, this));
+    request->setTag("saveGameData");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWGameScene::onSentAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    ActivtyIndicator::PopIfActiveFromScene(this);
+    log("..........On Save Completed.......");
+}
+
+void WWGameScene::getAlphabetDetailtoServer()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getgame?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onGetAlphabetRequestCompleted, this));
+    request->setTag("getGameData");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+
+    log("..........On Save Completed.......");
+    
+    //Check error code
+    int errorCodeNo = document["errorCode"].GetInt();
+    
+    if(errorCodeNo == 0)
+    {
+        std::string _tAlphabetStr = document["game"]["gameConfig"].GetString();
+        this->createAlphabetFromServer(_tAlphabetStr);
+        
+    }
+    else
+    {
+        this->getAlphabetDetailtoServer();
+    }
+}
+
+void WWGameScene::createAlphabetFromServer(std::string pAlphabetStr)
+{
+    for (int i = 0; i < pAlphabetStr.length(); i++)
+    {
+        std::string pStringStr = pAlphabetStr.substr(i,1);
+        pAllAlphabetsArray.push_back(pStringStr);
+    }
+    
+    this->createAlphabetGridArray();
+    
+    //Shuffle Array
+    pTotalGridAlphabet = this->shuffleArray(pTotalGridAlphabet);
+    log("........ Array Count............ %zd",pTotalGridAlphabet.size());
+    
+    float yPos = this->createGrid();
+    
+    //Power Up
+    this->createPowerUpIcon();
+    
+    //UI
+    this->addUI(yPos);
+    
+    //Send Alphabet Detail to Server
+    this->sendAlphabetDetailtoServer();
 }

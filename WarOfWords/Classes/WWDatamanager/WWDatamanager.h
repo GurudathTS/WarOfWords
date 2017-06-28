@@ -33,12 +33,7 @@ public:
     
     //UserName
     void setUserName(std::string userId);
-    std::string getUserName();
-    
-    
-
-    
-    
+    std::string getUserName();    
     
     std::string _forgotPasswordEmailId;
     

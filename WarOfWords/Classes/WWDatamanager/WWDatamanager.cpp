@@ -51,7 +51,6 @@ void WWDatamanager::setAPIKey(std::string apiKey)
 }
 
 #pragma mark - API key
-
 void WWDatamanager::setUserId(std::string userId)
 {
     UserDefault::getInstance()->setStringForKey("UserId", userId);
