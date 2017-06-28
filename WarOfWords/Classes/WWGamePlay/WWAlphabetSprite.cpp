@@ -9,6 +9,7 @@
 #include "WWAlphabetSprite.h"
 #include "WWGameScene.h"
 #include "WWGameConstant.h"
+#include "WWObjectiveCCalls.h"
 
 #pragma mark - constructor,destructor
 WWAlphabetSprite::WWAlphabetSprite()
@@ -97,8 +98,9 @@ bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event
             isAlreadyPressed = true;
             this->objref->currentSelectedStr.pushBack(this);
         }
+        return true;
     }
-    return true;
+    return false;
 }
 
 void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event)
@@ -125,6 +127,31 @@ void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event
 
 void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+    if(this->objref->currentSelectedStr.size() > 3)
+    {
+        //loop array & Check Selected String
+        std::string _tSelectedStr = "";
+        for(WWAlphabetSprite* alphabetSpr : this->objref->currentSelectedStr)
+        {
+            if (alphabetSpr->isAlreadyPressed)
+            {
+                std::string _tCurStr = alphabetSpr->currentAlphabet->getString();
+                log("........ Current Alphabet Spr ..... %s",_tCurStr.c_str());
+                _tSelectedStr = _tSelectedStr + _tCurStr;
+            }
+        }
+        //Check if Word is present on Dictionary
+        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
+        {
+            this->objref->submitButton->setOpacity(255);
+            this->objref->submitButton->setEnabled(true);
+        }
+        else
+        {
+            this->objref->submitButton->setOpacity(100);
+            this->objref->submitButton->setEnabled(false);
+        }
+    }
     
 }
 

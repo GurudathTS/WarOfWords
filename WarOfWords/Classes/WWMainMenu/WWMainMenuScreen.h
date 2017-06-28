@@ -66,6 +66,9 @@ private:
     
     void getGamesAPI();
     void onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse *response);
+    
+    void getAllActiveGamesDetail();
+    void onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *response);
 
     
     void sendPushNotificationToUserAPI();

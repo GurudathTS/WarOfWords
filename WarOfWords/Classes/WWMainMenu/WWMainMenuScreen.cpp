@@ -154,12 +154,13 @@ void WWMainMenu::addUI()
     headerLabel->setPosition(Vec2(this->CommonPoupBg->getContentSize().width * 0.5,this->CommonPoupBg->getContentSize().height * 0.9));
     this->CommonPoupBg->addChild(headerLabel);
     
+    this->getAllActiveGamesDetail();
     this->addActiveGamesList();
 }
 
 void WWMainMenu::addActiveGamesList()
 {
-    int totalNoFriends = 3;
+    int totalNoFriends = 0;
     int offsetval = 5;
     int totalContentSize = (this->profileBackground->getContentSize().height + offsetval) * totalNoFriends;
     
@@ -345,6 +346,7 @@ void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpRes
     
     
     WWPlayerInfo::getInstance()->initializeUserInfo(name,id, thumbnail, "10");
+    this->userNameLabel->setString(WWPlayerInfoRef->getCurrentUserName());
     
     ActivtyIndicator::PopIfActiveFromScene(this);
 
@@ -408,6 +410,41 @@ void WWMainMenu::onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpRes
 
 }
 
+
+#pragma mark - get All Active Games
+void WWMainMenu::getAllActiveGamesDetail()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getgames?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetAllActiveGamesDetail, this));
+    request->setTag("getAllActiveGames");
+    HttpClient::getInstance()->send(request);
+    request->release();
+}
+
+void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+}
+
 #pragma mark - Get Games API
 
 void WWMainMenu::getGamesAPI()
@@ -418,7 +455,7 @@ void WWMainMenu::getGamesAPI()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    url=url+"getgames?";
+    url=url+"getgame?";
     
     url=url+"id"+"="+WWDatamanager::sharedManager()->getUserId()+"&";
     

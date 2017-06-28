@@ -88,6 +88,7 @@ void WWGameScene::addUI(float pYpos)
     resultSelectedStr = Label::createWithTTF("", "fonts/Marker Felt.ttf", 40);
     resultSelectedStr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.1 + origin.y));
     addChild(resultSelectedStr);
+    resultSelectedStr->setVisible(false);
     
     //Add battel
     auto* pbatterSpr = Sprite::create("UI/Logo-Icon.png");
@@ -159,8 +160,10 @@ void WWGameScene::addUI(float pYpos)
     
     
     //Submit Button
-    auto* submitButton = MenuItemImage::create("GameScene/SubmitBtn.png", "GameScene/SubmitBtn.png", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));
+    submitButton = MenuItemImage::create("GameScene/SubmitBtn.png", "GameScene/SubmitBtn.png", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));
     submitButton->setPosition(Vec2(visibleSize.width/2 + origin.x, pPointsColumn->getPositionY() - submitButton->getContentSize().height * 1.05));
+    submitButton->setOpacity(100);
+    submitButton->setEnabled(false);
     
     Menu* menubtn = Menu::create(submitButton, NULL);
     menubtn->setPosition(Vec2::ZERO);

@@ -24,8 +24,8 @@ WWPlayerInfo* WWPlayerInfo::getInstance()
 WWPlayerInfo::WWPlayerInfo()
 :_mDelegate(nullptr)
 {
-    initializeUserInfo("Gurudath","", "", "");
-    initializeOpponentinfo("Manjunath","", "", "");
+    initializeUserInfo("","", "", "");
+    initializeOpponentinfo("","", "", "");
 }
 
 WWPlayerInfo::~WWPlayerInfo()

@@ -63,6 +63,7 @@ public:
     void updateTimerLabel();
     
     //Submit
+    MenuItemImage* submitButton;
     void onSubmitClicked(Ref* sender);
     void onPowerUpClicked(Ref* sender);
     
