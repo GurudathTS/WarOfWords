@@ -610,4 +610,8 @@ void WWGameScene::createAlphabetFromServer(std::string pAlphabetStr)
     
     //UI
     this->addUI(yPos);
+    
+    //Remove Active Indicator
+    ActivtyIndicator::PopIfActiveFromScene(this);
+
 }
