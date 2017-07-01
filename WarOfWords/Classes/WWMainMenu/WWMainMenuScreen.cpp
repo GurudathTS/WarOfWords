@@ -369,20 +369,21 @@ void WWMainMenu::requestForPlayAPI()
     
     url=url+"play?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-
+    url=url+"&userId"+"="+WWPlayerInfo::getInstance()->getCurrentUserID();
+    url=url+"&opponentUserId"+"="+WWPlayerInfo::getInstance()->getOpponentUserID();
     
-   std:string postData = "";
-    postData = postData+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    
-    postData=postData+"&userId"+"="+WWPlayerInfo::getInstance()->getCurrentUserID();
-    
-    postData=postData+"&opponentUserId"+"="+WWPlayerInfo::getInstance()->getOpponentUserID();
-    
-    log("postData is %s",postData.c_str());
-    
-    // write the post data
-//    const char* postData = "apiKey=/"+WWDatamanager::sharedManager()->getAPIKey()+"/"+"&"+"userId"=Extensions Test/NetworkTest&opponentUserId=gfhh";
-    request->setRequestData(postData.c_str(), strlen(postData.c_str()));
+//   std:string postData = "";
+//    postData = postData+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+//    
+//    postData=postData+"&userId"+"="+WWPlayerInfo::getInstance()->getCurrentUserID();
+//    
+//    postData=postData+"&opponentUserId"+"="+WWPlayerInfo::getInstance()->getOpponentUserID();
+//    
+//    log("postData is %s",postData.c_str());
+//    
+//    // write the post data
+////    const char* postData = "apiKey=/"+WWDatamanager::sharedManager()->getAPIKey()+"/"+"&"+"userId"=Extensions Test/NetworkTest&opponentUserId=gfhh";
+//    request->setRequestData(postData.c_str(), strlen(postData.c_str()));
     
     
     
