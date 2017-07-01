@@ -600,7 +600,7 @@ void WWGameScene::createAlphabetFromServer(std::string pAlphabetStr)
     this->createAlphabetGridArray();
     
     //Shuffle Array
-    pTotalGridAlphabet = this->shuffleArray(pTotalGridAlphabet);
+    //pTotalGridAlphabet = this->shuffleArray(pTotalGridAlphabet);
     log("........ Array Count............ %zd",pTotalGridAlphabet.size());
     
     float yPos = this->createGrid();
@@ -610,7 +610,4 @@ void WWGameScene::createAlphabetFromServer(std::string pAlphabetStr)
     
     //UI
     this->addUI(yPos);
-    
-    //Send Alphabet Detail to Server
-    this->sendAlphabetDetailtoServer();
 }
