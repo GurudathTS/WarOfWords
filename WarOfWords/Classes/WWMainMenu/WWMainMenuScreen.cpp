@@ -418,10 +418,11 @@ void WWMainMenu::getAllActiveGamesDetail()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    url=url+"getgames?";
+    url=url+"getupdates?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    
-    
+    url=url+"&lastUpdatedDate"+"="+"";
+
+
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
     request->setRequestType(HttpRequest::Type::GET);
