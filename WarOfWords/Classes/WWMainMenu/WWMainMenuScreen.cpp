@@ -464,14 +464,18 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
             std::string _tStatus = document["games"][0]["status"].GetString();
             
+            std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
+            
             WWPlayerInfoRef->updateChallengeID(_tChallengeId);
             WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
             
             if(_tStatus == "3")
             {
-                
-                //Add Activity Indicator
-                this->addConfirmationPlayPopUp();
+                if(_tOpponentUserId == WWPlayerInfoRef->getCurrentUserID())
+                {
+                    //Add Activity Indicator
+                    this->addConfirmationPlayPopUp();
+                }
             }
             else if(_tStatus == "2")
             {
@@ -485,7 +489,6 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
 
         }
     }
-    
     
 }
 
