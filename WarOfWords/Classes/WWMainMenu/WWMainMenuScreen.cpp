@@ -482,6 +482,8 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             }
             else if(_tStatus == "2")
             {
+                HttpClient::getInstance()->destroyInstance();
+
                 Director::getInstance()->replaceScene(WWBattleScreen::createScene());
             }
 
@@ -517,6 +519,7 @@ void WWMainMenu::callbackFromConfirmationPopup(bool pIsConfirmed)
     
     if(pIsConfirmed)
     {
+        HttpClient::getInstance()->destroyInstance();
         Director::getInstance()->replaceScene(WWBattleScreen::createScene());
 
     }
