@@ -65,7 +65,7 @@
 - (void) startRequest:(NSURLRequest *)request
 {
 #ifdef COCOS2D_DEBUG
-    NSLog(@"Starting to load %@", srcURL);
+    //NSLog(@"Starting to load %@", srcURL);
 #endif
     
     finish = false;

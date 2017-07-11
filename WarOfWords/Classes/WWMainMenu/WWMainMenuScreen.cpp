@@ -248,7 +248,7 @@ http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&em
     
     request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetRamdomUserAPIRequestCompleted, this));
     request->setTag("getRandomuser");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
 
 }
@@ -320,7 +320,7 @@ void WWMainMenu::getUserDetailsAPI()
     
     request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetUserDetailsAPIRequestCompleted, this));
     request->setTag("getuserdetails");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
  
 }
@@ -351,7 +351,6 @@ void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpRes
     
     ActivtyIndicator::PopIfActiveFromScene(this);
 
-    
     
 
 }
@@ -394,7 +393,7 @@ void WWMainMenu::requestForPlayAPI()
     
     request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onRequestForPlayAPIRequestCompleted, this));
     request->setTag("play");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
     
 
@@ -414,13 +413,14 @@ void WWMainMenu::onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpRes
 #pragma mark - get All Active Games
 void WWMainMenu::getAllActiveGamesDetail()
 {
+    HttpClient::getInstance()->setTimeoutForRead(120);
     
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
     url=url+"getupdates?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    url=url+"&lastUpdatedDate"+"="+"";
+    
 
 
     request->setUrl(url);
@@ -437,9 +437,13 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
 {
     if (!response)
     {
+         this->getAllActiveGamesDetail();
         return;
     }
     
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+
     int statusCode = (int)response->getResponseCode();
     if(statusCode == -1)
     {
@@ -448,8 +452,6 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
 
     }
     
-    rapidjson::Document document;
-    WWGameUtility::getResponseBuffer(response, document);
     
     //Check error code
     int errorCodeNo = document["errorCode"].GetInt();
@@ -486,10 +488,12 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
         }
         else
         {
-            this->getAllActiveGamesDetail();
+          
 
         }
+        
     }
+      this->getAllActiveGamesDetail();
     
 }
 
@@ -510,6 +514,13 @@ void WWMainMenu::callbackFromConfirmationPopup(bool pIsConfirmed)
     this->playConfirmationPopup = nullptr;
     
     this->updatePlayerAcceptStatus(pIsConfirmed);
+    
+    if(pIsConfirmed)
+    {
+        Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+
+    }
+
 }
 
 
@@ -536,8 +547,8 @@ void WWMainMenu::updatePlayerAcceptStatus(bool pIsAccepted)
     
     
     request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetUpdateAPIRequestCompleted, this));
-    request->setTag("getuserdetails");
-    HttpClient::getInstance()->send(request);
+    request->setTag("updateplay");
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
 }
 
@@ -599,8 +610,6 @@ std:string postData = "";
     HttpClient::getInstance()->send(request);
     request->release();
     
-
-
 }
 void WWMainMenu::onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
 {

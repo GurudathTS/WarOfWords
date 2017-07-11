@@ -247,22 +247,22 @@ void WWForgotPasswordScreen::onClickOnSubmitBtn(Ref* pSender)
 #pragma mark - Editbox
 void WWForgotPasswordScreen::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
 {
-    log("editBox %p DidBegin !", editBox);
+  //  log("editBox %p DidBegin !", editBox);
 }
 
 void WWForgotPasswordScreen::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
 {
-    log("editBox %p DidEnd !", editBox);
+   // log("editBox %p DidEnd !", editBox);
 }
 
 void WWForgotPasswordScreen::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
-    log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
+   // log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
 }
 
 void WWForgotPasswordScreen::editBoxReturn(ui::EditBox* editBox)
 {
-    log("editBox %p was returned !",editBox);
+   // log("editBox %p was returned !",editBox);
 }
 #pragma mark - Submit emailAPI
 void WWForgotPasswordScreen::sumbitEmailApi()

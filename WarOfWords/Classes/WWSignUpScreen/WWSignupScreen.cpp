@@ -201,22 +201,22 @@ void WWSignUpScreen::onClickOnSignUp(Ref* pSender)
 #pragma mark - Editbox
 void WWSignUpScreen::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
 {
-    log("editBox %p DidBegin !", editBox);
+   // log("editBox %p DidBegin !", editBox);
 }
 
 void WWSignUpScreen::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
 {
-    log("editBox %p DidEnd !", editBox);
+   // log("editBox %p DidEnd !", editBox);
 }
 
 void WWSignUpScreen::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
-    log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
+    //log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
 }
 
 void WWSignUpScreen::editBoxReturn(ui::EditBox* editBox)
 {
-    log("editBox %p was returned !",editBox);
+  //  log("editBox %p was returned !",editBox);
 }
 
 #pragma mark - Data validation

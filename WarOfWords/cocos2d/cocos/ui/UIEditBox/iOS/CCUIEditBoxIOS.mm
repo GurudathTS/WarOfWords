@@ -338,7 +338,7 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView;
 {
-    CCLOG("textFieldShouldEndEditing...");
+   // CCLOG("textFieldShouldEndEditing...");
     _editState = NO;
     getEditBoxImplIOS()->refreshInactiveText();
     
@@ -419,7 +419,7 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)sender
 {
-    CCLOG("textFieldShouldEndEditing...");
+    //CCLOG("textFieldShouldEndEditing...");
     _editState = NO;
     const char* inputText = [sender.text UTF8String];
     
