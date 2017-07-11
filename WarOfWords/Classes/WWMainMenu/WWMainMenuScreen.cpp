@@ -466,11 +466,16 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             std::string _tChallengeId = document["games"][0]["challengeId"].GetString();
             std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
             std::string _tStatus = document["games"][0]["status"].GetString();
+            std::string _tOpponentUserName  = document["games"][0]["opponentName"].GetString();
+            std::string _tOppoentProfileImg  = document["games"][0]["opponentThumbnail"].GetString();
+
             
             std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
             
             WWPlayerInfoRef->updateChallengeID(_tChallengeId);
             WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
+            WWPlayerInfoRef->updateOpponentUserName(_tOpponentUserName);
+            WWPlayerInfoRef->updateOpponentProfilePicture(_tOppoentProfileImg);
             
             if(_tStatus == "3")
             {
