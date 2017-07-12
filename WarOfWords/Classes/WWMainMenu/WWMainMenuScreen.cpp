@@ -175,6 +175,8 @@ void WWMainMenu::addActiveGamesList()
     this->activeGameListScrollView->setContentOffset(Vec2(0, this->CommonPoupBg->getContentSize().height * 0.1));
     
     this->activeGameListScrollView->setContentSize(Size(this->profileBackground->getContentSize().width, totalContentSize));
+    this->activeGameListScrollView->setContentOffset(Vec2(0,this->activeGameListScrollView->minContainerOffset().y));
+    
     
     Vec2 startPos = Vec2(this->CommonPoupBg->getContentSize().width * 0.05, totalContentSize - this->profileBackground->getContentSize().height);
     
@@ -350,6 +352,7 @@ void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpRes
     this->userNameLabel->setString(WWPlayerInfoRef->getCurrentUserName());
     
     ActivtyIndicator::PopIfActiveFromScene(this);
+    this->getGamesAPI();
 
     
 
@@ -592,8 +595,9 @@ void WWMainMenu::getGamesAPI()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    url=url+"getgames?";
+    url=url+"getgame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     
     
     
@@ -611,7 +615,7 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
 {
     if (!response)
     {
-        this->getAllActiveGamesDetail();
+        this->getGamesAPI();
         return;
     }
     
@@ -621,11 +625,10 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
     int statusCode = (int)response->getResponseCode();
     if(statusCode == -1)
     {
-        this->getAllActiveGamesDetail();
+        this->getGamesAPI();
         return;
         
     }
-    
     
     //Check error code
     int errorCodeNo = document["errorCode"].GetInt();
@@ -636,42 +639,36 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
         log("Array Size...... %d",arraySize);
         if (arraySize > 0)
         {
-            log("Opponent Player Requested...");
-            std::string _tChallengeId = document["games"][0]["challengeId"].GetString();
-            std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
-            std::string _tStatus = document["games"][0]["status"].GetString();
+            //Update Scroll View
+            int totalNoFriends = arraySize;
+            int offsetval = 5;
+            int totalContentSize = (this->profileBackground->getContentSize().height + offsetval) * totalNoFriends;
             
+             this->activeGameListScrollView->setContentSize(Size(this->profileBackground->getContentSize().width, totalContentSize));
+            this->activeGameListScrollView->setContentOffset(Vec2(0,this->activeGameListScrollView->minContainerOffset().y));
+
             
-            std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
+            Vec2 startPos = Vec2(this->CommonPoupBg->getContentSize().width * 0.05, totalContentSize - this->profileBackground->getContentSize().height);
             
-            //WWPlayerInfoRef->updateChallengeID(_tChallengeId);
-            //WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
-            
-            
-            if(_tStatus == "3")
+            for (int i=0; i<totalNoFriends; i++)
             {
-                if(_tOpponentUserId == WWPlayerInfoRef->getCurrentUserID())
-                {
-                    std::string _tOpponentUserName  = document["games"][0]["opponentName"].GetString();
-                    std::string _tOppoentProfileImg  = document["games"][0]["opponentThumbnail"].GetString();
-                    
-                    WWPlayerInfoRef->updateOpponentUserName(_tOpponentUserName);
-                    WWPlayerInfoRef->updateOpponentProfilePicture(_tOppoentProfileImg);
-                    
-                    //Add Activity Indicator
-                    this->addConfirmationPlayPopUp();
-                }
+                std::string _tOpponentUserName  = document["games"][i]["opponentName"].GetString();
+                std::string _tOppoentProfileImg  = document["games"][i]["opponentThumbnail"].GetString();
+                
+                //Create Game List
+                MainMenuActiveList* activeList1 = MainMenuActiveList::create();
+                activeList1->setContentSize(Size(this->profileBackground->getContentSize().width, this->profileBackground->getContentSize().height));
+                activeList1->setPosition(Vec2(startPos.x,startPos.y));
+                this->activeGameListScrollView->addChild(activeList1);
+                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges");
+                startPos.y = startPos.y - this->profileBackground->getContentSize().height - offsetval;
             }
-            
         }
         else
         {
             
-            
         }
-        
     }
-    
 }
 
 
