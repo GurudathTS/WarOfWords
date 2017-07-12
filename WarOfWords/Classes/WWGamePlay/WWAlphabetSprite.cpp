@@ -10,6 +10,7 @@
 #include "WWGameScene.h"
 #include "WWGameConstant.h"
 #include "WWObjectiveCCalls.h"
+#include "WWPlayerInfo.h"
 
 #pragma mark - constructor,destructor
 WWAlphabetSprite::WWAlphabetSprite()
@@ -80,6 +81,10 @@ void WWAlphabetSprite::updatedGridReferenceValue(int pGridrefVal)
 #pragma mark - touches
 bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+    
+    if(WWPlayerInfoRef->getCurrentUserID() != WWPlayerInfoRef->getTurnUserID())
+        return false;
+    
     auto ptouchLocation = touch->getLocation();
     if (this->getBoundingBox().containsPoint(ptouchLocation))
     {
