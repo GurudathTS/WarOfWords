@@ -50,6 +50,7 @@ bool WWGameScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
     this->currentGridRefvalue = 0;
+    this->_mUpdatedString = "";
     
     // Background
     auto backgroundSpr = Sprite::create("UI/Background.png");
@@ -327,7 +328,8 @@ void WWGameScene::onSubmitClicked(Ref* sender)
     }
 
     log("..... Selected Str ..... %s",_tSelectedStr.c_str());
-    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
+    bool _tTest = true;
+    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
     {
         log("..................... Dictionary present......................");
         std::string alphaVal = toString(totalScore);
@@ -355,14 +357,18 @@ void WWGameScene::onPowerUpClicked(Ref* sender)
 #pragma mark - reset Animation
 void WWGameScene::resetGrid()
 {
+    this->_mUpdatedString = "";
+    
     //loop array
     for(WWAlphabetSprite* alphabetSpr : currentSelectedStr)
         alphabetSpr->resetSprite();
-
-    auto* sequenceAct = Sequence::create(DelayTime::create(2),CallFunc::create( CC_CALLBACK_0(WWGameScene::resetgameAfterSomeTime,this)), NULL);
+    
+    auto* sequenceAct = Sequence::create(DelayTime::create(2),CallFunc::create( CC_CALLBACK_0(WWGameScene::updateAlphabetDetailtoServer,this)),CallFunc::create( CC_CALLBACK_0(WWGameScene::resetgameAfterSomeTime,this)), NULL);
     this->runAction(sequenceAct);
     
 }
+
+
 
 void WWGameScene::resetgameAfterSomeTime()
 {
@@ -549,7 +555,7 @@ void WWGameScene::getAlphabetDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    url=url+"getgame?";
+    url=url+"getupdates?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     
@@ -579,9 +585,19 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
     
     if(errorCodeNo == 0)
     {
+        //Check Status
+        std::string _tStatus = document["games"]["status"].GetString();
         std::string _tAlphabetStr = document["game"]["gameConfig"].GetString();
-        this->createAlphabetFromServer(_tAlphabetStr);
-        
+        if(_tStatus == "4")
+        {
+            //Update Alphabet
+            this->updateAlphabetFromServer(_tAlphabetStr);
+        }
+        else
+        {
+            this->createAlphabetFromServer(_tAlphabetStr);
+        }
+
     }
     else
     {
@@ -614,4 +630,96 @@ void WWGameScene::createAlphabetFromServer(std::string pAlphabetStr)
     //Remove Active Indicator
     ActivtyIndicator::PopIfActiveFromScene(this);
 
+}
+
+#pragma mark - Update Game Detail
+void WWGameScene::updateAlphabetDetailtoServer()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    log("......... _tFullAlphabetStr ........ %s",this->_mUpdatedString.c_str());
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"savegame?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
+    url=url+"&status"+"="+"4";   //    //Status 4 means Update
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::POST);
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onUpdateAlphabetRequestCompleted, this));
+    request->setTag("saveGameData");
+    HttpClient::getInstance()->send(request);
+    request->release();
+    
+}
+void WWGameScene::onUpdateAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        return;
+    }
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    ActivtyIndicator::PopIfActiveFromScene(this);
+    log("..........On Update Completed.......");
+}
+
+void WWGameScene::updateAlphabetFromServer(std::string pAlphabetStr)
+{
+    
+    //Seperate String From Delimter
+    vector<std::string> spliStr = this->split(pAlphabetStr, '/');
+    
+    for (int i = 0; i < spliStr.size(); i++)
+    {
+        std::string pStringStr = spliStr.at(i);
+        int gridRefVal = stoi(pStringStr);
+        if (this->has_only_digits(pStringStr))
+        {
+            if((i + 1) < spliStr.size())
+            {
+                std::string pNextStr = spliStr.at(i+1);
+                
+                //loop array
+                for(WWAlphabetSprite* alphabetSpr : pTotalGridAlphabet)
+                {
+                    if (alphabetSpr->gridRefValue == gridRefVal) {
+                        
+                        alphabetSpr->updateSprite(pNextStr);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    auto* sequenceAct = Sequence::create(DelayTime::create(2),CallFunc::create( CC_CALLBACK_0(WWGameScene::resetgameAfterSomeTime,this)), NULL);
+    this->runAction(sequenceAct);
+
+    //Remove Active Indicator
+    ActivtyIndicator::PopIfActiveFromScene(this);
+    
+}
+
+bool WWGameScene::has_only_digits(const std::string s){
+    
+    return s.find_first_not_of( "0123456789" ) == std::string::npos;
+}
+
+vector<std::string> WWGameScene::split(const string &s, char delim) {
+    stringstream ss(s);
+    string item;
+    vector<string> tokens;
+    while (getline(ss, item, delim)) {
+        tokens.push_back(item);
+    }
+    return tokens;
 }

@@ -65,6 +65,7 @@ public:
     void createCustomAlphabet(int currentAlphabetVal , std::string pCurrentStr);
     float createGrid();
     int currentGridRefvalue;
+    std::string _mUpdatedString;
     
     //Score
     Label* currentScore;
@@ -101,6 +102,13 @@ public:
     void getAlphabetDetailtoServer();
     void onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response);
     void createAlphabetFromServer(std::string pAlphabetStr);
+    void updateAlphabetDetailtoServer();
+    void onUpdateAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response);
+    void updateAlphabetFromServer(std::string pAlphabetStr);
+    
+    //Utility
+    bool has_only_digits(const std::string s);
+    vector<string> split(const string &s, char delim);
     
     
     // implement the "static create()" method manually

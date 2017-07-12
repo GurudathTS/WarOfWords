@@ -141,12 +141,12 @@ void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event
             if (alphabetSpr->isAlreadyPressed)
             {
                 std::string _tCurStr = alphabetSpr->currentAlphabet->getString();
-                log("........ Current Alphabet Spr ..... %s",_tCurStr.c_str());
                 _tSelectedStr = _tSelectedStr + _tCurStr;
             }
         }
         //Check if Word is present on Dictionary
-        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
+         bool _tTest = true;
+        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
         {
             this->objref->submitButton->setOpacity(255);
             this->objref->submitButton->setEnabled(true);
@@ -225,7 +225,7 @@ void WWAlphabetSprite::removeSetOfLetterFromArray()
             remainingAlphabetArray.pushBack(pRefSpr);
         }
         
-        for (int index = currentIndex + 1; index < this->objref->currentSelectedStr.size(); index ++ )
+        for (int index = ((int)currentIndex + 1); index < this->objref->currentSelectedStr.size(); index ++ )
         {
             WWAlphabetSprite* pRefSprChange = this->objref->currentSelectedStr.at(index);
             pRefSprChange->resetSpriteAfterLost();
@@ -245,11 +245,28 @@ void WWAlphabetSprite::resetSprite()
     isAlreadyPressed = false;
     
     //fade off Action
-    auto* fadeoffAction = FadeTo::create(0.5, 0);
+    auto* fadeoffAction = FadeTo::create(0.25, 0);
     this->currentAlphabet->runAction(fadeoffAction);
     this->currentAlphabetValLabel->runAction(fadeoffAction->clone());
     
-    auto* sequenceAct = Sequence::create(DelayTime::create(0.5),CallFunc::create( CC_CALLBACK_0(WWAlphabetSprite::createRandomAlphabet,this)), NULL);
+    auto* sequenceAct = Sequence::create(DelayTime::create(0.25),CallFunc::create( CC_CALLBACK_0(WWAlphabetSprite::createRandomAlphabet,this)), NULL);
+    this->runAction(sequenceAct);
+    
+}
+
+void WWAlphabetSprite::updateSprite(std::string pStr)
+{
+    //this->setTexture("square.png");
+    //spriteLayer->setColor(getColorValue(FC_GAME_TILES_2_DARK));
+    this->setTexture("GameScene/LetterBox01.png");
+    isAlreadyPressed = false;
+    
+    //fade off Action
+    auto* fadeoffAction = FadeTo::create(0.25, 0);
+    this->currentAlphabet->runAction(fadeoffAction);
+    this->currentAlphabetValLabel->runAction(fadeoffAction->clone());
+    
+    auto* sequenceAct = Sequence::create(DelayTime::create(0.25),CallFunc::create( CC_CALLBACK_0(WWAlphabetSprite::updateRandomAlphabet,this,pStr)), NULL);
     this->runAction(sequenceAct);
     
 }
@@ -277,8 +294,36 @@ void WWAlphabetSprite::createRandomAlphabet()
     
 }
 
+void WWAlphabetSprite::updateRandomAlphabet(std::string pAlphabet)
+{
+    int randomAlphabetval;
+    std::string randomAlphabetStr = "";
+    
+    randomAlphabetStr = pAlphabet;
+    randomAlphabetval = this->objref->getAlphabetValue(randomAlphabetStr);
+    
+    //get Random Alphabet
+    alphabetValue = randomAlphabetval;
+    currentAlphabet->setString(randomAlphabetStr);
+    
+    std::string alphaVal = toString(randomAlphabetval);
+    currentAlphabetValLabel->setString(alphaVal);
+    
+    //fade off Action
+    auto* fadeoffAction = FadeTo::create(0.5, 255);
+    this->currentAlphabet->runAction(fadeoffAction);
+    this->currentAlphabetValLabel->runAction(fadeoffAction->clone());
+    
+}
+
 void WWAlphabetSprite::updateNewAlphabet(int currentAlphabetVal , std::string pCurrentStr)
 {
+    //First Gridref & Updated Alphabet
+    this->objref->_mUpdatedString = this->objref->_mUpdatedString + NumToString(this->gridRefValue);
+    this->objref->_mUpdatedString = this->objref->_mUpdatedString + "/";
+    this->objref->_mUpdatedString = this->objref->_mUpdatedString + pCurrentStr;
+
+    
     //get Random Alphabet
     alphabetValue = currentAlphabetVal;
     currentAlphabet->setString(pCurrentStr);

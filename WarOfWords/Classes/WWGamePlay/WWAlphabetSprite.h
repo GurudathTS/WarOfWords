@@ -16,6 +16,14 @@ using namespace cocos2d;
 
 class WWGameScene;
 
+template<typename T> std::string NumToString(T t) {
+    // to_string() prints different numbers of digits for floats depending on
+    // platform and isn't available on Android, so we use stringstream
+    std::stringstream ss;
+    ss << t;
+    return ss.str();
+}
+
 class WWAlphabetSprite:public Sprite
 {
 public:
@@ -47,6 +55,10 @@ public:
     
     void checkIfCurrentCellNearToPreviousSeelctedCell();
     void removeSetOfLetterFromArray();
+    
+    //Update
+    void updateRandomAlphabet(std::string pAlphabet);
+    void updateSprite(std::string pStr);
     
     //touches
     bool onTouchBegan(Touch* touch, Event* event);
