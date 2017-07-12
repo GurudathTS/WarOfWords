@@ -304,17 +304,17 @@ void WWLoginScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *re
 #pragma mark - Editbox
 void WWLoginScreen::editBoxEditingDidBegin(cocos2d::ui::EditBox* editBox)
 {
-    log("editBox %p DidBegin !", editBox);
+    //log("editBox %p DidBegin !", editBox);
 }
 
 void WWLoginScreen::editBoxEditingDidEnd(cocos2d::ui::EditBox* editBox)
 {
-    log("editBox %p DidEnd !", editBox);
+    //log("editBox %p DidEnd !", editBox);
 }
 
 void WWLoginScreen::editBoxTextChanged(cocos2d::ui::EditBox* editBox, const std::string& text)
 {
-    log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
+  //  log("editBox %p TextChanged, text: %s ", editBox, text.c_str());
 }
 
 void WWLoginScreen::editBoxReturn(ui::EditBox* editBox)

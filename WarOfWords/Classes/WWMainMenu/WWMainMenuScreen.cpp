@@ -535,7 +535,7 @@ void WWMainMenu::callbackFromConfirmationPopup(bool pIsConfirmed)
 
 }
 
-
+#pragma mark - Update Player
 void WWMainMenu::updatePlayerAcceptStatus(bool pIsAccepted)
 {
     ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
@@ -582,6 +582,98 @@ void WWMainMenu::onGetUpdateAPIRequestCompleted(HttpClient *sender, HttpResponse
         this->getAllActiveGamesDetail();
     }
 }
+
+
+#pragma mark - Get Games First Time
+void WWMainMenu::getGamesAPI()
+{
+    HttpClient::getInstance()->setTimeoutForRead(120);
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getgames?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetGamesAPIRequestCompleted, this));
+    request->setTag("getgames");
+    HttpClient::getInstance()->send(request);
+    request->release();
+
+}
+void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
+{
+    if (!response)
+    {
+        this->getAllActiveGamesDetail();
+        return;
+    }
+    
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    int statusCode = (int)response->getResponseCode();
+    if(statusCode == -1)
+    {
+        this->getAllActiveGamesDetail();
+        return;
+        
+    }
+    
+    
+    //Check error code
+    int errorCodeNo = document["errorCode"].GetInt();
+    
+    if(errorCodeNo == 0)
+    {
+        int arraySize = document["games"].Size();
+        log("Array Size...... %d",arraySize);
+        if (arraySize > 0)
+        {
+            log("Opponent Player Requested...");
+            std::string _tChallengeId = document["games"][0]["challengeId"].GetString();
+            std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
+            std::string _tStatus = document["games"][0]["status"].GetString();
+            
+            
+            std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
+            
+            //WWPlayerInfoRef->updateChallengeID(_tChallengeId);
+            //WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
+            
+            
+            if(_tStatus == "3")
+            {
+                if(_tOpponentUserId == WWPlayerInfoRef->getCurrentUserID())
+                {
+                    std::string _tOpponentUserName  = document["games"][0]["opponentName"].GetString();
+                    std::string _tOppoentProfileImg  = document["games"][0]["opponentThumbnail"].GetString();
+                    
+                    WWPlayerInfoRef->updateOpponentUserName(_tOpponentUserName);
+                    WWPlayerInfoRef->updateOpponentProfilePicture(_tOppoentProfileImg);
+                    
+                    //Add Activity Indicator
+                    this->addConfirmationPlayPopUp();
+                }
+            }
+            
+        }
+        else
+        {
+            
+            
+        }
+        
+    }
+    
+}
+
 
 void WWMainMenu::sendPushNotificationToUserAPI()
 {
