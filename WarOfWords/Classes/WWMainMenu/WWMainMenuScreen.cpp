@@ -468,6 +468,7 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             log("Opponent Player Requested...");
             std::string _tChallengeId = document["games"][0]["challengeId"].GetString();
             std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
+            std::string userId = document["games"][0]["userId"].GetString();
             std::string _tStatus = document["games"][0]["status"].GetString();
             
 
@@ -480,7 +481,7 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             
             if(_tStatus == "3")
             {
-                if(_tOpponentUserId == WWPlayerInfoRef->getCurrentUserID())
+                if(userId == WWPlayerInfoRef->getCurrentUserID())
                 {
                     std::string _tOpponentUserName  = document["games"][0]["opponentName"].GetString();
                     std::string _tOppoentProfileImg  = document["games"][0]["opponentThumbnail"].GetString();
