@@ -595,9 +595,9 @@ void WWMainMenu::getGamesAPI()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    url=url+"getgame?";
+    url=url+"getgames?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    //url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     
     
     
