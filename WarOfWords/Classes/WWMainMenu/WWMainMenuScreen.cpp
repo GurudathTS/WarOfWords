@@ -607,7 +607,7 @@ void WWMainMenu::getGamesAPI()
     
     request->setResponseCallback(CC_CALLBACK_2(WWMainMenu::onGetGamesAPIRequestCompleted, this));
     request->setTag("getgames");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
 
 }
