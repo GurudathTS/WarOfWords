@@ -485,6 +485,7 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             
             WWPlayerInfoRef->updateChallengeID(_tChallengeId);
             WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
+            WWPlayerInfoRef->updateOpponentUserID(_tOpponentUserId);
             
             
             if(_tStatus == "4")
