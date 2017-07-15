@@ -58,7 +58,7 @@ bool WWMainMenu::init()
     this->origin = Director::getInstance()->getVisibleOrigin();
     this->settingPannelLayer = nullptr;
     this->playConfirmationPopup = nullptr;
-    this->lastUpdatedStr = "";
+    WWDatamanager::sharedManager()->lastUpdatedStr = "";
     
     // Background
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
@@ -426,7 +426,7 @@ void WWMainMenu::getAllActiveGamesDetail()
     
     url=url+"getupdates?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    url=url+"&lastUpdatedDate"+"="+this->lastUpdatedStr;
+    url=url+"&lastUpdatedDate"+"="+WWDatamanager::sharedManager()->lastUpdatedStr;
 
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
@@ -479,7 +479,7 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             std::string _tStatus = document["games"][0]["status"].GetString();
             
             long int updatedStr = document["lastUpdatedDate"].GetInt();
-            this->lastUpdatedStr = NumToString(updatedStr);
+            WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
     
             std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
             

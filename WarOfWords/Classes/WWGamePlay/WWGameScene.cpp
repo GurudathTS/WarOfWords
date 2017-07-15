@@ -557,7 +557,7 @@ void WWGameScene::getAlphabetDetailtoServer()
     
     url=url+"getupdates?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    url=url+"&lastUpdatedDate"+"="+WWDatamanager::sharedManager()->lastUpdatedStr;
     
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
@@ -595,6 +595,8 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         //Check Status
         std::string _tStatus = document["games"]["status"].GetString();
         std::string _tAlphabetStr = document["game"]["gameConfig"].GetString();
+        long int updatedStr = document["lastUpdatedDate"].GetInt();
+        WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
         if(_tStatus == "4")
         {
             //Update Alphabet

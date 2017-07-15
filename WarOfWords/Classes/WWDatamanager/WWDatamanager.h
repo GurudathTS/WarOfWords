@@ -40,6 +40,8 @@ public:
     std::string dmdeviceToken ="fhfjfjjfjfj";
     
     bool _isUserInMainScene = false;
+    std::string lastUpdatedStr;
+
     
     
 };
