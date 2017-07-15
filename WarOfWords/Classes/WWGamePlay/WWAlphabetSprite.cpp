@@ -322,6 +322,7 @@ void WWAlphabetSprite::updateNewAlphabet(int currentAlphabetVal , std::string pC
     this->objref->_mUpdatedString = this->objref->_mUpdatedString + NumToString(this->gridRefValue);
     this->objref->_mUpdatedString = this->objref->_mUpdatedString + "/";
     this->objref->_mUpdatedString = this->objref->_mUpdatedString + pCurrentStr;
+    this->objref->_mUpdatedString = this->objref->_mUpdatedString + "/";
 
     
     //get Random Alphabet

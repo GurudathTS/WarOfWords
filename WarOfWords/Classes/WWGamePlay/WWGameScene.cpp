@@ -598,7 +598,7 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         std::string _tAlphabetStr = document["games"][0]["gameConfig"].GetString();
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
-        if(_tStatus == "4")
+        if(_tStatus == "5")
         {
             //Update Alphabet
             this->updateAlphabetFromServer(_tAlphabetStr);
@@ -657,7 +657,7 @@ void WWGameScene::updateAlphabetDetailtoServer()
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
-    url=url+"&status"+"="+"4";   //    //Status 4 means Update
+    url=url+"&status"+"="+"5";   //    //Status 4 means Update
     
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
