@@ -575,6 +575,12 @@ void WWMainMenu::updatePlayerAcceptStatus(bool pIsAccepted)
 
 void WWMainMenu::onGetUpdateAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
+    if(!WWDatamanager::sharedManager()->_isUserInMainScene)
+    {
+        return;
+    }
+    
+
     if (!response)
     {
         return;
