@@ -594,7 +594,7 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
     {
         //Check Status
         std::string _tStatus = document["games"][0]["status"].GetString();
-        std::string _tAlphabetStr = document["game"][0]["gameConfig"].GetString();
+        std::string _tAlphabetStr = document["games"][0]["gameConfig"].GetString();
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
         if(_tStatus == "4")
