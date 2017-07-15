@@ -531,7 +531,7 @@ void WWGameScene::sendAlphabetDetailtoServer()
     
     request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onSentAlphabetRequestCompleted, this));
     request->setTag("saveGameData");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
     
 }
@@ -655,7 +655,7 @@ void WWGameScene::updateAlphabetDetailtoServer()
     
     request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onUpdateAlphabetRequestCompleted, this));
     request->setTag("saveGameData");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
     
 }
