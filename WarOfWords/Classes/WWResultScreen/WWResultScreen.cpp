@@ -38,7 +38,7 @@ bool WWResultScreen::init()
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
     
-    WWPlayerInfoRef->_mIsUserWinGame = false;
+    //WWPlayerInfoRef->_mIsUserWinGame = false;
     if(WWPlayerInfoRef->_mIsUserWinGame)
     {
         this->addWinScreen();
