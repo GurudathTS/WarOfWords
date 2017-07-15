@@ -691,7 +691,7 @@ void WWGameScene::updateAlphabetFromServer(std::string pAlphabetStr)
     for (int i = 0; i < spliStr.size(); i++)
     {
         std::string pStringStr = spliStr.at(i);
-        int gridRefVal = stoi(pStringStr);
+        int gridRefVal = std::atoi(pStringStr.c_str());
         if (this->has_only_digits(pStringStr))
         {
             if((i + 1) < spliStr.size())
