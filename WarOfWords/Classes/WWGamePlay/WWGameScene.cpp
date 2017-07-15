@@ -601,11 +601,14 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
 
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
-                
-        if(_tStatus == "5" && _tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
+        
+        if(_tStatus == "5")
         {
-            //Update Alphabet
-            this->updateAlphabetFromServer(_tAlphabetStr);
+            if(_tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
+            {
+                //Update Alphabet
+                this->updateAlphabetFromServer(_tAlphabetStr);
+            }
         }
         else
         {
