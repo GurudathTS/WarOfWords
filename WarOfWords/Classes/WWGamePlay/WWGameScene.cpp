@@ -608,7 +608,7 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         }
 
     }
-    else
+    //else
     {
         this->getAlphabetDetailtoServer();
     }
