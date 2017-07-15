@@ -58,6 +58,7 @@ bool WWMainMenu::init()
     this->origin = Director::getInstance()->getVisibleOrigin();
     this->settingPannelLayer = nullptr;
     this->playConfirmationPopup = nullptr;
+    this->lastUpdatedStr = "";
     
     // Background
     auto backgroundSpr = Sprite::create("LandingScreen/LandngScreenBg.png");
@@ -418,15 +419,14 @@ void WWMainMenu::onRequestForPlayAPIRequestCompleted(HttpClient *sender, HttpRes
 #pragma mark - get All Active Games
 void WWMainMenu::getAllActiveGamesDetail()
 {
-    HttpClient::getInstance()->setTimeoutForRead(120);
+   // HttpClient::getInstance()->setTimeoutForRead(120);
     
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
     url=url+"getupdates?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
-    
-
+    url=url+"&lastUpdatedDate"+"="+this->lastUpdatedStr;
 
     request->setUrl(url);
     CCLOG(" url is %s",request->getUrl());
@@ -472,19 +472,18 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
             std::string userId = document["games"][0]["userId"].GetString();
             std::string _tStatus = document["games"][0]["status"].GetString();
-            
-
-            
+            this->lastUpdatedStr = document["games"][0]["lastUpdatedDate"].GetString();
+    
             std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
             
             WWPlayerInfoRef->updateChallengeID(_tChallengeId);
             WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
             
             
-            if(_tStatus == "3")
+            if(_tStatus == "4")
             {
-                if(userId == WWPlayerInfoRef->getCurrentUserID())
-                {
+                //if(userId == WWPlayerInfoRef->getCurrentUserID())
+                //{
                     std::string _tOpponentUserName  = document["games"][0]["opponentName"].GetString();
                     std::string _tOppoentProfileImg  = document["games"][0]["opponentThumbnail"].GetString();
                     
@@ -493,7 +492,7 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
                     
                     //Add Activity Indicator
                     this->addConfirmationPlayPopUp();
-                }
+                //}
             }
             else if(_tStatus == "2")
             {

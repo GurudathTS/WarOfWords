@@ -38,6 +38,7 @@ private:
     ScrollView *activeGameListScrollView;
      WWSettingsPannel* settingPannelLayer;
     WWmainMenuPlayConfirmation* playConfirmationPopup;
+    std::string lastUpdatedStr;
     
     //Variable
     Size visibleSize;
