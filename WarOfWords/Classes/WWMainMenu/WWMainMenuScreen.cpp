@@ -532,14 +532,14 @@ void WWMainMenu::callbackFromConfirmationPopup(bool pIsConfirmed)
     
     this->updatePlayerAcceptStatus(pIsConfirmed);
     
-    if(pIsConfirmed)
-    {
-       // HttpClient::getInstance()->destroyInstance();
-        WWDatamanager::sharedManager()->_isUserInMainScene = false;
-
-        Director::getInstance()->replaceScene(WWBattleScreen::createScene());
-
-    }
+//    if(pIsConfirmed)
+//    {
+//       // HttpClient::getInstance()->destroyInstance();
+//        WWDatamanager::sharedManager()->_isUserInMainScene = false;
+//
+//        Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+//
+//    }
 
 }
 
