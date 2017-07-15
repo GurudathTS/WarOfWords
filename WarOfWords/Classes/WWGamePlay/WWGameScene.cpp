@@ -575,6 +575,13 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
     {
         return;
     }
+    int statusCode = (int)response->getResponseCode();
+    if(statusCode == -1)
+    {
+        this->getAlphabetDetailtoServer();
+        return;
+        
+    }
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
 
