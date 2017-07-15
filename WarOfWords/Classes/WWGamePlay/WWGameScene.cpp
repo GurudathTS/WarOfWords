@@ -69,8 +69,8 @@ bool WWGameScene::init()
     else
     {
         ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
-        this->getAlphabetDetailtoServer();
     }
+    this->getAlphabetDetailtoServer();
     
     
     return true;
@@ -601,7 +601,8 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
 
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
-        if(_tStatus == "5")
+                
+        if(_tStatus == "5" && _tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
         {
             //Update Alphabet
             this->updateAlphabetFromServer(_tAlphabetStr);
