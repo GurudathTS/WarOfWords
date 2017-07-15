@@ -68,6 +68,7 @@ bool WWGameScene::init()
     }
     else
     {
+        ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
         this->getAlphabetDetailtoServer();
     }
     
@@ -550,7 +551,7 @@ void WWGameScene::onSentAlphabetRequestCompleted(HttpClient *sender, HttpRespons
 
 void WWGameScene::getAlphabetDetailtoServer()
 {
-    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    //ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
     
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
