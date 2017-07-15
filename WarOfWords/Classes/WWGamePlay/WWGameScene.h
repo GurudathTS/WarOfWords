@@ -96,6 +96,15 @@ public:
     //Power Up
     void createPowerUpIcon();
     
+    //Progress
+    ProgressTimer* currentPlayerProfress;
+    ProgressTimer* opponentPlayerProfress;
+    
+    void updateUserProgressBar(float pTime);
+    void updateOpponentProgressBar(float pTime);
+    int userProgressBar;
+    int opponentProgressBar;
+
     //Http request
     void sendAlphabetDetailtoServer();
     void onSentAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response);

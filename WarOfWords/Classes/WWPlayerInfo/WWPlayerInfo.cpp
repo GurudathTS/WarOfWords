@@ -40,6 +40,7 @@ void WWPlayerInfo::initializeUserInfo(std::string pUserName,std::string pUserId,
     _mCurrentUserProfilePtcture = pUserProfilePicture;
     _mCurrentUserHealthBar = pUserHealthBar;
     _mCurrentId = pUserId;
+    _mIsUserWinGame = false;
     
     loadUserProfileURL();
     

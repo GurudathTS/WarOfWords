@@ -5,6 +5,7 @@
 #include "WWMainMenuScreen.h"
 #include "WWDatamanager.h"
 #include "WWGameScene.h"
+#include "WWResultScreen.h"
 
 USING_NS_CC;
 using namespace std;
@@ -84,15 +85,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     std::string apiKey = WWDatamanager::sharedManager()->getAPIKey();
     if(strcmp(apiKey.c_str(), "NotExist")!=0)
     {
-        scene = WWLandingScreen::createScene();
+        //scene = WWLandingScreen::createScene();
 
     }
     else
     {
-        scene = WWLandingScreen::createScene();
+        //scene = WWLandingScreen::createScene();
     }
     //scene = WWGameScene::createScene();
-    
+    scene = WWResultScreen::createScene();
+
 
     // run
     director->runWithScene(scene);

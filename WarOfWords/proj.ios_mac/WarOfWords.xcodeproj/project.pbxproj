@@ -41,6 +41,7 @@
 		064EE7681ECFFF7100FD9331 /* WWBattleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 064EE7661ECFFF7100FD9331 /* WWBattleScreen.cpp */; };
 		0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6801EB83B8800139015 /* WWMainMenuScreen.cpp */; };
 		0685C6851EB85B5900139015 /* WWMainMenuActiveList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */; };
+		068C5ABB1F1A3B3B0033C4EF /* WWResultScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 068C5AB91F1A3B3B0033C4EF /* WWResultScreen.cpp */; };
 		0698817D1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0698817B1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp */; };
 		06A1FF551EB72591006A1FE7 /* WWSignupScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */; };
 		06A1FF591EB72F0A006A1FE7 /* WWForgotScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06A1FF571EB72F0A006A1FE7 /* WWForgotScreen.cpp */; };
@@ -198,6 +199,8 @@
 		0685C6811EB83B8800139015 /* WWMainMenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuScreen.h; sourceTree = "<group>"; };
 		0685C6831EB85B5800139015 /* WWMainMenuActiveList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWMainMenuActiveList.cpp; sourceTree = "<group>"; };
 		0685C6841EB85B5900139015 /* WWMainMenuActiveList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWMainMenuActiveList.h; sourceTree = "<group>"; };
+		068C5AB91F1A3B3B0033C4EF /* WWResultScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWResultScreen.cpp; sourceTree = "<group>"; };
+		068C5ABA1F1A3B3B0033C4EF /* WWResultScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWResultScreen.h; sourceTree = "<group>"; };
 		0698817B1F03A02700C5230C /* WWmainMenuPlayConfirmation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWmainMenuPlayConfirmation.cpp; sourceTree = "<group>"; };
 		0698817C1F03A02700C5230C /* WWmainMenuPlayConfirmation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWmainMenuPlayConfirmation.h; sourceTree = "<group>"; };
 		06A1FF531EB72591006A1FE7 /* WWSignupScreen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWSignupScreen.cpp; sourceTree = "<group>"; };
@@ -446,6 +449,15 @@
 			path = WWMainMenu;
 			sourceTree = "<group>";
 		};
+		068C5AB71F1A3B290033C4EF /* WWResultScreen */ = {
+			isa = PBXGroup;
+			children = (
+				068C5AB91F1A3B3B0033C4EF /* WWResultScreen.cpp */,
+				068C5ABA1F1A3B3B0033C4EF /* WWResultScreen.h */,
+			);
+			path = WWResultScreen;
+			sourceTree = "<group>";
+		};
 		06A1FF511EB7255D006A1FE7 /* WWSignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -670,6 +682,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				068C5AB71F1A3B290033C4EF /* WWResultScreen */,
 				064EE7641ECFFF4000FD9331 /* WWBattleScreen */,
 				0EFE7B641EC3713F0068A527 /* WWCommonUtilty */,
 				0EFE7B5F1EC365650068A527 /* WWDatamanager */,
@@ -900,6 +913,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				068C5ABB1F1A3B3B0033C4EF /* WWResultScreen.cpp in Sources */,
 				06C9840D1E5B00B700B0660C /* WWAlphabetSprite.cpp in Sources */,
 				064EE7681ECFFF7100FD9331 /* WWBattleScreen.cpp in Sources */,
 				0685C6821EB83B8800139015 /* WWMainMenuScreen.cpp in Sources */,

@@ -72,7 +72,7 @@ public:
     CC_SYNTHESIZE_READONLY(std::string, _mChallengeId, ChallengeID);
     CC_SYNTHESIZE_READONLY(std::string, _mturnUserId, TurnUserID);
 
-
+    bool _mIsUserWinGame;
     CC_SYNTHESIZE_READONLY(Texture2D*, _mOpponentProfilePictureTexture, OpponentProfilePictureTexture);
     
     //Call Backs

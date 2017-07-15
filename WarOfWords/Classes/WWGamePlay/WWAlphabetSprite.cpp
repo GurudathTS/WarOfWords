@@ -262,11 +262,11 @@ void WWAlphabetSprite::updateSprite(std::string pStr)
     isAlreadyPressed = false;
     
     //fade off Action
-    auto* fadeoffAction = FadeTo::create(0.25, 0);
+    auto* fadeoffAction = FadeTo::create(1.0, 0);
     this->currentAlphabet->runAction(fadeoffAction);
     this->currentAlphabetValLabel->runAction(fadeoffAction->clone());
     
-    auto* sequenceAct = Sequence::create(DelayTime::create(0.25),CallFunc::create( CC_CALLBACK_0(WWAlphabetSprite::updateRandomAlphabet,this,pStr)), NULL);
+    auto* sequenceAct = Sequence::create(DelayTime::create(1.0),CallFunc::create( CC_CALLBACK_0(WWAlphabetSprite::updateRandomAlphabet,this,pStr)), NULL);
     this->runAction(sequenceAct);
     
 }
@@ -310,7 +310,7 @@ void WWAlphabetSprite::updateRandomAlphabet(std::string pAlphabet)
     currentAlphabetValLabel->setString(alphaVal);
     
     //fade off Action
-    auto* fadeoffAction = FadeTo::create(0.5, 255);
+    auto* fadeoffAction = FadeTo::create(1.0, 255);
     this->currentAlphabet->runAction(fadeoffAction);
     this->currentAlphabetValLabel->runAction(fadeoffAction->clone());
     

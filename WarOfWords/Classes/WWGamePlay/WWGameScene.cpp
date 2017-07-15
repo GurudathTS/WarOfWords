@@ -133,9 +133,18 @@ void WWGameScene::addUI(float pYpos)
     currentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
     addChild(currentPlayerProgressBar);
     
+    this->userProgressBar = 100;
+    this->opponentProgressBar = 100;
+    this->currentPlayerProfress = ProgressTimer::create(Sprite::create("GameScene/HelthBarHvr01.png"));
+    this->currentPlayerProfress->setType(ProgressTimer::Type::BAR);
+    this->currentPlayerProfress->setMidpoint(Vec2(0,0));
+    this->currentPlayerProfress->setBarChangeRate(Vec2(1, 0));
+    addChild(this->currentPlayerProfress);
+    this->currentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
     currentPlayerProfile->setPosition(Vec2(0, currentPlayerProfile->getContentSize().height * 0.1));
-    currentPlayerProgressBar->addChild(currentPlayerProfile);
+    this->currentPlayerProfress->addChild(currentPlayerProfile);
     currentPlayerProfile->setScale(0.4);
     
     if(WWPlayerInfoRef->getCurrentProfilePictureTexture())
@@ -153,9 +162,17 @@ void WWGameScene::addUI(float pYpos)
     opponentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
     addChild(opponentPlayerProgressBar);
     
+    
+    this->opponentPlayerProfress = ProgressTimer::create(Sprite::create("GameScene/HelthBarHvr01.png"));
+    this->opponentPlayerProfress->setType(ProgressTimer::Type::BAR);
+    this->opponentPlayerProfress->setMidpoint(Vec2(1,0));
+    this->opponentPlayerProfress->setBarChangeRate(Vec2(1, 0));
+    addChild(this->opponentPlayerProfress);
+    this->opponentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
     opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 0.9, opponentPlayerprofile->getContentSize().height * 0.1));
-    opponentPlayerProgressBar->addChild(opponentPlayerprofile);
+    this->opponentPlayerProfress->addChild(opponentPlayerprofile);
     opponentPlayerprofile->setScale(0.4);
     
     if(WWPlayerInfoRef->getOpponentProfilePictureTexture())
@@ -190,6 +207,8 @@ void WWGameScene::addUI(float pYpos)
     menubtn->setPosition(Vec2::ZERO);
     addChild(menubtn);
     
+    this->updateUserProgressBar(0.1);
+    this->updateOpponentProgressBar(0.1);
 }
 
 #pragma mark - Initialize
@@ -337,14 +356,21 @@ void WWGameScene::onSubmitClicked(Ref* sender)
         alphaVal = "Score: " + alphaVal;
         currentScore->setString(alphaVal);
         resultSelectedStr->setString(_tSelectedStr);
-        
-        //Reset Grid
-        this->resetGrid();
+        this->opponentProgressBar = this->opponentProgressBar - totalScore;
+
+        if(this->opponentProgressBar <= 0)
+        {
+            //Game Lose // Win
+        }
+        else
+        {
+            //Reset Grid
+            this->resetGrid();
+        }
     }
     else
     {
         log("..................... Dictionary Not present......................");
-        currentScore->setString("Score: 0");
         resultSelectedStr->setString("Does not present in Dictionary");
         this->resetAfterLost();
     }
@@ -724,6 +750,18 @@ void WWGameScene::updateAlphabetFromServer(std::string pAlphabetStr)
     //Remove Active Indicator
     ActivtyIndicator::PopIfActiveFromScene(this);
     
+}
+
+void WWGameScene::updateUserProgressBar(float pTime)
+{
+    auto action = ProgressTo::create(pTime, this->userProgressBar);
+    this->currentPlayerProfress->runAction(action);
+}
+
+void WWGameScene::updateOpponentProgressBar(float pTime)
+{
+    auto action = ProgressTo::create(pTime, this->opponentProgressBar);
+    this->opponentPlayerProfress->runAction(action);
 }
 
 bool WWGameScene::has_only_digits(const std::string s){
