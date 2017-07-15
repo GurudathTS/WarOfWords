@@ -147,6 +147,13 @@ namespace std
     
 }
 
+template<typename T> std::string NumToString(T t) {
+    // to_string() prints different numbers of digits for floats depending on
+    // platform and isn't available on Android, so we use stringstream
+    std::stringstream ss;
+    ss << t;
+    return ss.str();
+}
 
 class WWGameUtility: Ref
 {
