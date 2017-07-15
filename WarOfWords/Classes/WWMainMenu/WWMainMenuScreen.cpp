@@ -440,6 +440,11 @@ void WWMainMenu::getAllActiveGamesDetail()
 
 void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *response)
 {
+    if(!WWDatamanager::sharedManager()->_isUserInMainScene)
+    {
+        return;
+    }
+
     if (!response)
     {
          this->getAllActiveGamesDetail();
