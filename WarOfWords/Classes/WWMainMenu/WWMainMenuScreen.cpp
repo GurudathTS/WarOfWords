@@ -472,7 +472,9 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
             std::string userId = document["games"][0]["userId"].GetString();
             std::string _tStatus = document["games"][0]["status"].GetString();
-            this->lastUpdatedStr = document["lastUpdatedDate"].GetString();
+            
+            long int updatedStr = document["lastUpdatedDate"].GetInt();
+            this->lastUpdatedStr = NumToString(updatedStr);
     
             std::string _tOpponentUserId = document["games"][0]["opponentUserId"].GetString();
             
