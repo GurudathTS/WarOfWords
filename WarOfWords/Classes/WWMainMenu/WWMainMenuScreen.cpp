@@ -52,6 +52,8 @@ bool WWMainMenu::init()
         return false;
     }
     
+    WWDatamanager::sharedManager()->_isUserInMainScene = true;
+    
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
     this->settingPannelLayer = nullptr;
@@ -495,8 +497,8 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             }
             else if(_tStatus == "2")
             {
-                HttpClient::getInstance()->destroyInstance();
-
+                //HttpClient::getInstance()->destroyInstance();
+                WWDatamanager::sharedManager()->_isUserInMainScene = false;
                 Director::getInstance()->replaceScene(WWBattleScreen::createScene());
             }
 
@@ -532,7 +534,9 @@ void WWMainMenu::callbackFromConfirmationPopup(bool pIsConfirmed)
     
     if(pIsConfirmed)
     {
-        HttpClient::getInstance()->destroyInstance();
+       // HttpClient::getInstance()->destroyInstance();
+        WWDatamanager::sharedManager()->_isUserInMainScene = false;
+
         Director::getInstance()->replaceScene(WWBattleScreen::createScene());
 
     }
@@ -614,6 +618,11 @@ void WWMainMenu::getGamesAPI()
 }
 void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
+    if(!WWDatamanager::sharedManager()->_isUserInMainScene)
+    {
+        return;
+    }
+    
     if (!response)
     {
         this->getGamesAPI();
