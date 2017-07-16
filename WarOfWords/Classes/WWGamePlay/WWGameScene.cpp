@@ -552,7 +552,7 @@ void WWGameScene::sendAlphabetDetailtoServer()
     url=url+"&userHealth"+"="+"";
     url=url+"&gameConfig"+"="+"";
     
-     url=url+"&userScore"+"="+"";
+     url=url+"&userHealth"+"="+"";
     url=url+"&userScore"+"="+"";
     url=url+"&status"+"="+"2";
 
