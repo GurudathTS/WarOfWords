@@ -677,7 +677,7 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
             {
                 std::string _tOpponentUserName  = document["games"][i]["opponentName"].GetString();
                 std::string _tOppoentProfileImg  = document["games"][i]["opponentThumbnail"].GetString();
-                std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
+                //std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
                 
 
                 
@@ -686,7 +686,7 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
                 activeList1->setContentSize(Size(this->profileBackground->getContentSize().width, this->profileBackground->getContentSize().height));
                 activeList1->setPosition(Vec2(startPos.x,startPos.y));
                 this->activeGameListScrollView->addChild(activeList1);
-                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges",atoi(_tOpponentHealth.c_str()));
+                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges",3);
                 startPos.y = startPos.y - this->profileBackground->getContentSize().height - offsetval;
             }
         }
