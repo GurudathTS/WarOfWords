@@ -549,8 +549,11 @@ void WWGameScene::sendAlphabetDetailtoServer()
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
-    url=url+"&userHealth	"+"="+"";
+    url=url+"&userHealth"+"="+"";
+    url=url+"&gameConfig"+"="+"";
+    
      url=url+"&userScore"+"="+"";
+    url=url+"&userScore"+"="+"";
     url=url+"&status"+"="+"2";
 
     request->setUrl(url);
