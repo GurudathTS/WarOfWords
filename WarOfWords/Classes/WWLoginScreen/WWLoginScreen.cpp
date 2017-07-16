@@ -56,12 +56,7 @@ bool WWLoginScreen::init()
     //Add Ui
     this->addUI();
     
-    //Error Info label
-    _errorInfoLabel = Label::createWithTTF("", "fonts/JosefinSlab-Bold.ttf", 42);
-    _errorInfoLabel->setPosition(this->visibleSize.width/2+this->origin.x,this->visibleSize.height*.05+this->origin.y);
-    this->addChild(_errorInfoLabel,100);
-    _errorInfoLabel->setColor(Color3B::RED);
-    _errorInfoLabel->setOpacity(0);
+    
     
     
     return true;
@@ -183,6 +178,7 @@ bool WWLoginScreen::checkEnteredDataIsValid()
 {
 
     bool isEmpty = false;
+    bool isValid = true;
     std::string errorText = "";
     if(strcmp(this->userName->getText(), "")==0)
     {
@@ -198,19 +194,23 @@ bool WWLoginScreen::checkEnteredDataIsValid()
     }
     if(isEmpty)
     {
-        _errorInfoLabel->setString(errorText);
-        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
-        return false;
+        isValid =  false;
     }
     bool isEmailValid = std::spc_email_isvalid(this->userName->getText());
     if(!isEmailValid)
     {
-        _errorInfoLabel->setString("Email is not vaild");
-        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
-        return false;
+        errorText = "Email is not vaild";
+       isValid =  false;
+    }
+    if(!isValid)
+    {
+        this->addChild(CommonErrorPopup::create("Login failed!", errorText),100);
+
     }
     
-    return true;
+    return isValid;
+    
+    
 
     
 }
@@ -290,8 +290,10 @@ void WWLoginScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *re
 
         {
             ActivtyIndicator::PopIfActiveFromScene(this);
-            _errorInfoLabel->setString("Wrong Email or Password");
-            _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+            
+            
+            this->addChild(CommonErrorPopup::create("Login failed!", "Wrong Email or Password"),100);
+
 
             log("server error");
         }

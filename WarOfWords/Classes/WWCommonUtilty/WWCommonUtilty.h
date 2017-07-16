@@ -77,4 +77,33 @@ public:
     
 };
 
+
+
+class CommonErrorPopup:public BlockingLayer
+{
+    Node * box;
+    cocos2d::Sprite * bg;
+    int coinsToAdd=0;
+    Ref *originalTarget;
+    cocos2d::SEL_MenuHandler okButtonSelector;
+    
+    
+public:
+    CommonErrorPopup(){}
+    
+    
+    virtual std::string dailogBg()
+    {
+        return "CommonImages/PopupSmall.png";
+    }
+    
+    static CommonErrorPopup * create(std::string title,std::string dedcription,Ref *target=NULL, cocos2d::SEL_MenuHandler selector1=NULL);
+    virtual bool init(std::string title,std::string dedcription,Ref *inTarget=NULL, cocos2d::SEL_MenuHandler inSelector1=NULL);
+    
+    void okButtonAction();
+    
+    
+    
+};
+
 #endif /* WWCommonUtilty_hpp */

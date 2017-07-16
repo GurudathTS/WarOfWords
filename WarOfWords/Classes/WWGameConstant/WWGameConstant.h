@@ -15,11 +15,17 @@
 
 //Font Name
 #define FN_GAME_FONT_NAME     "fonts/JosefinSlab-Bold.ttf"
+#define FN_POPUP_TEXT_FONT_NAME "fonts/JosefinSlab-Bold.ttf"
 
 //Font Size
 #define FN_GAME_FONT_SIZE      21
 #define FN_GAME_ALPHABET_FONT_SIZE      42
 #define FN_GAME_ALPHABET_SCORE_SIZE      24
+#define FN_POPIUP_TITLE_FONT_SIZE 50
+#define FN_POPIUP_DESCRIPTION_FONT_SIZE 35
+#define POPUP_TEXT_COLOR Color3B(133,0,0)
+#define POPUP_BUTTON_TEXT_COLOR Color3B(0,0,164)
+
 
 
 //Font Color

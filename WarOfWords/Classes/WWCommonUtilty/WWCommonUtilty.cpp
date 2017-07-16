@@ -7,6 +7,7 @@
 //
 
 #include "WWCommonUtilty.h"
+#include "WWGameConstant.h"
 #pragma mark - BlockingLayer Functions
 BlockingLayer* BlockingLayer::create()
 {
@@ -99,3 +100,83 @@ ActivtyIndicator * ActivtyIndicator::activityIndicatorOnScene(const char * statu
     
     return ((ActivtyIndicator*)indicator);
 }
+
+#pragma mark - CommonError dialog
+CommonErrorPopup *  CommonErrorPopup::create(std::string title,std::string dedcription,Ref *target, cocos2d::SEL_MenuHandler selector1)
+{
+    CommonErrorPopup * dilog = new CommonErrorPopup;
+    dilog->init(title,dedcription,target,selector1);
+    dilog->autorelease();
+    return dilog;
+    
+}
+
+
+bool CommonErrorPopup::init(std::string title,std::string dedcription,Ref *inTarget, cocos2d::SEL_MenuHandler inSelector1)
+{
+    if(!BlockingLayer::init())
+        return false;
+    
+    this->originalTarget=inTarget;
+    this->okButtonSelector=inSelector1;
+    
+    LayerColor * bg = LayerColor::create(cocos2d::Color4B(0,0,0,100));
+    bg->ignoreAnchorPointForPosition(false);
+    this->addChild(bg,3000);
+    bg->setOpacity(25);
+    bg->runAction(FadeTo::create(0.001, 50));
+    bg->setPosition(Vec2(this->getContentSize().width/2, this->getContentSize().height/2));
+    
+    
+    
+    box = Sprite::create("commonErrorPopup.png");
+    this->addChild(box,3000);
+    box->setPosition(Vec2(this->getContentSize().width/2, this->getContentSize().height/2));
+    
+    
+    
+    Label *titleLabel=Label::createWithTTF(title,FN_POPUP_TEXT_FONT_NAME, FN_POPIUP_TITLE_FONT_SIZE);
+    titleLabel->setAlignment(TextHAlignment::CENTER);
+    box->addChild(titleLabel,10);
+    titleLabel->setPosition(Vec2(box->getContentSize().width/2, box->getContentSize().height-60));
+    titleLabel->setColor(POPUP_TEXT_COLOR);
+    
+    
+    Label *derciptionLabel=Label::createWithTTF(dedcription,FN_POPUP_TEXT_FONT_NAME, FN_POPIUP_DESCRIPTION_FONT_SIZE);
+    derciptionLabel->setAlignment(TextHAlignment::CENTER);
+    box->addChild(derciptionLabel,10);
+    derciptionLabel->setPosition(Vec2(box->getContentSize().width/2, box->getContentSize().height/2));
+    derciptionLabel->setColor(POPUP_TEXT_COLOR);
+
+    
+    auto okButtton = MenuItemImage::create("MainMenu/BlueCommonBtnSamll.png", "MainMenu/BlueCommonBtnSamll.png", "MainMenu/BlueCommonBtnSamll.png", CC_CALLBACK_0(CommonErrorPopup::okButtonAction, this));
+    okButtton->setPosition(Vec2(box->getContentSize().width/2, okButtton->getContentSize().height*.9));
+    
+
+    auto* yesLabel = Label::createWithTTF("OK", "fonts/JosefinSlab-Bold.ttf", 32);
+    yesLabel->setPosition(okButtton->getContentSize() * 0.5);
+    okButtton->addChild(yesLabel);
+    yesLabel->setColor(POPUP_BUTTON_TEXT_COLOR);
+
+    Menu *tempMenu=Menu::create(okButtton, NULL);
+    box->addChild(tempMenu);
+    tempMenu->setPosition(Vec2(0, 0));
+    
+    
+    box->runAction(Sequence::create(ScaleTo::create(0.0f, 0.1f),ScaleTo::create(0.2f, 1.2f),ScaleTo::create(0.1f, 1.0f),NULL));
+    
+    return true;
+    
+}
+
+void CommonErrorPopup::okButtonAction()
+{
+    if(okButtonSelector!=NULL)
+    {
+        (originalTarget->*okButtonSelector)(this);
+    }
+    this->removeFromParent();
+    
+    
+}
+

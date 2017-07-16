@@ -50,11 +50,6 @@ bool WWSignUpScreen::init()
     this->addUI();
     
     //Error Info label
-    _errorInfoLabel = Label::createWithTTF("", "fonts/JosefinSlab-Bold.ttf", 42);
-    _errorInfoLabel->setPosition(this->visibleSize.width/2+this->origin.x,this->visibleSize.height*.05+this->origin.y);
-    this->addChild(_errorInfoLabel,100);
-    _errorInfoLabel->setColor(Color3B::RED);
-    _errorInfoLabel->setOpacity(0);
     
     return true;
 }
@@ -223,6 +218,8 @@ void WWSignUpScreen::editBoxReturn(ui::EditBox* editBox)
 bool WWSignUpScreen::checkEnteredDataIsValid()
 {
     bool isEmpty = false;
+    bool isValid = true;
+
     std::string errorText = "";
     if(strcmp(this->userName->getText(), "")==0)
     {
@@ -245,28 +242,30 @@ bool WWSignUpScreen::checkEnteredDataIsValid()
     }
     if(isEmpty)
     {
-        _errorInfoLabel->setString(errorText);
-        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
-        return false;
+        isValid =  false;
     }
     
     
     bool isEmailValid = std::spc_email_isvalid(this->email->getText());
     if(!isEmailValid)
     {
-        _errorInfoLabel->setString("Email is not vaild");
-        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
-        return false;
+        errorText = "Email is not vaild";
+        isValid =  false;
     }
     
     if(strcmp(this->passWord->getText(), this->confirmpassword->getText())!=0)
     {
-        _errorInfoLabel->setString("Password is not maching");
-        _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
-        return false;
+        errorText = "Password is not maching";
+
+        isValid =  false;
     }
-    
-    return true;
+    if(!isValid)
+    {
+        this->addChild(CommonErrorPopup::create("SignUp failed!", errorText),100);
+        
+    }
+
+    return isValid;
     
 }
 
@@ -339,8 +338,8 @@ void WWSignUpScreen::onsignUpAPIRequestCompleted(HttpClient *sender, HttpRespons
             {
                 ActivtyIndicator::PopIfActiveFromScene(this);
 
-                _errorInfoLabel->setString("Email Already Registered");
-                _errorInfoLabel->runAction(Sequence::create(FadeIn::create(.1),DelayTime::create(1.0),FadeOut::create(.1), NULL));
+                this->addChild(CommonErrorPopup::create("Login failed!", "Email Already Registered"),100);
+
 
             }
             log("server error");

@@ -30,6 +30,10 @@ private:
     
 private:
     Sprite* profilePictureImg, *battleIconImg;
+    std::string challengID;
+    bool isYourTurn;
+    std::string opponentUserId;
+    std::string thumbUrl;
     Label* userNameLabel, *userDescriptionlabel;
     
 public:
