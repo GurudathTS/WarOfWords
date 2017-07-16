@@ -52,6 +52,8 @@ bool WWGameScene::init()
     origin = Director::getInstance()->getVisibleOrigin();
     this->currentGridRefvalue = 0;
     this->_mUpdatedString = "";
+    this->currentPlayerProfress = nullptr;
+    this->opponentPlayerProfress = nullptr;
     
     // Background
     auto backgroundSpr = Sprite::create("UI/Background.png");
@@ -632,14 +634,14 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
         WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
         
-        //Opponent user ID
-        if(document["games"][0].HasMember("userHealth"))
-        {
-            
-        }
-        std::string _tUserHealth = document["games"][0]["opponentHealth"].GetString();
-        this->userProgressBar = std::atoi(_tUserHealth.c_str());
-        this->updateUserProgressBar(0.5);
+//        //Opponent user ID
+//        if(document["games"][0].HasMember("userHealth"))
+//        {
+//            
+//        }
+//        std::string _tUserHealth = document["games"][0]["opponentHealth"].GetString();
+//        this->userProgressBar = std::atoi(_tUserHealth.c_str());
+//        this->updateUserProgressBar(0.5);
 
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
@@ -821,14 +823,23 @@ void WWGameScene::updateAlphabetFromServer(std::string pAlphabetStr)
 
 void WWGameScene::updateUserProgressBar(float pTime)
 {
-    auto action = ProgressTo::create(pTime, this->userProgressBar);
-    this->currentPlayerProfress->runAction(action);
+    
+    if(this->currentPlayerProfress != nullptr)
+    {
+        auto action = ProgressTo::create(pTime, this->userProgressBar);
+        this->currentPlayerProfress->runAction(action);
+    }
+    
 }
 
 void WWGameScene::updateOpponentProgressBar(float pTime)
 {
-    auto action = ProgressTo::create(pTime, this->opponentProgressBar);
-    this->opponentPlayerProfress->runAction(action);
+    if(this->opponentPlayerProfress != nullptr)
+    {
+        auto action = ProgressTo::create(pTime, this->opponentProgressBar);
+        this->opponentPlayerProfress->runAction(action);
+    }
+    
 }
 
 bool WWGameScene::has_only_digits(const std::string s){
