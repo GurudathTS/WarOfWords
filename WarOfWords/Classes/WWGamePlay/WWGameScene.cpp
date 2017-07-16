@@ -15,6 +15,7 @@
 #include "WWCommonUtilty.h"
 #include "WWGameConstant.h"
 #include "WWDatamanager.h"
+#include "WWResultScreen.h"
 
 USING_NS_CC;
 
@@ -361,6 +362,8 @@ void WWGameScene::onSubmitClicked(Ref* sender)
         if(this->opponentProgressBar <= 0)
         {
             //Game Lose // Win
+            this->onGameCompleteDetailtoServer();
+            return;
         }
         else
         {
@@ -544,16 +547,16 @@ void WWGameScene::sendAlphabetDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
+    std::string UserHealth = NumToString(this->opponentProgressBar);
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
-    url=url+"&userHealth"+"="+"";
-    url=url+"&gameConfig"+"="+"";
-    
-     url=url+"&userHealth"+"="+"";
+    url=url+"&gameConfig"+"="+_tFullAlphabetStr;
+    url=url+"&userHealth"+"="+UserHealth;
     url=url+"&userScore"+"="+"";
+    url=url+"&wonBy"+"="+"";
     url=url+"&status"+"="+"2";
 
     request->setUrl(url);
@@ -628,9 +631,29 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         std::string _tAlphabetStr = document["games"][0]["gameConfig"].GetString();
         std::string _tTurnUserId = document["games"][0]["turnUserId"].GetString();
         WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
+        
+        //Opponent user ID
+        std::string _tUserHealth = document["games"][0]["userHealth"].GetString();
+        this->userProgressBar = std::atoi(_tUserHealth.c_str());
+        this->updateUserProgressBar(0.5);
 
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
+        
+        if(_tStatus == "1")
+        {
+            //Finished
+            std::string _tWinUserId = document["games"][0]["wonBy"].GetString();
+            if (_tWinUserId == WWPlayerInfoRef->getCurrentUserID())
+                WWPlayerInfoRef->_mIsUserWinGame = true;
+            else
+                WWPlayerInfoRef->_mIsUserWinGame = false;
+            
+            Director::getInstance()->replaceScene(WWResultScreen::createScene());
+            
+            return;
+            
+        }
         
         if(_tStatus == "5")
         {
@@ -688,12 +711,16 @@ void WWGameScene::updateAlphabetDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
+    std::string UserHealth = NumToString(this->opponentProgressBar);
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
+    url=url+"&userHealth"+"="+UserHealth;
+    url=url+"&userScore"+"="+"";
+    url=url+"&wonBy"+"="+"";
     url=url+"&status"+"="+"5";   //    //Status 4 means Update
     
     request->setUrl(url);
@@ -706,6 +733,38 @@ void WWGameScene::updateAlphabetDetailtoServer()
     request->release();
     
 }
+
+void WWGameScene::onGameCompleteDetailtoServer()
+{
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    log("......... _tFullAlphabetStr ........ %s",this->_mUpdatedString.c_str());
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    std::string UserHealth = NumToString(this->opponentProgressBar);
+    url=url+"savegame?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
+    url=url+"&userHealth"+"="+UserHealth;
+    url=url+"&userScore"+"="+"";
+    url=url+"&wonBy"+"="+WWPlayerInfoRef->getCurrentUserID();
+    url=url+"&status"+"="+"1";   //    //Status 4 means Update
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::POST);
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onUpdateAlphabetRequestCompleted, this));
+    request->setTag("saveGameData");
+    HttpClient::getInstance()->sendImmediate(request);
+    request->release();
+    
+}
+
 void WWGameScene::onUpdateAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
     if (!response)

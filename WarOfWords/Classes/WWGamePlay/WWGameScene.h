@@ -114,6 +114,7 @@ public:
     void updateAlphabetDetailtoServer();
     void onUpdateAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response);
     void updateAlphabetFromServer(std::string pAlphabetStr);
+    void onGameCompleteDetailtoServer();
     
     //Utility
     bool has_only_digits(const std::string s);
