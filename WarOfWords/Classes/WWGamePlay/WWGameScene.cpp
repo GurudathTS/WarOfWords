@@ -633,7 +633,11 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         WWPlayerInfoRef->updateTurnUserID(_tTurnUserId);
         
         //Opponent user ID
-        std::string _tUserHealth = document["games"][0]["userHealth"].GetString();
+        if(document["games"][0].HasMember("userHealth"))
+        {
+            
+        }
+        std::string _tUserHealth = document["games"][0]["opponentHealth"].GetString();
         this->userProgressBar = std::atoi(_tUserHealth.c_str());
         this->updateUserProgressBar(0.5);
 
