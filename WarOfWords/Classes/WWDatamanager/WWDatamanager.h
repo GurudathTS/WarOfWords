@@ -40,6 +40,7 @@ public:
     std::string dmdeviceToken ="fhfjfjjfjfj";
     
     bool _isUserInMainScene = false;
+    int userHealth;
     std::string lastUpdatedStr;
 
     

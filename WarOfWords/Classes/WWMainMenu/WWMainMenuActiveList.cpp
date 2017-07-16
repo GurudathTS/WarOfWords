@@ -33,12 +33,13 @@ MainMenuActiveList* MainMenuActiveList::create()
 
 void MainMenuActiveList::addUI(std::string pName
                                ,std::string pImageURL
-                               ,std::string pDescription)
+                               ,std::string pDescription,int pHealth)
 {
     
     _mNameRef = pName;
     _mDescription = pDescription;
     _mImageURL = pImageURL;
+    opponentHealth = pHealth;
     
     //Profile Picture
     this->profilePictureImg = Sprite::create("MainMenu/ProfilePicColom.png");

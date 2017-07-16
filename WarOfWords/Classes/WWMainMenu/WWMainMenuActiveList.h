@@ -34,6 +34,7 @@ private:
     bool isYourTurn;
     std::string opponentUserId;
     std::string thumbUrl;
+    int opponentHealth;
     Label* userNameLabel, *userDescriptionlabel;
     
 public:
@@ -43,7 +44,7 @@ public:
     
     void addUI(std::string pName
                ,std::string pImageURL
-               ,std::string pDescription);
+               ,std::string pDescription,int pHealth);
 
 
 };

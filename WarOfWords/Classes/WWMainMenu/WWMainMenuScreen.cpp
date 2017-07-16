@@ -190,7 +190,7 @@ void WWMainMenu::addActiveGamesList()
         activeList1->setContentSize(Size(this->profileBackground->getContentSize().width, this->profileBackground->getContentSize().height));
         activeList1->setPosition(Vec2(startPos.x,startPos.y));
         this->activeGameListScrollView->addChild(activeList1);
-        activeList1->addUI("Gurudtaha T S", "", "Guild of the Mad badges");
+        activeList1->addUI("Gurudtaha T S", "", "Guild of the Mad badges",12);
         startPos.y = startPos.y - this->profileBackground->getContentSize().height - offsetval;
     }
    
@@ -677,13 +677,16 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
             {
                 std::string _tOpponentUserName  = document["games"][i]["opponentName"].GetString();
                 std::string _tOppoentProfileImg  = document["games"][i]["opponentThumbnail"].GetString();
+                std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
+                
+
                 
                 //Create Game List
                 MainMenuActiveList* activeList1 = MainMenuActiveList::create();
                 activeList1->setContentSize(Size(this->profileBackground->getContentSize().width, this->profileBackground->getContentSize().height));
                 activeList1->setPosition(Vec2(startPos.x,startPos.y));
                 this->activeGameListScrollView->addChild(activeList1);
-                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges");
+                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges",atoi(_tOpponentHealth.c_str()));
                 startPos.y = startPos.y - this->profileBackground->getContentSize().height - offsetval;
             }
         }
