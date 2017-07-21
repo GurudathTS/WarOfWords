@@ -37,7 +37,6 @@ private:
     Sprite* profileBackground, *profileCircleSpr, *CommonPoupBg;
     Label* userNameLabel, *userDescriptionLabel;
     ScrollView *activeGameListScrollView;
-     WWSettingsPannel* settingPannelLayer;
     WWmainMenuPlayConfirmation* playConfirmationPopup;
     
     //Variable
@@ -89,6 +88,8 @@ public:
     void onEnter()override;
     void onExit()override;
     
+    WWSettingsPannel* settingPannelLayer;
+
     //UI
     void addUI();
     

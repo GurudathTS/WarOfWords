@@ -120,6 +120,8 @@ public:
     bool has_only_digits(const std::string s);
     vector<string> split(const string &s, char delim);
     
+    void onClickOnBackBtn(Ref* sender);
+    
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWGameScene);

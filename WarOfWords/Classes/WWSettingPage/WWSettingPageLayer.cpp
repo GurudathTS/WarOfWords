@@ -7,6 +7,7 @@
 //
 
 #include "WWSettingPageLayer.h"
+#include "WWMainMenuScreen.h"
 
 #pragma mark - Init Functions -
 WWSettingsPannel* WWSettingsPannel::getSettingsBtn()
@@ -29,6 +30,7 @@ WWSettingsPannel::WWSettingsPannel()
 {
     Node::init();
     setAnchorPoint(Vec2(0, 0));
+    this->mainMenuRef = nullptr;
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     setContentSize(Size(visibleSize.width,visibleSize.height));
@@ -142,4 +144,5 @@ void WWSettingsPannel::onClickOnNotificationbtn(Ref* pSender)
 void WWSettingsPannel::onClickOnDonebtnBtn(Ref* pSender)
 {
     this->removeFromParentAndCleanup(true);
+    this->mainMenuRef->settingPannelLayer = nullptr;
 }

@@ -298,8 +298,6 @@ void WWLoginScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *re
             log("server error");
         }
         
-        
-        
     }
 }
 

@@ -32,7 +32,7 @@
 #include "2d/CCLabel.h"
 #include "ui/UIHelper.h"
 
-static const int CC_EDIT_BOX_PADDING = 5;
+static const int CC_EDIT_BOX_PADDING = 15;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 #define PASSWORD_CHAR "*"

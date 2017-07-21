@@ -13,13 +13,13 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
+class WWMainMenu;
 class WWSettingsPannel : public Node
 {
 private:
     LayerColor*    _mBGLayer;
     MenuItemToggle* musinBtn, *soundbtn,*notificationBtn;
     MenuItemImage* doneBtn;
-   
 
     WWSettingsPannel();
     void addUI();
@@ -32,6 +32,8 @@ private:
 public:
     static WWSettingsPannel* getSettingsBtn();
     ~WWSettingsPannel();
+    WWMainMenu* mainMenuRef;
+
     
 };
 

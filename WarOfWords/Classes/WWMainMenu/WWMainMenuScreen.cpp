@@ -205,6 +205,7 @@ void WWMainMenu::onClickOnSettingBtn(Ref* pSender)
         this->settingPannelLayer = WWSettingsPannel::getSettingsBtn();
         this->settingPannelLayer->setPosition(Vec2::ZERO);
         this->addChild(this->settingPannelLayer,100);
+        this->settingPannelLayer->mainMenuRef = this;
     }
 }
 
