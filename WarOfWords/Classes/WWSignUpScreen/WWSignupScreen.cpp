@@ -100,7 +100,7 @@ void WWSignUpScreen::addUI()
     this->confirmpassword = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
     this->confirmpassword->setPosition(Vec2(startPos.x,startPos.y));
     this->confirmpassword->setFontColor(Color3B::BLACK);
-    this->confirmpassword->setPlaceHolder("   Confirm Password");
+    this->confirmpassword->setPlaceHolder(" Confirm Password");
     this->confirmpassword->setPlaceholderFontSize(40);
     this->confirmpassword->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
     this->confirmpassword->setPlaceholderFontColor(Color3B(124, 37, 61));
@@ -116,7 +116,7 @@ void WWSignUpScreen::addUI()
     this->passWord = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
     this->passWord->setPosition(Vec2(startPos.x,startPos.y));
     this->passWord->setFontColor(Color3B::BLACK);
-    this->passWord->setPlaceHolder("   Password");
+    this->passWord->setPlaceHolder(" Password");
     this->passWord->setPlaceholderFontSize(40);
     this->passWord->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
     this->passWord->setPlaceholderFontColor(Color3B(124, 37, 61));
@@ -133,7 +133,7 @@ void WWSignUpScreen::addUI()
     this->email = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
     this->email->setPosition(Vec2(startPos.x,startPos.y));
     this->email->setFontColor(Color3B::BLACK);
-    this->email->setPlaceHolder("   Email");
+    this->email->setPlaceHolder(" Email");
     this->email->setPlaceholderFontSize(40);
     this->email->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
     this->email->setPlaceholderFontColor(Color3B(124, 37, 61));
@@ -150,7 +150,7 @@ void WWSignUpScreen::addUI()
     this->userName = EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
     this->userName->setPosition(Vec2(startPos.x,startPos.y));
     this->userName->setFontColor(Color3B::BLACK);
-    this->userName->setPlaceHolder("   User Name");
+    this->userName->setPlaceHolder(" User Name");
     this->userName->setPlaceholderFontSize(40);
     this->userName->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
     this->userName->setPlaceholderFontColor(Color3B(124, 37, 61));

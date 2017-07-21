@@ -109,10 +109,10 @@ void WWForgotPasswordScreen::addUI()
     //Email
     if (passwordType == kVerificationCode || passwordType == kForgotPassword)
     {
-        std::string placeHolderText = "   Email";
+        std::string placeHolderText = " Email";
         if (passwordType == kVerificationCode)
         {
-            placeHolderText = "   Verification Code";
+            placeHolderText = " Verification Code";
         }
         
         this->email = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
@@ -134,7 +134,7 @@ void WWForgotPasswordScreen::addUI()
         this->confirmPassword = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
         this->confirmPassword->setPosition(Vec2(startPos.x,startPos.y));
         this->confirmPassword->setFontColor(Color3B::BLACK);
-        this->confirmPassword->setPlaceHolder("   Confirm password");
+        this->confirmPassword->setPlaceHolder(" Confirm password");
         this->confirmPassword->setPlaceholderFontSize(20);
         this->confirmPassword->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
         this->confirmPassword->setPlaceholderFontColor(Color3B(124, 37, 61));
@@ -150,7 +150,7 @@ void WWForgotPasswordScreen::addUI()
         this->newPassword = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
         this->newPassword->setPosition(Vec2(startPos.x,startPos.y));
         this->newPassword->setFontColor(Color3B::BLACK);
-        this->newPassword->setPlaceHolder("   New password");
+        this->newPassword->setPlaceHolder(" New password");
         this->newPassword->setPlaceholderFontSize(20);
         this->newPassword->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
         this->newPassword->setPlaceholderFontColor(Color3B(124, 37, 61));

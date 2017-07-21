@@ -92,7 +92,7 @@
     textInput.ccui_textColor = _textInput.ccui_textColor ?: [UIColor whiteColor];
     textInput.ccui_text = _textInput.ccui_text ?: @"";
     textInput.ccui_placeholder = _textInput.ccui_placeholder ?: @"";
-    textInput.ccui_font = _textInput.ccui_font ?: [UIFont systemFontOfSize:self.frameRect.size.height*2/3];
+    textInput.ccui_font = _textInput.ccui_font ?: [UIFont systemFontOfSize:self.frameRect.size.height];
     
     [_textInput resignFirstResponder];
     [_textInput removeFromSuperview];
@@ -281,7 +281,7 @@
 - (void)updateFrame:(CGRect)rect
 {
     CGRect frame = self.textInput.frame;
-    frame.origin = rect.origin;
+    frame.origin = CGPointMake(rect.origin.x + 5, rect.origin.y);
     frame.size = rect.size;
     
     self.textInput.frame = frame;
