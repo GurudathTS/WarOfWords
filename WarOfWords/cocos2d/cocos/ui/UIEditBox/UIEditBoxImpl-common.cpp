@@ -32,7 +32,7 @@
 #include "2d/CCLabel.h"
 #include "ui/UIHelper.h"
 
-static const int CC_EDIT_BOX_PADDING = 15;
+static const int CC_EDIT_BOX_PADDING = 20;
 
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WINRT
 #define PASSWORD_CHAR "*"
@@ -67,7 +67,7 @@ bool EditBoxImplCommon::initWithSize(const Size& size)
     do 
     {
         
-        Rect rect = Rect(0, 0, size.width, size.height);
+        Rect rect = Rect(CC_EDIT_BOX_PADDING, 0, size.width, size.height);
         
         this->createNativeControl(rect);
         
@@ -130,7 +130,7 @@ void EditBoxImplCommon::setInactiveText(const char* pText)
     
 void EditBoxImplCommon::setFont(const char* pFontName, int fontSize)
 {
-    this->setNativeFont(pFontName, fontSize * _label->getNodeToWorldAffineTransform().a);
+    this->setNativeFont(pFontName, fontSize);
 
     if(strlen(pFontName) > 0)
     {
