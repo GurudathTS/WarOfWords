@@ -127,8 +127,7 @@ public:
     
     void onClickOnBackBtn(Ref* sender);
     
-    std::string createGameConfig();
-    
+    std::string createGameConfig(std::string pFullAlphabetStr, std::string updatedStr);
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWGameScene);

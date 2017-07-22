@@ -564,6 +564,7 @@ void WWGameScene::sendAlphabetDetailtoServer()
     
     std::string opponentHealth = NumToString(this->opponentProgressBar);
     std::string UserHealth = NumToString(this->userProgressBar);
+    std::string pConfigSTr = this->createGameConfig(_tFullAlphabetStr, "");
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
@@ -573,7 +574,7 @@ void WWGameScene::sendAlphabetDetailtoServer()
     url=url+"&userScore"+"="+"";
     url=url+"&opponentHealth"+"="+opponentHealth;
     url=url+"&opponentScore"+"="+"";
-    url=url+"&gameConfig"+"="+_tFullAlphabetStr; //
+    url=url+"&gameConfig"+"="+pConfigSTr; //
     url=url+"&wonBy"+"="+"";
     url=url+"&status"+"="+"2";
     
@@ -662,6 +663,12 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
         
+        rapidjson::Document document;
+        document.Parse<0>(_tAlphabetStr.c_str());
+        
+        std::string fullStr  = document["FullAlphabetString"].GetString();
+        std::string updaStr  = document["LastTurnAlbhabet"].GetString();
+        
         if(_tStatus == "1")
         {
             //Finished
@@ -682,14 +689,14 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
             if(_tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
             {
                 //Update Alphabet
-                this->updateAlphabetFromServer(_tAlphabetStr);
+                this->updateAlphabetFromServer(updaStr);
             }
         }
         else
         {
             if(_tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
             {
-                this->createAlphabetFromServer(_tAlphabetStr);
+                this->createAlphabetFromServer(fullStr);
             }
         }
 
@@ -736,6 +743,15 @@ void WWGameScene::updateAlphabetDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
+    std::string _tFullAlphabetStr = "";
+    for (int i = 0; i < this->pTotalGridAlphabet.size(); i++)
+    {
+        WWAlphabetSprite* alphaBetSpr = this->pTotalGridAlphabet.at(i);
+        _tFullAlphabetStr = _tFullAlphabetStr + alphaBetSpr->currentAlphabet->getString();
+    }
+    
+    std::string pConfigSTr = this->createGameConfig(_tFullAlphabetStr, this->_mUpdatedString);
+
     std::string opponentHealth = NumToString(this->opponentProgressBar);
     std::string UserHealth = NumToString(this->userProgressBar);
     url=url+"savegame?";
@@ -747,7 +763,7 @@ void WWGameScene::updateAlphabetDetailtoServer()
     url=url+"&userScore"+"="+"";
     url=url+"&opponentHealth"+"="+opponentHealth;
     url=url+"&opponentScore"+"="+"";
-    url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
+    url=url+"&gameConfig"+"="+pConfigSTr.c_str();
     url=url+"&wonBy"+"="+"";
     url=url+"&status"+"="+"5";   //    //Status 5 means Update
     
@@ -770,6 +786,15 @@ void WWGameScene::onGameCompleteDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
+    std::string _tFullAlphabetStr = "";
+    for (int i = 0; i < this->pTotalGridAlphabet.size(); i++)
+    {
+        WWAlphabetSprite* alphaBetSpr = this->pTotalGridAlphabet.at(i);
+        _tFullAlphabetStr = _tFullAlphabetStr + alphaBetSpr->currentAlphabet->getString();
+    }
+    
+    std::string pConfigSTr = this->createGameConfig(_tFullAlphabetStr, this->_mUpdatedString);
+    
     std::string opponentHealth = NumToString(this->opponentProgressBar);
     std::string UserHealth = NumToString(this->userProgressBar);
     url=url+"savegame?";
@@ -781,7 +806,7 @@ void WWGameScene::onGameCompleteDetailtoServer()
     url=url+"&userScore"+"="+"";
     url=url+"&opponentHealth"+"="+opponentHealth;
     url=url+"&opponentScore"+"="+"";
-    url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
+    url=url+"&gameConfig"+"="+pConfigSTr.c_str();
     url=url+"&wonBy"+"="+WWPlayerInfoRef->getCurrentUserID();
     url=url+"&status"+"="+"1";   //    //Status 4 means Update
     
@@ -883,32 +908,21 @@ vector<std::string> WWGameScene::split(const string &s, char delim) {
 }
 
 #pragma mark - Game config
-std::string WWGameScene::createGameConfig()
+std::string WWGameScene::createGameConfig(std::string pFullAlphabetStr, std::string updatedStr)
 {
-    
 
-    
-    
     rapidjson::StringBuffer sstream;
     
     rapidjson::Writer<rapidjson::StringBuffer> writer(sstream);
     
     writer.StartObject();
-    
     writer.String("FullAlphabetString");
+    writer.String(pFullAlphabetStr.c_str());
 
-    
-    writer.String("Asfggghhhhjjjj");
-    
-    
-    
-    
     writer.String("LastTurnAlbhabet");
-    writer.String("Aghhh");
-    
+    writer.String(updatedStr.c_str());
     
     writer.EndObject();
-    
     
     return sstream.GetString();
 
