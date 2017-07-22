@@ -202,8 +202,8 @@ void WWGameScene::addUI(float pYpos)
     
     //Back Button
     MenuItemImage* backBtn = MenuItemImage::create("LoginScreen/BackBtn.png", "LoginScreen/BackBtn.png", CC_CALLBACK_1(WWGameScene::onClickOnBackBtn, this));
-    backBtn->setPosition(Vec2(this->origin.x + backBtn->getContentSize().width * 0.8, (this->visibleSize.height) + this->origin.y - (backBtn->getContentSize().height * 0.8)));
-    backBtn->setScale(0.9);
+    backBtn->setPosition(Vec2(this->origin.x + backBtn->getContentSize().width * 0.5, (this->visibleSize.height) + this->origin.y - (backBtn->getContentSize().height * 1.4)));
+    backBtn->setScale(0.7);
     
     //Submit Button
     submitButton = MenuItemImage::create("GameScene/SubmitBtn.png", "GameScene/SubmitBtn.png", CC_CALLBACK_1(WWGameScene::onSubmitClicked, this));
