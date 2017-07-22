@@ -125,7 +125,7 @@ void WWGameScene::addUI(float pYpos)
     this->pTimerLabel->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.05 + origin.y - pbatterSpr->getContentSize().height/2 - 25));
     addChild(this->pTimerLabel);
     
-    this->hourVal = 24;
+    this->hourVal = 48;
     this->minVal = 0;
     this->secVal = 0;
     
@@ -134,7 +134,7 @@ void WWGameScene::addUI(float pYpos)
     
     //profile Icon
     auto* currentPlayerProgressBar = Sprite::create("GameScene/HelthBar.png");
-    currentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    currentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY()));
     addChild(currentPlayerProgressBar);
     
     this->userProgressBar = 100;
@@ -144,10 +144,10 @@ void WWGameScene::addUI(float pYpos)
     this->currentPlayerProfress->setMidpoint(Vec2(0,0));
     this->currentPlayerProfress->setBarChangeRate(Vec2(1, 0));
     addChild(this->currentPlayerProfress);
-    this->currentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    this->currentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY()));
     
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
-    currentPlayerProfile->setPosition(Vec2(-currentPlayerProfile->getContentSize().width * 0.1, currentPlayerProfile->getContentSize().height * 0.1));
+    currentPlayerProfile->setPosition(Vec2(-currentPlayerProfile->getContentSize().width * 0.2, currentPlayerProfile->getContentSize().height * 0.1));
     this->currentPlayerProfress->addChild(currentPlayerProfile);
     currentPlayerProfile->setScale(0.4);
     
@@ -163,7 +163,7 @@ void WWGameScene::addUI(float pYpos)
     
     //opponent Player Progress bar
     auto* opponentPlayerProgressBar = Sprite::create("GameScene/HelthBar.png");
-    opponentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    opponentPlayerProgressBar->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY()));
     addChild(opponentPlayerProgressBar);
     
     
@@ -172,10 +172,10 @@ void WWGameScene::addUI(float pYpos)
     this->opponentPlayerProfress->setMidpoint(Vec2(1,0));
     this->opponentPlayerProfress->setBarChangeRate(Vec2(1, 0));
     addChild(this->opponentPlayerProfress);
-    this->opponentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
+    this->opponentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY()));
     
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
-    opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 1.1, opponentPlayerprofile->getContentSize().height * 0.1));
+    opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 1.2, opponentPlayerprofile->getContentSize().height * 0.1));
     this->opponentPlayerProfress->addChild(opponentPlayerprofile);
     opponentPlayerprofile->setScale(0.4);
     
@@ -340,6 +340,9 @@ void WWGameScene::onClickOnBackBtn(Ref* sender)
 void WWGameScene::onSubmitClicked(Ref* sender)
 {
     log("Submit Action");
+    if(WWPlayerInfoRef->getTurnUserID() != WWPlayerInfoRef->getCurrentUserID())
+        return;
+    
     if(currentSelectedStr.size() < MinAlphabetsRequired)
     {
         MessageBox("Please Select 4 Letter", "Error");
@@ -362,7 +365,7 @@ void WWGameScene::onSubmitClicked(Ref* sender)
 
     log("..... Selected Str ..... %s",_tSelectedStr.c_str());
     bool _tTest = true;
-    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
+    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
     {
         log("..................... Dictionary present......................");
         std::string alphaVal = toString(totalScore);

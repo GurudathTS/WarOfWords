@@ -100,8 +100,7 @@ void WWResultScreen::addLoseScreen()
     auto* loseHeader = Label::createWithTTF("Defeat!", "fonts/Kingthings Sans.ttf", 85);
     loseHeader->setPosition(Vec2(visibleSize.width/2 + origin.x,visibleSize.height/2 + origin.y + loseIcon->getContentSize().height / 2 + 100));
     addChild(loseHeader);
-    loseHeader->setColor(Color3B(21,58,186));
-    
+    loseHeader->setColor(Color3B(161,69,28));    
     
     //Submit Btn
     MenuItemImage* submitButton = MenuItemImage::create("LoginScreen/BlueCommonBtbn.png", "LoginScreen/BlueCommonBtbn.png", CC_CALLBACK_1(WWResultScreen::gobackToMainScreen, this));

@@ -117,6 +117,8 @@ void WWLoginScreen::addUI()
     this->userName->setFontSize(40);
     this->addChild(this->userName);
     this->userName->setScale(0.9);
+    this->userName->setInputMode(cocos2d::ui::EditBox::InputMode::SINGLE_LINE);
+
     
     //Password
     this->passWord = ui::EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
