@@ -564,8 +564,7 @@ void WWGameScene::sendAlphabetDetailtoServer()
     
     std::string opponentHealth = NumToString(this->opponentProgressBar);
     std::string UserHealth = NumToString(this->userProgressBar);
-    std::string str1 = this->createGameConfig(_tFullAlphabetStr, "");
-    std::string pConfigSTr = std::urlencode(str1.c_str()) ;
+    std::string pConfigSTr = this->createGameConfig(_tFullAlphabetStr, "");
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
@@ -925,6 +924,9 @@ std::string WWGameScene::createGameConfig(std::string pFullAlphabetStr, std::str
     
     writer.EndObject();
     
-    return sstream.GetString();
+    std::string str1 = sstream.GetString();
+    std::string pConfigSTr = std::urlencode(str1.c_str()) ;
+
+    return pConfigSTr;
 
 }
