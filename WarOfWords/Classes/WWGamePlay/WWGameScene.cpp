@@ -684,7 +684,10 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         }
         else
         {
-            this->createAlphabetFromServer(_tAlphabetStr);
+            if(_tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
+            {
+                this->createAlphabetFromServer(_tAlphabetStr);
+            }
         }
 
     }
