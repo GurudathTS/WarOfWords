@@ -559,14 +559,17 @@ void WWGameScene::sendAlphabetDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    std::string UserHealth = NumToString(this->opponentProgressBar);
+    std::string opponentHealth = NumToString(this->opponentProgressBar);
+    std::string UserHealth = NumToString(this->userProgressBar);
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&userHealth"+"="+UserHealth;
     url=url+"&userScore"+"="+"";
-    url=url+"&opponentHealth"+"="+UserHealth;
+    url=url+"&opponentHealth"+"="+opponentHealth;
+    url=url+"&opponentScore"+"="+"";
     url=url+"&gameConfig"+"="+_tFullAlphabetStr; //
     url=url+"&wonBy"+"="+"";
     url=url+"&status"+"="+"2";
@@ -727,14 +730,17 @@ void WWGameScene::updateAlphabetDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    std::string UserHealth = NumToString(this->opponentProgressBar);
+    std::string opponentHealth = NumToString(this->opponentProgressBar);
+    std::string UserHealth = NumToString(this->userProgressBar);
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&userHealth"+"="+UserHealth;
     url=url+"&userScore"+"="+"";
-    url=url+"&opponentHealth"+"="+UserHealth;
+    url=url+"&opponentHealth"+"="+opponentHealth;
+    url=url+"&opponentScore"+"="+"";
     url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
     url=url+"&wonBy"+"="+"";
     url=url+"&status"+"="+"5";   //    //Status 5 means Update
@@ -758,14 +764,17 @@ void WWGameScene::onGameCompleteDetailtoServer()
     HttpRequest* request = new (std::nothrow) HttpRequest();
     std::string url=BASE_URL;
     
-    std::string UserHealth = NumToString(this->opponentProgressBar);
+    std::string opponentHealth = NumToString(this->opponentProgressBar);
+    std::string UserHealth = NumToString(this->userProgressBar);
     url=url+"savegame?";
     url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
     url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
     url=url+"&opponentUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
     url=url+"&turnUserId"+"="+WWPlayerInfoRef->getOpponentUserID();
+    url=url+"&userHealth"+"="+UserHealth;
     url=url+"&userScore"+"="+"";
-    url=url+"&opponentHealth"+"="+UserHealth;
+    url=url+"&opponentHealth"+"="+opponentHealth;
+    url=url+"&opponentScore"+"="+"";
     url=url+"&gameConfig"+"="+this->_mUpdatedString.c_str();
     url=url+"&wonBy"+"="+WWPlayerInfoRef->getCurrentUserID();
     url=url+"&status"+"="+"1";   //    //Status 4 means Update
