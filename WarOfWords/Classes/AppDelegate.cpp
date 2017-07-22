@@ -85,8 +85,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     std::string apiKey = WWDatamanager::sharedManager()->getAPIKey();
     if(strcmp(apiKey.c_str(), "NotExist")!=0)
     {
-        scene = WWLandingScreen::createScene();
-
+        scene = WWMainMenu::createScene();
     }
     else
     {
