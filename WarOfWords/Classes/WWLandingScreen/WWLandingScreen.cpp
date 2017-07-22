@@ -15,6 +15,12 @@
 #include "WWDatamanager.h"
 #include "WWCommonUtilty.h"
 #include "WWMainMenuScreen.h"
+#include "json/rapidjson.h"
+#include "json/filestream.h"
+#include "json/document.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
+
 
 Scene* WWLandingScreen::createScene()
 {
@@ -54,6 +60,37 @@ bool WWLandingScreen::init()
     
     //Add Ui
     this->addUI();
+    
+    
+    rapidjson::StringBuffer sstream;
+    
+    rapidjson::Writer<rapidjson::StringBuffer> writer(sstream);
+    
+    writer.StartObject();
+    
+    writer.String("FullAlphabetString");
+    
+    
+    writer.String("Asfggghhhhjjjj");
+    
+    
+    
+    
+    writer.String("LastTurnAlbhabet");
+    writer.String("Aghhh");
+    
+    
+    writer.EndObject();
+    
+    
+    std::string parseStr =  sstream.GetString();
+    rapidjson::Document document;
+    document.Parse<0>(parseStr.c_str());
+    
+    std::string full  = document["FullAlphabetString"].GetString();
+
+
+    
     
     return true;
 }

@@ -16,7 +16,12 @@
 #include <string>
 #include "WWPowerUpSprite.h"
 #include "WWPlayerInfo.h"
-
+#include "extensions/cocos-ext.h"
+#include "json/rapidjson.h"
+#include "json/filestream.h"
+#include "json/document.h"
+#include "json/stringbuffer.h"
+#include "json/writer.h"
 
 #include "extensions/cocos-ext.h"
 using namespace cocos2d::extension;
@@ -121,6 +126,8 @@ public:
     vector<string> split(const string &s, char delim);
     
     void onClickOnBackBtn(Ref* sender);
+    
+    std::string createGameConfig();
     
     
     // implement the "static create()" method manually

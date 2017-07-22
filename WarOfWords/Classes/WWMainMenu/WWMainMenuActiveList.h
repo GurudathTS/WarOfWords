@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "network/HttpRequest.h"
 #include "network/HttpClient.h"
+
 using namespace cocos2d::network;
 using namespace cocos2d;
 
@@ -28,13 +29,20 @@ private:
     CC_SYNTHESIZE_READONLY(std::string, _mDescription, Description);
     CC_SYNTHESIZE_READONLY(Texture2D*, _mTexture, Texture);
     
-private:
+public:
     Sprite* profilePictureImg, *battleIconImg;
     std::string challengID;
     bool isYourTurn;
     std::string opponentUserId;
-    std::string thumbUrl;
+    std::string opponentName;
+    std::string opponenetThumbnail;
     int opponentHealth;
+    std::string turnUserId;
+    std::string wonBy;
+    std::string status;
+    std::string thumbUrl;
+    std::string lastUpdatedStr;
+
     Label* userNameLabel, *userDescriptionlabel;
     
 public:
@@ -45,6 +53,7 @@ public:
     void addUI(std::string pName
                ,std::string pImageURL
                ,std::string pDescription,int pHealth);
+    void battleIconButtonAction();
 
 
 };

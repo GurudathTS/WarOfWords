@@ -881,3 +881,35 @@ vector<std::string> WWGameScene::split(const string &s, char delim) {
     }
     return tokens;
 }
+
+#pragma mark - Game config
+std::string WWGameScene::createGameConfig()
+{
+    
+
+    
+    
+    rapidjson::StringBuffer sstream;
+    
+    rapidjson::Writer<rapidjson::StringBuffer> writer(sstream);
+    
+    writer.StartObject();
+    
+    writer.String("FullAlphabetString");
+
+    
+    writer.String("Asfggghhhhjjjj");
+    
+    
+    
+    
+    writer.String("LastTurnAlbhabet");
+    writer.String("Aghhh");
+    
+    
+    writer.EndObject();
+    
+    
+    return sstream.GetString();
+
+}

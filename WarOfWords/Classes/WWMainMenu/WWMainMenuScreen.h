@@ -40,8 +40,8 @@ private:
     WWmainMenuPlayConfirmation* playConfirmationPopup;
     
     //Variable
-    Size visibleSize;
-    Vec2 origin;
+    cocos2d::Size visibleSize;
+    cocos2d::Vec2 origin;
     
     //Button
     void onClickOnQuickmatchBtn(Ref* pSender);
@@ -94,6 +94,8 @@ public:
     void addUI();
     
     void callbackFromConfirmationPopup(bool pIsConfirmed);
+    
+    void activeListBattleIconAction(std::string challengeId,std::string oppName,std::string oppId,std::string oppThumb, std::string status,std::string turnId,std::string wonBy);
     
     // implement the "static create()" method manually
     CREATE_FUNC(WWMainMenu);

@@ -53,6 +53,7 @@ bool WWMainMenu::init()
     }
     
     WWDatamanager::sharedManager()->_isUserInMainScene = true;
+    WWDatamanager::sharedManager()->_mainScreenRef = this;
     
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
@@ -678,8 +679,21 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
             {
                 std::string _tOpponentUserName  = document["games"][i]["opponentName"].GetString();
                 std::string _tOppoentProfileImg  = document["games"][i]["opponentThumbnail"].GetString();
-                //std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
+                std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
+                std::string opponentId  = document["games"][i]["opponentUserId"].GetString();
+                std::string turnUserId  = document["games"][i]["turnUserId"].GetString();
+
+                std::string wonBy  = document["games"][i]["wonBy"].GetString();
+
+                std::string challengeId  = document["games"][i]["challengeId"].GetString();
+
+                std::string status  = document["games"][i]["status"].GetString();
+
+                //long int updatedStr = document["updatedDate"].GetInt();
+              //  std::string lastUpdatedate = document["updatedDate"].GetString();
                 
+               // long int updatedStr = document["games"][i]["updatedDate"].GetInt();
+                std::string lastUpdatedate =document["games"][i]["updatedDate"].GetString();
 
                 
                 //Create Game List
@@ -687,7 +701,18 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
                 activeList1->setContentSize(Size(this->profileBackground->getContentSize().width, this->profileBackground->getContentSize().height));
                 activeList1->setPosition(Vec2(startPos.x,startPos.y));
                 this->activeGameListScrollView->addChild(activeList1);
-                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges",3);
+                activeList1->addUI(_tOpponentUserName, _tOppoentProfileImg, "Guild of the Mad badges",3)
+                ;
+                activeList1->challengID = challengeId;
+                 activeList1->turnUserId = turnUserId;
+                activeList1->wonBy = wonBy;
+                activeList1->opponentHealth = std::atoi(_tOpponentHealth.c_str());
+                activeList1->opponentUserId = opponentId;
+                activeList1->status = status;
+                activeList1->lastUpdatedStr = lastUpdatedate;
+
+
+                
                 startPos.y = startPos.y - this->profileBackground->getContentSize().height - offsetval;
             }
         }
@@ -748,4 +773,16 @@ void WWMainMenu::onSendPushNotificationToUserAPIRequestCompleted(HttpClient *sen
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     
+}
+#pragma mark - Active game list button action
+void  WWMainMenu::activeListBattleIconAction(std::string challengeId,std::string oppName,std::string oppId,std::string oppThumb, std::string status,std::string turnId,std::string wonBy)
+{
+    WWPlayerInfoRef->updateChallengeID(challengeId);
+    WWPlayerInfoRef->updateTurnUserID(turnId);
+    WWPlayerInfoRef->updateOpponentUserID(oppId);
+    
+    WWDatamanager::sharedManager()->_isUserInMainScene = false;
+    Director::getInstance()->replaceScene(WWBattleScreen::createScene());
+
+
 }

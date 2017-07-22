@@ -7,6 +7,8 @@
 //
 
 #include "WWMainMenuActiveList.h"
+#include "WWDatamanager.h"
+#include "WWMainMenuScreen.h"
 
 MainMenuActiveList::MainMenuActiveList()
 {
@@ -62,5 +64,21 @@ void MainMenuActiveList::addUI(std::string pName
     this->battleIconImg = Sprite::create("MainMenu/BattleIcon.png");
     this->battleIconImg->setPosition(Vec2(this->getContentSize().width * 0.95, this->getContentSize().height * 0.5));
     this->addChild(this->battleIconImg);
+    
+    
+    MenuItemImage *hiddenMenuItem = MenuItemImage::create("MainMenu/BattleIcon.png", "MainMenu/BattleIcon.png", CC_CALLBACK_0(MainMenuActiveList::battleIconButtonAction, this));
+    hiddenMenuItem->setPosition(this->battleIconImg->getContentSize().width/2, this->battleIconImg->getContentSize().height/2);
+    hiddenMenuItem->setOpacity(0);
+    
+    Menu *tempMenu = Menu::createWithItem(hiddenMenuItem);
+    this->battleIconImg->addChild(tempMenu);
+    tempMenu->setPosition(Vec2::ZERO);
+    
+}
+ void MainMenuActiveList::battleIconButtonAction()
+{
+    log("com");
+    WWDatamanager::sharedManager()->lastUpdatedStr = lastUpdatedStr;
+    WWDatamanager::sharedManager()->_mainScreenRef->activeListBattleIconAction(this->challengID, this->opponentName, this->opponentUserId, this->opponenetThumbnail, this->status, this->turnUserId, this->wonBy);
     
 }
