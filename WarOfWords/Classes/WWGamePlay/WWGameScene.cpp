@@ -125,7 +125,7 @@ void WWGameScene::addUI(float pYpos)
     this->pTimerLabel->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.05 + origin.y - pbatterSpr->getContentSize().height/2 - 25));
     addChild(this->pTimerLabel);
     
-    this->hourVal = 23;
+    this->hourVal = 24;
     this->minVal = 0;
     this->secVal = 0;
     
@@ -147,7 +147,7 @@ void WWGameScene::addUI(float pYpos)
     this->currentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
     
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
-    currentPlayerProfile->setPosition(Vec2(0, currentPlayerProfile->getContentSize().height * 0.1));
+    currentPlayerProfile->setPosition(Vec2(-currentPlayerProfile->getContentSize().width * 0.1, currentPlayerProfile->getContentSize().height * 0.1));
     this->currentPlayerProfress->addChild(currentPlayerProfile);
     currentPlayerProfile->setScale(0.4);
     
@@ -175,7 +175,7 @@ void WWGameScene::addUI(float pYpos)
     this->opponentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 1.1, pbatterSpr->getPositionY()));
     
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
-    opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 0.9, opponentPlayerprofile->getContentSize().height * 0.1));
+    opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 1.1, opponentPlayerprofile->getContentSize().height * 0.1));
     this->opponentPlayerProfress->addChild(opponentPlayerprofile);
     opponentPlayerprofile->setScale(0.4);
     
