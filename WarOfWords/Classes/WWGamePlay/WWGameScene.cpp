@@ -365,7 +365,7 @@ void WWGameScene::onSubmitClicked(Ref* sender)
 
     log("..... Selected Str ..... %s",_tSelectedStr.c_str());
     bool _tTest = true;
-    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
+    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
     {
         log("..................... Dictionary present......................");
         std::string alphaVal = toString(totalScore);
