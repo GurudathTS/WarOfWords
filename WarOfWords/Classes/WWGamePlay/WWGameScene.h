@@ -41,6 +41,7 @@ class WWGameScene : public Layer
 {
 public:
     static cocos2d::Scene* createScene();
+    WWGameScene* gameSceneRef;
     
     virtual bool init();
     void initGameScene();

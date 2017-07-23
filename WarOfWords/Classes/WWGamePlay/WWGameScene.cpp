@@ -48,6 +48,7 @@ bool WWGameScene::init()
     {
         return false;
     }
+    WWDatamanager::sharedManager()->gameSceneRef = this;
     
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
@@ -634,6 +635,10 @@ void WWGameScene::getAlphabetDetailtoServer()
 }
 void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
+    
+    if(WWDatamanager::sharedManager()->gameSceneRef != this)
+        return;
+    
     if (!response)
     {
         return;
