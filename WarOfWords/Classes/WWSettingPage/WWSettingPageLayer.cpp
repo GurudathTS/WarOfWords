@@ -8,6 +8,8 @@
 
 #include "WWSettingPageLayer.h"
 #include "WWMainMenuScreen.h"
+#include "WWLandingScreen.h"
+#include "WWDatamanager.h"
 
 #pragma mark - Init Functions -
 WWSettingsPannel* WWSettingsPannel::getSettingsBtn()
@@ -134,6 +136,9 @@ void WWSettingsPannel::addUI()
 
 void WWSettingsPannel::onClickLogOutBtn(Ref* pSender)
 {
+    WWDatamanager::sharedManager()->setAPIKey("NotExist");
+    HttpClient::getInstance()->destroyInstance();
+    Director::getInstance()->replaceScene(WWLandingScreen::createScene());
     
 }
 
