@@ -987,7 +987,6 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
             {
                 std::string _tOpponentUserName  = document["game"]["opponentName"].GetString();
                 std::string _tOppoentProfileImg  = document["game"]["opponentThumbnail"].GetString();
-                std::string _tOpponentHealth  = document["game"]["opponentHealth"].GetString();
                 std::string opponentId  = document["game"]["opponentUserId"].GetString();
                 std::string turnUserId  = document["game"]["turnUserId"].GetString();
                 std::string wonBy  = document["game"]["wonBy"].GetString();
@@ -1005,8 +1004,16 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
                 log("........... Full String........ %s",fullStr.c_str());
                 this->createAlphabetFromServer(fullStr);
                 
+                //Health bar
+                //Opponent user ID
+                std::string _tOpponentHealth  = document["game"]["opponentHealth"].GetString();
+                std::string _tUserHealth = document["games"]["userHealth"].GetString();
+                
+                this->userProgressBar = std::atoi(_tUserHealth.c_str());
+                this->opponentProgressBar = std::atoi(_tOpponentHealth.c_str());
+                this->updateUserProgressBar(0.5);
+                this->updateOpponentProgressBar(0.5);
+                
             }
         }
-    
-    
 }
