@@ -48,6 +48,7 @@ bool WWGameScene::init()
     {
         return false;
     }
+    WWDatamanager::sharedManager()->gameSceneRef = this;
     
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
@@ -635,6 +636,10 @@ void WWGameScene::getAlphabetDetailtoServer()
 }
 void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
+    
+    if(WWDatamanager::sharedManager()->gameSceneRef != this)
+        return;
+    
     if (!response)
     {
         return;
@@ -714,8 +719,8 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
     }
     //else
     {
-        Sequence* seqAct = Sequence::create(DelayTime::create(1),CallFunc::create( CC_CALLBACK_0(WWGameScene::getAlphabetDetailtoServer,this)), NULL);
-        this->runAction(seqAct);
+
+        this->getAlphabetDetailtoServer();
     }
 }
 

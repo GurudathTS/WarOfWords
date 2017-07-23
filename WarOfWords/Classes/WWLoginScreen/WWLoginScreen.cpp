@@ -107,7 +107,7 @@ void WWLoginScreen::addUI()
     this->userName = EditBox::create(Size(sprRef->getContentSize().width, sprRef->getContentSize().height), ui::Scale9Sprite::create(pNormalSprite));
     this->userName->setPosition(Vec2(this->logInBtn->getPositionX(), this->logInBtn->getPositionY() + (sprRef->getContentSize().height * 2) + 50));
     this->userName->setFontColor(Color3B::BLACK);
-    this->userName->setPlaceHolder(" UserName");
+    this->userName->setPlaceHolder(" Email");
     this->userName->setPlaceholderFontSize(40);
     this->userName->setPlaceholderFontName("fonts/JosefinSlab-SemiBold.ttf");
     this->userName->setPlaceholderFontColor(Color3B(124, 37, 61));

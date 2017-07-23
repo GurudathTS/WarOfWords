@@ -11,6 +11,7 @@
 
 #include "cocos2d.h"
 #include "WWMainMenuScreen.h"
+#include "WWGameScene.h"
 USING_NS_CC;
 
 class WWDatamanager: public Ref
@@ -44,6 +45,7 @@ public:
     int userHealth;
     std::string lastUpdatedStr;
     WWMainMenu *_mainScreenRef;
+    WWGameScene* gameSceneRef;
     bool _isExistingGameStarting = false;
     
 };
