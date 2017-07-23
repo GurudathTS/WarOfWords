@@ -146,7 +146,7 @@ void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event
         }
         //Check if Word is present on Dictionary
          bool _tTest = true;
-        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
+        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
         {
             this->objref->submitButton->setOpacity(255);
             this->objref->submitButton->setEnabled(true);
@@ -166,12 +166,12 @@ void WWAlphabetSprite::checkIfCurrentCellNearToPreviousSeelctedCell()
     bool pIsNeightbour = false;
     for(WWAlphabetSprite* alphabetSpr : this->objref->currentSelectedStr)
     {        
-        if ((alphabetSpr->gridRefValue + 1) == this->gridRefValue) {
+        if ((alphabetSpr->gridRefValue + 1) == this->gridRefValue &&  ((this->gridRefValue) % 6 != 0)) {
     
             pIsNeightbour = true;
             break;
         }
-        if ((alphabetSpr->gridRefValue - 1) == this->gridRefValue) {
+        if ((alphabetSpr->gridRefValue - 1) == this->gridRefValue && ((this->gridRefValue + 1) % 6 != 0)) {
             
             pIsNeightbour = true;
             break;
@@ -191,12 +191,25 @@ void WWAlphabetSprite::checkIfCurrentCellNearToPreviousSeelctedCell()
         int upperGrid = alphabetSpr->gridRefValue + 6;
         int lowerGrid = alphabetSpr->gridRefValue - 6;
         
-        if((upperGrid + 1) == this->gridRefValue || (upperGrid - 1) == this->gridRefValue)
+        if((upperGrid + 1) == this->gridRefValue && ((this->gridRefValue) % 6 != 0))
         {
             pIsNeightbour = true;
             break;
         }
-        if((lowerGrid + 1) == this->gridRefValue || (lowerGrid - 1) == this->gridRefValue)
+        
+        if((upperGrid - 1) == this->gridRefValue && ((this->gridRefValue + 1) % 6 != 0))
+        {
+            pIsNeightbour = true;
+            break;
+        }
+        
+        if((lowerGrid - 1) == this->gridRefValue && ((this->gridRefValue + 1) % 6 != 0))
+        {
+            pIsNeightbour = true;
+            break;
+        }
+        
+        if((lowerGrid + 1) == this->gridRefValue &&  ((this->gridRefValue) % 6 != 0))
         {
             pIsNeightbour = true;
             break;
