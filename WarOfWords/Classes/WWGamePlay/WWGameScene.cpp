@@ -81,11 +81,10 @@ bool WWGameScene::init()
         {
             ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
         }
-        this->getAlphabetDetailtoServer();
-        
-
-        
     }
+    
+    this->getAlphabetDetailtoServer();
+
     
     
     return true;
@@ -1018,7 +1017,7 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
                 
             }
         
-        this->getAlphabetDetailtoServer();
+        //this->getAlphabetDetailtoServer();
 
         }
 }
