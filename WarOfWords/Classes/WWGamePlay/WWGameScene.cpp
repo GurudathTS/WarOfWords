@@ -1007,7 +1007,7 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
                 //Health bar
                 //Opponent user ID
                 std::string _tOpponentHealth  = document["game"]["opponentHealth"].GetString();
-                std::string _tUserHealth = document["games"]["userHealth"].GetString();
+                std::string _tUserHealth = document["game"]["userHealth"].GetString();
                 
                 this->userProgressBar = std::atoi(_tUserHealth.c_str());
                 this->opponentProgressBar = std::atoi(_tOpponentHealth.c_str());
