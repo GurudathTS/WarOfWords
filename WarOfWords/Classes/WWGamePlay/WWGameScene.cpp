@@ -344,6 +344,7 @@ float WWGameScene::createGrid()
 #pragma mark - button Action
 void WWGameScene::onClickOnBackBtn(Ref* sender)
 {
+    HttpClient::getInstance()->destroyInstance();
     Director::getInstance()->replaceScene(WWMainMenu::createScene());
 }
 
