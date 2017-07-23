@@ -377,7 +377,7 @@ void WWGameScene::onSubmitClicked(Ref* sender)
 
     log("..... Selected Str ..... %s",_tSelectedStr.c_str());
     bool _tTest = true;
-    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
+    if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
     {
         log("..................... Dictionary present......................");
         std::string alphaVal = toString(totalScore);
@@ -682,8 +682,8 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         rapidjson::Document document1;
         document1.Parse<0>(_tAlphabetStr.c_str());
         
-        std::string fullStr  = document["FullAlphabetString"].GetString();
-        std::string updaStr  = document["LastTurnAlbhabet"].GetString();
+        std::string fullStr  = document1["FullAlphabetString"].GetString();
+        std::string updaStr  = document1["LastTurnAlbhabet"].GetString();
         
         if(_tStatus == "1")
         {

@@ -112,7 +112,7 @@ void WWSettingsPannel::addUI()
     //Done btn
     //How to play & guild
     this->doneBtn = MenuItemImage::create("MainMenu/BlueCommonBtnSamll.png", "MainMenu/BlueCommonBtnSamll.png", CC_CALLBACK_1(WWSettingsPannel::onClickOnDonebtnBtn, this));
-    this->doneBtn->setPosition(Vec2(_tBG->getContentSize().width * 0.5, _tBG->getContentSize().height * 0.15));
+    this->doneBtn->setPosition(Vec2(_tBG->getContentSize().width * 0.5, _tBG->getContentSize().height * 0.175));
     this->doneBtn->setScale(0.85);
     
     auto* doneLabel = Label::createWithTTF("Done", "fonts/JosefinSlab-Bold.ttf", 32);
@@ -120,10 +120,21 @@ void WWSettingsPannel::addUI()
     this->doneBtn->addChild(doneLabel);
     doneLabel->setColor(Color3B::BLACK);
     
+    auto* logoutLabel = Label::createWithTTF("LogOut", "fonts/JosefinSlab-Bold.ttf", 44);
+    logoutLabel->setColor(Color3B::BLACK);
+    auto* logOutMenu = MenuItemLabel::create(logoutLabel, CC_CALLBACK_1(WWSettingsPannel::onClickLogOutBtn, this));
+    logOutMenu->setPosition(Vec2(_tBG->getContentSize().width * 0.5, _tBG->getContentSize().height * 0.075));
+
+    
     //Menu
-    Menu* menuBtn = Menu::create(this->notificationBtn,this->musinBtn,this->soundbtn,this->doneBtn, NULL);
+    Menu* menuBtn = Menu::create(this->notificationBtn,this->musinBtn,this->soundbtn,this->doneBtn,logOutMenu, NULL);
     menuBtn->setPosition(Vec2::ZERO);
     _tBG->addChild(menuBtn);
+}
+
+void WWSettingsPannel::onClickLogOutBtn(Ref* pSender)
+{
+    
 }
 
 void WWSettingsPannel::onClickOnMusicbtn(Ref* pSender)

@@ -146,7 +146,7 @@ void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event
         }
         //Check if Word is present on Dictionary
          bool _tTest = true;
-        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr) || _tTest)
+        if(WWObjectiveCCalls::checkifWordContainsDictionary(_tSelectedStr))
         {
             this->objref->submitButton->setOpacity(255);
             this->objref->submitButton->setEnabled(true);

@@ -28,6 +28,7 @@ private:
     void onClickOnSoundbtn(Ref* pSender);
     void onClickOnNotificationbtn(Ref* pSender);
     void onClickOnDonebtnBtn(Ref* pSender);
+    void onClickLogOutBtn(Ref* pSender);
    
 public:
     static WWSettingsPannel* getSettingsBtn();
