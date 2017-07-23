@@ -1015,5 +1015,8 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
                 this->updateOpponentProgressBar(0.5);
                 
             }
+        
+        this->getAlphabetDetailtoServer();
+
         }
 }
