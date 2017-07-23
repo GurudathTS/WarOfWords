@@ -782,6 +782,7 @@ void  WWMainMenu::activeListBattleIconAction(std::string challengeId,std::string
     WWPlayerInfoRef->updateChallengeID(challengeId);
     WWPlayerInfoRef->updateTurnUserID(turnId);
     WWPlayerInfoRef->updateOpponentUserID(oppId);
+    WWPlayerInfoRef->updateOpponentUserName(oppName);
     WWDatamanager::sharedManager()->_isExistingGameStarting = true;
     WWDatamanager::sharedManager()->_isUserInMainScene = false;
     Director::getInstance()->replaceScene(WWBattleScreen::createScene());

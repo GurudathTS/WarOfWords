@@ -887,7 +887,8 @@ void WWGameScene::updateUserProgressBar(float pTime)
     
     if(this->currentPlayerProfress != nullptr)
     {
-        auto action = ProgressTo::create(pTime, this->userProgressBar);
+        this->currentPlayerProfress->stopAllActions();
+        ProgressTo* action = ProgressTo::create(pTime, this->userProgressBar);
         this->currentPlayerProfress->runAction(action);
     }
     
@@ -897,7 +898,8 @@ void WWGameScene::updateOpponentProgressBar(float pTime)
 {
     if(this->opponentPlayerProfress != nullptr)
     {
-        auto action = ProgressTo::create(pTime, this->opponentProgressBar);
+        this->opponentPlayerProfress->stopAllActions();
+        ProgressTo* action = ProgressTo::create(pTime, this->opponentProgressBar);
         this->opponentPlayerProfress->runAction(action);
     }
     
