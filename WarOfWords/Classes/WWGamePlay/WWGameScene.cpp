@@ -718,8 +718,8 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
     }
     //else
     {
-        Sequence* seqAct = Sequence::create(DelayTime::create(1),CallFunc::create( CC_CALLBACK_0(WWGameScene::getAlphabetDetailtoServer,this)), NULL);
-        this->runAction(seqAct);
+
+        this->getAlphabetDetailtoServer();
     }
 }
 
