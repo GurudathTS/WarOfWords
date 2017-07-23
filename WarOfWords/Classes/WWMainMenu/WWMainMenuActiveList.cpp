@@ -78,6 +78,9 @@ void MainMenuActiveList::addUI(std::string pName
  void MainMenuActiveList::battleIconButtonAction()
 {
     log("com");
+    if(this->status == "1")
+        return;
+    
     WWDatamanager::sharedManager()->lastUpdatedStr = lastUpdatedStr;
     WWDatamanager::sharedManager()->_mainScreenRef->activeListBattleIconAction(this->challengID, this->opponentName, this->opponentUserId, this->opponenetThumbnail, this->status, this->turnUserId, this->wonBy);
     
