@@ -712,6 +712,7 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
                 activeList1->opponentUserId = opponentId;
                 activeList1->status = status;
                 activeList1->lastUpdatedStr = lastUpdatedate;
+                activeList1->opponentName = _tOpponentUserName;
 
 
                 
