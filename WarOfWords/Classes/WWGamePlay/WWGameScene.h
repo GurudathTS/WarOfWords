@@ -47,7 +47,7 @@ public:
     void initGameScene();
     
     //Variable
-    Size visibleSize;
+    cocos2d::Size visibleSize;
     Vec2 origin;
     
     //Different kind of Alphabets Array

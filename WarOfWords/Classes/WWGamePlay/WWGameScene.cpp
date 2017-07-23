@@ -679,8 +679,8 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
         long int updatedStr = document["lastUpdatedDate"].GetInt();
         WWDatamanager::sharedManager()->lastUpdatedStr = NumToString(updatedStr);
         
-        rapidjson::Document document;
-        document.Parse<0>(_tAlphabetStr.c_str());
+        rapidjson::Document document1;
+        document1.Parse<0>(_tAlphabetStr.c_str());
         
         std::string fullStr  = document["FullAlphabetString"].GetString();
         std::string updaStr  = document["LastTurnAlbhabet"].GetString();
