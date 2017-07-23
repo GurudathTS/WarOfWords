@@ -68,6 +68,7 @@ bool WWGameScene::init()
     
     if(WWDatamanager::sharedManager()->_isExistingGameStarting)
     {
+        ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
         this->getExistingGameDetail();
     }
     else
@@ -989,21 +990,20 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
                 std::string _tOpponentHealth  = document["game"]["opponentHealth"].GetString();
                 std::string opponentId  = document["game"]["opponentUserId"].GetString();
                 std::string turnUserId  = document["game"]["turnUserId"].GetString();
-                
                 std::string wonBy  = document["game"]["wonBy"].GetString();
-                
                 std::string challengeId  = document["game"]["challengeId"].GetString();
-                
-                
                 std::string status  = document["game"]["status"].GetString();
-                
-                //long int updatedStr = document["updatedDate"].GetInt();
-                //  std::string lastUpdatedate = document["updatedDate"].GetString();
-                
-                // long int updatedStr = document["games"][i]["updatedDate"].GetInt();
                 std::string lastUpdatedate =document["game"]["updatedDate"].GetString();
+                std::string _tAlphabetStr =document["game"]["gameConfig"].GetString();
+
                 
+                rapidjson::Document document;
+                document.Parse<0>(_tAlphabetStr.c_str());
                 
+                std::string fullStr  = document["FullAlphabetString"].GetString();
+                std::string updaStr  = document["LastTurnAlbhabet"].GetString();
+                log("........... Full String........ %s",fullStr.c_str());
+                this->createAlphabetFromServer(fullStr);
                 
             }
         }
