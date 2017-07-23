@@ -996,11 +996,11 @@ void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *resp
                 std::string _tAlphabetStr =document["game"]["gameConfig"].GetString();
 
                 
-                rapidjson::Document document;
-                document.Parse<0>(_tAlphabetStr.c_str());
+                rapidjson::Document document1;
+                document1.Parse<0>(_tAlphabetStr.c_str());
                 
-                std::string fullStr  = document["FullAlphabetString"].GetString();
-                std::string updaStr  = document["LastTurnAlbhabet"].GetString();
+                std::string fullStr  = document1["FullAlphabetString"].GetString();
+                std::string updaStr  = document1["LastTurnAlbhabet"].GetString();
                 log("........... Full String........ %s",fullStr.c_str());
                 this->createAlphabetFromServer(fullStr);
                 
