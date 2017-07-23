@@ -66,15 +66,25 @@ bool WWGameScene::init()
     WWObjectiveCCalls::loadDictionary(_tDictionarypath);
    
     
-    if(WWPlayerInfoRef->getTurnUserID() == WWPlayerInfoRef->getCurrentUserID())
+    if(WWDatamanager::sharedManager()->_isExistingGameStarting)
     {
-        this->initGameScene();
+        this->getExistingGameDetail();
     }
     else
     {
-        ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+        if(WWPlayerInfoRef->getTurnUserID() == WWPlayerInfoRef->getCurrentUserID())
+        {
+            this->initGameScene();
+        }
+        else
+        {
+            ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+        }
+        this->getAlphabetDetailtoServer();
+        
+
+        
     }
-    this->getAlphabetDetailtoServer();
     
     
     return true;
@@ -929,4 +939,74 @@ std::string WWGameScene::createGameConfig(std::string pFullAlphabetStr, std::str
 
     return pConfigSTr;
 
+}
+#pragma mark - Get Existing game
+void WWGameScene::getExistingGameDetail()
+{
+    
+    HttpRequest* request = new (std::nothrow) HttpRequest();
+    std::string url=BASE_URL;
+    
+    url=url+"getgame?";
+    url=url+"apiKey"+"="+WWDatamanager::sharedManager()->getAPIKey();
+    url=url+"&challengeId"+"="+WWPlayerInfoRef->getChallengeID();
+    
+    
+    request->setUrl(url);
+    CCLOG(" url is %s",request->getUrl());
+    request->setRequestType(HttpRequest::Type::GET);
+    
+    request->setResponseCallback(CC_CALLBACK_2(WWGameScene::onGetExistingGameDetail, this));
+    request->setTag("getgame");
+    HttpClient::getInstance()->sendImmediate(request);
+    request->release();
+    
+}
+void WWGameScene::onGetExistingGameDetail(HttpClient *sender, HttpResponse *response)
+{
+    
+    rapidjson::Document document;
+    WWGameUtility::getResponseBuffer(response, document);
+    
+    int statusCode = (int)response->getResponseCode();
+    if(statusCode == -1)
+    {
+        
+        return;
+        
+    }
+    
+    //Check error code
+    int errorCodeNo = document["errorCode"].GetInt();
+    
+    if(errorCodeNo == 0)
+    {
+        
+            
+            {
+                std::string _tOpponentUserName  = document["game"]["opponentName"].GetString();
+                std::string _tOppoentProfileImg  = document["game"]["opponentThumbnail"].GetString();
+                std::string _tOpponentHealth  = document["game"]["opponentHealth"].GetString();
+                std::string opponentId  = document["game"]["opponentUserId"].GetString();
+                std::string turnUserId  = document["game"]["turnUserId"].GetString();
+                
+                std::string wonBy  = document["game"]["wonBy"].GetString();
+                
+                std::string challengeId  = document["game"]["challengeId"].GetString();
+                
+                
+                std::string status  = document["game"]["status"].GetString();
+                
+                //long int updatedStr = document["updatedDate"].GetInt();
+                //  std::string lastUpdatedate = document["updatedDate"].GetString();
+                
+                // long int updatedStr = document["games"][i]["updatedDate"].GetInt();
+                std::string lastUpdatedate =document["game"]["updatedDate"].GetString();
+                
+                
+                
+            }
+        }
+    
+    
 }

@@ -43,8 +43,8 @@ public:
     bool _isUserInMainScene = false;
     int userHealth;
     std::string lastUpdatedStr;
-
     WWMainMenu *_mainScreenRef;
+    bool _isExistingGameStarting = false;
     
 };
 

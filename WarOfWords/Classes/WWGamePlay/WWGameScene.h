@@ -129,6 +129,10 @@ public:
     
     std::string createGameConfig(std::string pFullAlphabetStr, std::string updatedStr);
     
+    void getExistingGameDetail();
+    void onGetExistingGameDetail(HttpClient *sender, HttpResponse *response);
+
+    
     // implement the "static create()" method manually
     CREATE_FUNC(WWGameScene);
 };

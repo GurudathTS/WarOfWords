@@ -508,6 +508,8 @@ void WWMainMenu::onGetAllActiveGamesDetail(HttpClient *sender, HttpResponse *res
             {
                 //HttpClient::getInstance()->destroyInstance();
                 WWDatamanager::sharedManager()->_isUserInMainScene = false;
+                WWDatamanager::sharedManager()->_isExistingGameStarting = false;
+
                 Director::getInstance()->replaceScene(WWBattleScreen::createScene());
             }
 
@@ -780,7 +782,7 @@ void  WWMainMenu::activeListBattleIconAction(std::string challengeId,std::string
     WWPlayerInfoRef->updateChallengeID(challengeId);
     WWPlayerInfoRef->updateTurnUserID(turnId);
     WWPlayerInfoRef->updateOpponentUserID(oppId);
-    
+    WWDatamanager::sharedManager()->_isExistingGameStarting = true;
     WWDatamanager::sharedManager()->_isUserInMainScene = false;
     Director::getInstance()->replaceScene(WWBattleScreen::createScene());
 
