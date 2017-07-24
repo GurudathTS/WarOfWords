@@ -132,7 +132,7 @@ void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event
 
 void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 {
-    if(this->objref->currentSelectedStr.size() > 3)
+    //if(this->objref->currentSelectedStr.size() > 3)
     {
         //loop array & Check Selected String
         std::string _tSelectedStr = "";

@@ -22,7 +22,7 @@ USING_NS_CC;
 
 #define TOTALGRID 36
 #define ROWGRIDCOUNT 6
-#define MinAlphabetsRequired 4
+#define MinAlphabetsRequired 0
 
 Scene* WWGameScene::createScene()
 {
