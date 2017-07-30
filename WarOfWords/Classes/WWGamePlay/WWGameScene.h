@@ -102,7 +102,9 @@ public:
     Vector<WWAlphabetSprite*> shuffleArray(Vector<WWAlphabetSprite*> pArray);
     
     //Power Up
+    Sprite* pbgSpr;
     void createPowerUpIcon();
+    void onClickOnArrowBtn(Ref* sender);
     
     //Progress
     ProgressTimer* currentPlayerProfress;
