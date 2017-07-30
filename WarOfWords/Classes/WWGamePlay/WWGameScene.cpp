@@ -49,6 +49,8 @@ bool WWGameScene::init()
         return false;
     }
     WWDatamanager::sharedManager()->gameSceneRef = this;
+    pVowelsArray.clear();
+    pConsonantsArray.clear();
     
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
@@ -270,6 +272,34 @@ void WWGameScene::initializeAlphabets()
     pAllAlphabetsArray.push_back("X");
     pAllAlphabetsArray.push_back("Y");
     pAllAlphabetsArray.push_back("Z");
+    
+    pVowelsArray.push_back("A");
+    pVowelsArray.push_back("E");
+    pVowelsArray.push_back("I");
+    pVowelsArray.push_back("O");
+    pVowelsArray.push_back("U");
+    
+    pConsonantsArray.push_back("B");
+    pConsonantsArray.push_back("C");
+    pConsonantsArray.push_back("D");
+    pConsonantsArray.push_back("F");
+    pConsonantsArray.push_back("G");
+    pConsonantsArray.push_back("H");
+    pConsonantsArray.push_back("J");
+    pConsonantsArray.push_back("K");
+    pConsonantsArray.push_back("L");
+    pConsonantsArray.push_back("M");
+    pConsonantsArray.push_back("N");
+    pConsonantsArray.push_back("P");
+    pConsonantsArray.push_back("Q");
+    pConsonantsArray.push_back("R");
+    pConsonantsArray.push_back("S");
+    pConsonantsArray.push_back("T");
+    pConsonantsArray.push_back("V");
+    pConsonantsArray.push_back("W");
+    pConsonantsArray.push_back("X");
+    pConsonantsArray.push_back("Y");
+    pConsonantsArray.push_back("Z");
     
 }
 

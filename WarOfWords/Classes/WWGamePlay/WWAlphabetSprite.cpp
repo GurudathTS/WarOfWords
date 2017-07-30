@@ -311,11 +311,41 @@ void WWAlphabetSprite::createRandomAlphabet()
     int randomAlphabetval;
     std::string randomAlphabetStr = "";
     
-    randomAlphabetStr = this->objref->pAllAlphabetsArray.at(randval);
+    if(this->checkIfVowelsArePresent())
+    {
+        randval = arc4random() % (this->objref->pVowelsArray.size() - 1);
+        if(randval >= this->objref->pVowelsArray.size())
+            randval = 0;
+        randomAlphabetStr = this->objref->pVowelsArray.at(randval);
+    }
+    else
+    {
+        randval = arc4random() % (this->objref->pConsonantsArray.size() - 1);
+        if(randval >= this->objref->pConsonantsArray.size())
+            randval = 0;
+        randomAlphabetStr = this->objref->pConsonantsArray.at(randval);
+    }
+    
     randomAlphabetval = this->objref->getAlphabetValue(randomAlphabetStr);
-
     this->updateNewAlphabet(randomAlphabetval, randomAlphabetStr);
     
+}
+
+bool WWAlphabetSprite::checkIfVowelsArePresent()
+{
+    log("    Current Alphabet    %s",this->currentAlphabet->getString().c_str());
+    std::string currentAlphabetStr = this->currentAlphabet->getString().c_str();
+    bool isVowels = false;
+    for (int i = 0; i < this->objref->pVowelsArray.size(); i++)
+    {
+        std::string pAlphabetStr = this->objref->pVowelsArray.at(i);
+        if(pAlphabetStr == currentAlphabetStr)
+        {
+            isVowels = true;
+            break;
+        }
+    }
+    return isVowels;
 }
 
 void WWAlphabetSprite::updateRandomAlphabet(std::string pAlphabet)

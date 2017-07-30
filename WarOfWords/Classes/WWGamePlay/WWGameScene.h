@@ -60,6 +60,8 @@ public:
     vector<std::string> pTenPointArray;
     
     vector<std::string> pAllAlphabetsArray;
+    vector<std::string> pVowelsArray;
+    vector<std::string> pConsonantsArray;
     
     Vector<WWAlphabetSprite*> pTotalGridAlphabet;
     Vector<WWAlphabetSprite*> currentSelectedStr;
