@@ -20,6 +20,7 @@ WWAlphabetSprite::WWAlphabetSprite()
     listener->onTouchBegan = CC_CALLBACK_2(WWAlphabetSprite::onTouchBegan, this);
     listener->onTouchMoved = CC_CALLBACK_2(WWAlphabetSprite::onTouchMoved, this);
     listener->onTouchEnded = CC_CALLBACK_2(WWAlphabetSprite::onTouchEnded, this);
+    //listener->setSwallowTouches(true);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
@@ -86,7 +87,11 @@ bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event
         return false;
     
     auto ptouchLocation = touch->getLocation();
-    if (this->getBoundingBox().containsPoint(ptouchLocation))
+    auto rectUpdatedVal = this->getBoundingBox();
+    float widthVal = rectUpdatedVal.size.width * 0.3;
+    float heoghtVal = rectUpdatedVal.size.height * 0.3;
+    rectUpdatedVal = Rect(rectUpdatedVal.origin.x + (widthVal / 2), rectUpdatedVal.origin.y + (heoghtVal / 2), rectUpdatedVal.size.width * 0.7, rectUpdatedVal.size.height * 0.7);
+    if (rectUpdatedVal.containsPoint(ptouchLocation))
     {
         this->objref->currentGridRefvalue = gridRefValue;
         if (isAlreadyPressed)
@@ -114,7 +119,11 @@ void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event
         return;
     
     auto ptouchLocation = touch->getLocation();
-    if (this->getBoundingBox().containsPoint(ptouchLocation))
+    auto rectUpdatedVal = this->getBoundingBox();
+    float widthVal = rectUpdatedVal.size.width * 0.3;
+    float heoghtVal = rectUpdatedVal.size.height * 0.3;
+    rectUpdatedVal = Rect(rectUpdatedVal.origin.x + (widthVal / 2), rectUpdatedVal.origin.y + (heoghtVal / 2), rectUpdatedVal.size.width * 0.7, rectUpdatedVal.size.height * 0.7);
+    if (rectUpdatedVal.containsPoint(ptouchLocation))
     {
         this->objref->currentGridRefvalue = gridRefValue;
         if (isAlreadyPressed)
