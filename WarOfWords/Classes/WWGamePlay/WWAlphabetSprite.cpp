@@ -249,7 +249,7 @@ void WWAlphabetSprite::removeSetOfLetterFromArray()
             remainingAlphabetArray.pushBack(pRefSpr);
         }
         
-        for (int index = ((int)currentIndex + 1); index < this->objref->currentSelectedStr.size(); index ++ )
+        for (int index = ((int)currentIndex); index < this->objref->currentSelectedStr.size(); index ++ )
         {
             WWAlphabetSprite* pRefSprChange = this->objref->currentSelectedStr.at(index);
             pRefSprChange->resetSpriteAfterLost();
