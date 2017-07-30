@@ -150,11 +150,13 @@ void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event
         {
             this->objref->submitButton->setOpacity(255);
             this->objref->submitButton->setEnabled(true);
+            this->objref->updateScoreValue();
         }
         else
         {
             this->objref->submitButton->setOpacity(100);
             this->objref->submitButton->setEnabled(false);
+            this->objref->resetScoreValue();
         }
     }
     

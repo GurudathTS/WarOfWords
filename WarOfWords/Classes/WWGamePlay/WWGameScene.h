@@ -77,6 +77,8 @@ public:
     Label* currentScore;
     Label* resultSelectedStr;
     void addUI(float pYpos);
+    void updateScoreValue();
+    void resetScoreValue();
     
     //timer
     Label* pTimerLabel;

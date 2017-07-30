@@ -122,9 +122,10 @@ void WWGameScene::addUI(float pYpos)
 {
    
     resultSelectedStr = Label::createWithTTF("", "fonts/Marker Felt.ttf", 40);
-    resultSelectedStr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height / 1.1 + origin.y));
+    resultSelectedStr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height * 0.2 + origin.y));
     addChild(resultSelectedStr);
-    resultSelectedStr->setVisible(false);
+    resultSelectedStr->setColor(Color3B::BLACK);
+    //resultSelectedStr->setVisible(false);
     
     //Add battel
     auto* pbatterSpr = Sprite::create("UI/Logo-Icon.png");
@@ -217,7 +218,7 @@ void WWGameScene::addUI(float pYpos)
     addChild(pPointsColumn);
     
     
-    currentScore = Label::createWithTTF("0 Points", "fonts/JosefinSlab-SemiBold.ttf", 24);
+    currentScore = Label::createWithTTF("Score: 0", "fonts/JosefinSlab-SemiBold.ttf", 24);
     currentScore->setPosition(Vec2(pPointsColumn->getContentSize().width * 0.6, pPointsColumn->getContentSize().height * 0.5));
     pPointsColumn->addChild(currentScore);
     
@@ -416,6 +417,36 @@ void WWGameScene::onSubmitClicked(Ref* sender)
     }
 }
 
+void WWGameScene::updateScoreValue()
+{
+    int totalScore = 0;
+    std::string _tSelectedStr = "";
+    for(WWAlphabetSprite* alphabetSpr : currentSelectedStr)
+    {
+        if (alphabetSpr->isAlreadyPressed)
+        {
+            std::string _tCurStr = alphabetSpr->currentAlphabet->getString();
+            _tSelectedStr = _tSelectedStr + _tCurStr;
+            totalScore = totalScore + alphabetSpr->alphabetValue;
+        }
+    }
+    std::string alphaVal = toString(totalScore);
+    alphaVal = "Score: " + alphaVal;
+    currentScore->setString(alphaVal);
+    
+    resultSelectedStr->setString(_tSelectedStr);
+
+}
+void WWGameScene::resetScoreValue()
+{
+    std::string alphaVal = toString(0);
+    alphaVal = "Score: " + alphaVal;
+    currentScore->setString(alphaVal);
+    
+    resultSelectedStr->setString("");
+
+}
+
 void WWGameScene::onPowerUpClicked(Ref* sender)
 {
     
@@ -472,7 +503,7 @@ void WWGameScene::createPowerUpIcon()
     //Bg
     pbgSpr = Sprite::create("GameScene/BottomDropdown.png");
     pbgSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, origin.y + pbgSpr->getContentSize().height/2));
-    addChild(pbgSpr);
+    addChild(pbgSpr,1);
     pbgSpr->setTag(1);
     
     //Down Icon
