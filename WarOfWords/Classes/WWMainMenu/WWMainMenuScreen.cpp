@@ -265,12 +265,18 @@ void WWMainMenu::onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResp
 {
     ActivtyIndicator::PopIfActiveFromScene(this);
     
-
-    
     if (!response)
     {
         return;
     }
+    
+    int statusCode = (int)response->getResponseCode();
+    if(statusCode == -1)
+    {
+        this->getRamdomUserAPI();
+        return;
+    }
+    
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     
@@ -681,11 +687,11 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
             {
                 std::string _tOpponentUserName  = document["games"][i]["opponentName"].GetString();
                 std::string _tOppoentProfileImg  = document["games"][i]["opponentThumbnail"].GetString();
-                std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
+                //std::string _tOpponentHealth  = document["games"][i]["opponentHealth"].GetString();
                 std::string opponentId  = document["games"][i]["opponentUserId"].GetString();
                 std::string turnUserId  = document["games"][i]["turnUserId"].GetString();
 
-                std::string wonBy  = document["games"][i]["wonBy"].GetString();
+                std::string wonBy  = "";//document["games"][i]["wonBy"].GetString();
 
                 std::string challengeId  = document["games"][i]["challengeId"].GetString();
 
@@ -708,7 +714,7 @@ void WWMainMenu::onGetGamesAPIRequestCompleted(HttpClient *sender, HttpResponse 
                 activeList1->challengID = challengeId;
                  activeList1->turnUserId = turnUserId;
                 activeList1->wonBy = wonBy;
-                activeList1->opponentHealth = std::atoi(_tOpponentHealth.c_str());
+                //activeList1->opponentHealth = std::atoi(_tOpponentHealth.c_str());
                 activeList1->opponentUserId = opponentId;
                 activeList1->status = status;
                 activeList1->lastUpdatedStr = lastUpdatedate;
