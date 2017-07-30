@@ -80,6 +80,8 @@ public:
     
     //timer
     Label* pTimerLabel;
+    Label* pUserPercentageLabel;
+    Label* pOpponentPercentageLabel;
     int hourVal;
     int minVal;
     int secVal;

@@ -157,6 +157,11 @@ void WWGameScene::addUI(float pYpos)
     addChild(this->currentPlayerProfress);
     this->currentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY()));
     
+    //percentage Label
+    this->pUserPercentageLabel = Label::createWithTTF(NumToString(this->userProgressBar), "fonts/JosefinSlab-Bold.ttf", 24);
+    addChild(this->pUserPercentageLabel,1);
+    this->pUserPercentageLabel->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY() - 6));
+    
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
     currentPlayerProfile->setPosition(Vec2(-currentPlayerProfile->getContentSize().width * 0.2, currentPlayerProfile->getContentSize().height * 0.1));
     this->currentPlayerProfress->addChild(currentPlayerProfile);
@@ -184,6 +189,11 @@ void WWGameScene::addUI(float pYpos)
     this->opponentPlayerProfress->setBarChangeRate(Vec2(1, 0));
     addChild(this->opponentPlayerProfress);
     this->opponentPlayerProfress->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY()));
+    
+    //percentage Label
+    this->pOpponentPercentageLabel = Label::createWithTTF(NumToString(this->opponentProgressBar), "fonts/JosefinSlab-Bold.ttf", 24);
+    addChild(this->pOpponentPercentageLabel,1);
+    this->pOpponentPercentageLabel->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY() - 6));
     
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
     opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 1.2, opponentPlayerprofile->getContentSize().height * 0.1));
@@ -896,6 +906,7 @@ void WWGameScene::updateUserProgressBar(float pTime)
         this->currentPlayerProfress->stopAllActions();
         ProgressTo* action = ProgressTo::create(pTime, this->userProgressBar);
         this->currentPlayerProfress->runAction(action);
+        this->pUserPercentageLabel->setString(NumToString(this->userProgressBar));
     }
     
 }
@@ -907,6 +918,8 @@ void WWGameScene::updateOpponentProgressBar(float pTime)
         this->opponentPlayerProfress->stopAllActions();
         ProgressTo* action = ProgressTo::create(pTime, this->opponentProgressBar);
         this->opponentPlayerProfress->runAction(action);
+        this->pOpponentPercentageLabel->setString(NumToString(this->opponentProgressBar));
+
     }
     
 }
