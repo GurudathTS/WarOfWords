@@ -104,7 +104,7 @@ bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event
             //Check is It Neighbour to Any of the Cell
             this->checkIfCurrentCellNearToPreviousSeelctedCell();
             
-            this->setTexture("GameScene/LetterBox02.png");
+            this->setTexture("GameScene/LetterBox04.png");
             isAlreadyPressed = true;
             this->objref->currentSelectedStr.pushBack(this);
         }
@@ -132,7 +132,7 @@ void WWAlphabetSprite::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event
         }
         else
         {
-            this->setTexture("GameScene/LetterBox02.png");
+            this->setTexture("GameScene/LetterBox04.png");
             isAlreadyPressed = true;
             this->objref->currentSelectedStr.pushBack(this);
         }
