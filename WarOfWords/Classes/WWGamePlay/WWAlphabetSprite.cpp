@@ -243,13 +243,13 @@ void WWAlphabetSprite::removeSetOfLetterFromArray()
     
     if (currentIndex < this->objref->currentSelectedStr.size()) {
         Vector<WWAlphabetSprite*> remainingAlphabetArray;
-        for (int startIndex = 0; startIndex <= currentIndex; startIndex ++ )
+        for (int startIndex = 0; startIndex < currentIndex; startIndex ++ )
         {
             WWAlphabetSprite* pRefSpr = this->objref->currentSelectedStr.at(startIndex);
             remainingAlphabetArray.pushBack(pRefSpr);
         }
         
-        for (int index = ((int)currentIndex); index < this->objref->currentSelectedStr.size(); index ++ )
+        for (int index = ((int)currentIndex); index < (this->objref->currentSelectedStr.size()); index ++ )
         {
             WWAlphabetSprite* pRefSprChange = this->objref->currentSelectedStr.at(index);
             pRefSprChange->resetSpriteAfterLost();
