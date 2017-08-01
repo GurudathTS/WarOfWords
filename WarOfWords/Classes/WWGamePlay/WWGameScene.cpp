@@ -487,6 +487,11 @@ void WWGameScene::resetGrid()
 {
     this->_mUpdatedString = "";
     
+    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
+    
+    this->submitButton->setOpacity(100);
+    this->submitButton->setEnabled(false);
+    
     //loop array
     for(WWAlphabetSprite* alphabetSpr : currentSelectedStr)
         alphabetSpr->resetSprite();
@@ -875,7 +880,6 @@ void WWGameScene::createAlphabetFromServer(std::string pAlphabetStr)
 #pragma mark - Update Game Detail
 void WWGameScene::updateAlphabetDetailtoServer()
 {
-    ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
     
     log("......... _tFullAlphabetStr ........ %s",this->_mUpdatedString.c_str());
     HttpRequest* request = new (std::nothrow) HttpRequest();
