@@ -140,6 +140,10 @@ public:
     
     void getExistingGameDetail();
     void onGetExistingGameDetail(HttpClient *sender, HttpResponse *response);
+    
+    void removeActiveIndicatorAfterDelay();
+    
+    bool isTouchEnable;
 
     
     // implement the "static create()" method manually

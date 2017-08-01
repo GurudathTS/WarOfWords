@@ -263,16 +263,17 @@ http://52.24.37.30:3000/api/signin?user_id=&authId=100001527270712&name=kfkfk&em
 
 void WWMainMenu::onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResponse *response)
 {
-    ActivtyIndicator::PopIfActiveFromScene(this);
     
     if (!response)
     {
+        ActivtyIndicator::PopIfActiveFromScene(this);
         return;
     }
     
     int statusCode = (int)response->getResponseCode();
     if(statusCode == -1)
     {
+        ActivtyIndicator::PopIfActiveFromScene(this);
         this->getRamdomUserAPI();
         return;
     }

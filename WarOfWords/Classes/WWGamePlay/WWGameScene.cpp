@@ -51,6 +51,7 @@ bool WWGameScene::init()
     WWDatamanager::sharedManager()->gameSceneRef = this;
     pVowelsArray.clear();
     pConsonantsArray.clear();
+    this->isTouchEnable = true;
     
     visibleSize = Director::getInstance()->getVisibleSize();
     origin = Director::getInstance()->getVisibleOrigin();
@@ -163,7 +164,7 @@ void WWGameScene::addUI(float pYpos)
     //percentage Label
     this->pUserPercentageLabel = Label::createWithTTF(NumToString(this->userProgressBar), "fonts/JosefinSlab-Bold.ttf", 24);
     addChild(this->pUserPercentageLabel,1);
-    this->pUserPercentageLabel->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY() - 6));
+    this->pUserPercentageLabel->setPosition(Vec2(pbatterSpr->getPositionX() - currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY() - 3));
     
     auto* currentPlayerProfile = Sprite::create("MainMenu/ProfilePicColom.png");
     currentPlayerProfile->setPosition(Vec2(-currentPlayerProfile->getContentSize().width * 0.2, currentPlayerProfile->getContentSize().height * 0.1));
@@ -196,7 +197,7 @@ void WWGameScene::addUI(float pYpos)
     //percentage Label
     this->pOpponentPercentageLabel = Label::createWithTTF(NumToString(this->opponentProgressBar), "fonts/JosefinSlab-Bold.ttf", 24);
     addChild(this->pOpponentPercentageLabel,1);
-    this->pOpponentPercentageLabel->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY() - 6));
+    this->pOpponentPercentageLabel->setPosition(Vec2(pbatterSpr->getPositionX() + currentPlayerProgressBar->getContentSize().width * 0.925, pbatterSpr->getPositionY() - 3));
     
     auto* opponentPlayerprofile = Sprite::create("MainMenu/ProfilePicColom.png");
     opponentPlayerprofile->setPosition(Vec2(opponentPlayerprofile->getContentSize().width * 1.2, opponentPlayerprofile->getContentSize().height * 0.1));
@@ -489,6 +490,7 @@ void WWGameScene::resetGrid()
     
     ActivtyIndicator::activityIndicatorOnScene("Please wait..",this);
     
+    WWPlayerInfoRef->updateTurnUserID(WWPlayerInfoRef->getOpponentUserID());
     this->submitButton->setOpacity(100);
     this->submitButton->setEnabled(false);
     
@@ -803,6 +805,7 @@ void WWGameScene::onGetAlphabetRequestCompleted(HttpClient *sender, HttpResponse
             if(_tTurnUserId == WWPlayerInfoRef->getCurrentUserID())
             {
                 //Update Alphabet
+                this->isTouchEnable = false;
                 this->updateAlphabetFromServer(updaStr);
             }
         }
@@ -1005,12 +1008,15 @@ void WWGameScene::updateAlphabetFromServer(std::string pAlphabetStr)
         }
     }
     
-    auto* sequenceAct = Sequence::create(DelayTime::create(2),CallFunc::create( CC_CALLBACK_0(WWGameScene::resetgameAfterSomeTime,this)), NULL);
+    auto* sequenceAct = Sequence::create(DelayTime::create(2),CallFunc::create( CC_CALLBACK_0(WWGameScene::resetgameAfterSomeTime,this)),CallFunc::create( CC_CALLBACK_0(WWGameScene::removeActiveIndicatorAfterDelay,this)), NULL);
     this->runAction(sequenceAct);
 
+}
+void WWGameScene::removeActiveIndicatorAfterDelay()
+{
     //Remove Active Indicator
     ActivtyIndicator::PopIfActiveFromScene(this);
-    
+    this->isTouchEnable = true;
 }
 
 void WWGameScene::updateUserProgressBar(float pTime)

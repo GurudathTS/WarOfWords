@@ -38,7 +38,7 @@ bool WWResultScreen::init()
     this->visibleSize = Director::getInstance()->getVisibleSize();
     this->origin = Director::getInstance()->getVisibleOrigin();
     
-    //WWPlayerInfoRef->_mIsUserWinGame = false;
+    //WWPlayerInfoRef->_mIsUserWinGame = true;
     if(WWPlayerInfoRef->_mIsUserWinGame)
     {
         this->addWinScreen();
@@ -65,8 +65,12 @@ void WWResultScreen::addWinScreen()
     //Header
     auto* winHeader = Label::createWithTTF("Victory!", "fonts/Kingthings Sans.ttf", 85);
     winHeader->setPosition(Vec2(visibleSize.width/2 + origin.x,visibleSize.height/2 + origin.y + winIcon->getContentSize().height / 2 + 100));
-    addChild(winHeader);
+    //addChild(winHeader);
     winHeader->setColor(Color3B(161,69,28));
+    
+    auto headerIcon = Sprite::create("ResultScreen/VictoryTitle.png");
+    headerIcon->setPosition(Vec2(visibleSize.width/2 + origin.x,visibleSize.height/2 + origin.y + winIcon->getContentSize().height / 2 + 100));
+    this->addChild(headerIcon);
 
     
     //Submit Btn
@@ -99,8 +103,12 @@ void WWResultScreen::addLoseScreen()
     //Header
     auto* loseHeader = Label::createWithTTF("Defeat!", "fonts/Kingthings Sans.ttf", 85);
     loseHeader->setPosition(Vec2(visibleSize.width/2 + origin.x,visibleSize.height/2 + origin.y + loseIcon->getContentSize().height / 2 + 100));
-    addChild(loseHeader);
-    loseHeader->setColor(Color3B(161,69,28));    
+    //addChild(loseHeader);
+    loseHeader->setColor(Color3B(161,69,28));
+    
+    auto headerIcon = Sprite::create("ResultScreen/DefeatTitle.png");
+    headerIcon->setPosition(Vec2(visibleSize.width/2 + origin.x,visibleSize.height/2 + origin.y + loseIcon->getContentSize().height / 2 + 100));
+    this->addChild(headerIcon);
     
     //Submit Btn
     MenuItemImage* submitButton = MenuItemImage::create("LoginScreen/BlueCommonBtbn.png", "LoginScreen/BlueCommonBtbn.png", CC_CALLBACK_1(WWResultScreen::gobackToMainScreen, this));

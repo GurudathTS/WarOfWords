@@ -82,6 +82,8 @@ void WWAlphabetSprite::updatedGridReferenceValue(int pGridrefVal)
 #pragma mark - touches
 bool WWAlphabetSprite::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
 {
+    if(!this->objref->isTouchEnable)
+        return false;
     
     if(WWPlayerInfoRef->getCurrentUserID() != WWPlayerInfoRef->getTurnUserID())
         return false;
@@ -167,6 +169,13 @@ void WWAlphabetSprite::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event
             this->objref->submitButton->setEnabled(false);
             this->objref->resetScoreValue();
         }
+        
+        if(this->objref->currentSelectedStr.size() <= 0)
+        {
+            this->objref->submitButton->setOpacity(100);
+            this->objref->submitButton->setEnabled(false);
+            this->objref->resetScoreValue();
+        }
     }
     
 }
@@ -241,6 +250,9 @@ void WWAlphabetSprite::removeSetOfLetterFromArray()
 {
     ssize_t currentIndex = this->objref->currentSelectedStr.getIndex(this);
     
+    if((int)currentIndex < 0)
+        return;
+    
     if (currentIndex < this->objref->currentSelectedStr.size()) {
         Vector<WWAlphabetSprite*> remainingAlphabetArray;
         for (int startIndex = 0; startIndex < currentIndex; startIndex ++ )
@@ -258,6 +270,8 @@ void WWAlphabetSprite::removeSetOfLetterFromArray()
         this->objref->currentSelectedStr.clear();
         this->objref->currentSelectedStr.pushBack(remainingAlphabetArray);
         log("Array Count %zd",this->objref->currentSelectedStr.size());
+        
+       
     }
 }
 
