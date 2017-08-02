@@ -41,7 +41,7 @@ public:
     
     //Current login User
     void getCurrentUserInfo(enumSocialSharingType pShareType);
-    void readCurrentUserInfo(std::string pId, std::string pUserName, std::string pUrl, int pScore);
+    void readCurrentUserInfo(std::string pId, std::string pUserName, std::string pUrl, int pScore,std::string eMail);
     
     //Share Message with Enum Type
     void shareSocialMessageWithEnum(enumSocialSharingType shareType,std::string pMessageStr);

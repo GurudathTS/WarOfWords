@@ -214,7 +214,7 @@
     [facebookRequest appendString:[FBSDKAccessToken currentAccessToken].userID];
     
     NSDictionary *params1 = @{
-                              @"fields": @"id,name,picture,score",
+                              @"fields": @"id,name,picture,score,email",
                               };
     //Get Freind List
     
@@ -238,6 +238,7 @@
             //Loop Data  Array
                 NSString* _tFbId = [result objectForKey:@"id"];
                 NSString* _tFbName = [result objectForKey:@"name"];
+                NSString* _tEmail = [result objectForKey:@"email"];
                 
                 //Profile Picture
                 NSString* _tFbUrl = [[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"];
@@ -248,7 +249,7 @@
                     _tFbScore = [[[[result objectForKey:@"score"] objectForKey:@"data"] objectAtIndex:0] objectForKey:@"score"];
                 }
                 
-                WWSocialManagerRef->readCurrentUserInfo(std::string([_tFbId UTF8String]), std::string([_tFbName UTF8String]), std::string([_tFbUrl UTF8String]),[_tFbScore intValue]);
+                WWSocialManagerRef->readCurrentUserInfo(std::string([_tFbId UTF8String]), std::string([_tFbName UTF8String]), std::string([_tFbUrl UTF8String]),[_tFbScore intValue],std::string([_tEmail UTF8String]));
             //
         }
     }];

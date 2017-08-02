@@ -25,6 +25,7 @@ private:
      CC_SYNTHESIZE_READONLY(std::string, _mName, Name);
      CC_SYNTHESIZE_READONLY(std::string, _mImageURL, ImageURL);
      CC_SYNTHESIZE_READONLY(std::string, _mID, ID);
+    CC_SYNTHESIZE_READONLY(std::string, _mEmail, EMAIL);
      CC_SYNTHESIZE_READONLY(int, _mScore, Score);
      CC_SYNTHESIZE_READONLY(Texture2D*, _mTexture, Texture);
      
@@ -39,7 +40,7 @@ public:
      WWSocialFriendDetail(std::string pName
                                  ,std::string pImageURL
                                  ,std::string pID
-                                 ,int pScore);
+                                 ,int pScore, std::string eMail);
      virtual ~WWSocialFriendDetail();
      WWSocialFriendDetail* getClone();
      bool operator<(WWSocialFriendDetail* rhs) { return _mScore < rhs->getScore();}

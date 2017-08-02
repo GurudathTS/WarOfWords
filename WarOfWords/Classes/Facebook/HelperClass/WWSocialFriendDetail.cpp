@@ -9,7 +9,7 @@
 WWSocialFriendDetail::WWSocialFriendDetail(std::string pName
                                                          ,std::string pImageURL
                                                          ,std::string pID
-                                                         ,int pScore)
+                                           ,int pScore,std::string eMail)
 :_mTexture(nullptr)
 ,_mDelegate(nullptr)
 
@@ -18,6 +18,7 @@ WWSocialFriendDetail::WWSocialFriendDetail(std::string pName
      _mID = pID;
      _mImageURL = pImageURL;
      _mScore = pScore;
+    _mEmail = eMail;
      loadURL();
 }
 
@@ -31,7 +32,7 @@ WWSocialFriendDetail* WWSocialFriendDetail::getClone()
     WWSocialFriendDetail* _tReurnObject = new WWSocialFriendDetail(_mName
                                                                                  ,_mImageURL
                                                                                  ,_mID
-                                                                                 ,_mScore);
+                                                                                 ,_mScore,_mEmail);
     return _tReurnObject;
 }
 

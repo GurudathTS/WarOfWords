@@ -179,18 +179,19 @@ void WWLandingScreen::loginToServer()
     url=url+"signin?";
     
     std::string name = std::urlencode(WWSocialManagerRef->currentLoginUserDetail->getName());
+    std::string email = std::urlencode(WWSocialManagerRef->currentLoginUserDetail->getEMAIL());
     url=url+"authId"+"="+WWSocialManagerRef->currentLoginUserDetail->getID()+"&";
     url=url+"name"+"="+name+"&";
     
     
-    url=url+"email"+"="+"manjunathareddyn@gmail.com"+"&";
+    url=url+"email"+"="+email+"&";
     
     url=url+"password"+"="+"fgh"+"&";
     
     
     url=url+"thumbnail"+"="+WWSocialManagerRef->currentLoginUserDetail->getImageURL()+"&";
     
-    url=url+"deviceId"+"="+"j89jj"+"&";
+    url=url+"deviceId"+"="+WWDatamanager::sharedManager()->dmdeviceToken+"&";
     
     url=url+"deviceType"+"="+"IOS";
     
@@ -201,7 +202,7 @@ void WWLandingScreen::loginToServer()
     
     request->setResponseCallback(CC_CALLBACK_2(WWLandingScreen::onLoginRequestCompleted, this));
     request->setTag("SignIN");
-    HttpClient::getInstance()->send(request);
+    HttpClient::getInstance()->sendImmediate(request);
     request->release();
     
 }
@@ -211,6 +212,15 @@ void WWLandingScreen::onLoginRequestCompleted(HttpClient *sender, HttpResponse *
     {
         return;
     }
+    int statusCode = (int)response->getResponseCode();
+    if(statusCode == -1)
+    {
+        this->loginToServer();
+        return;
+    }
+
+    
+    
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     if(!document.IsNull())

@@ -136,7 +136,7 @@ void WWSocialManager::getInvitableFriendsList(enumSocialSharingType pShareType)
 
 void WWSocialManager::readInvitableFreindList(std::string pId, std::string pUserName, std::string pUrl)
 {
-    WWSocialFriendDetail* _tUserInfo = new WWSocialFriendDetail(pUserName,pUrl,pId,0);
+    WWSocialFriendDetail* _tUserInfo = new WWSocialFriendDetail(pUserName,pUrl,pId,0,"");
     _mFbInviteUserInfo.push_back(_tUserInfo);
 }
 
@@ -153,7 +153,7 @@ void WWSocialManager::getGameFriendsList(enumSocialSharingType pShareType)
 }
 void WWSocialManager::readGameFreindList(std::string pId, std::string pUserName, std::string pUrl, int pScore)
 {
-    WWSocialFriendDetail* _tUserPlayedInfo = new WWSocialFriendDetail(pUserName, pUrl, pId,pScore);
+    WWSocialFriendDetail* _tUserPlayedInfo = new WWSocialFriendDetail(pUserName, pUrl, pId,pScore,"");
     _mFbInviteUserInfo.push_back(_tUserPlayedInfo);
 }
 
@@ -214,9 +214,9 @@ void WWSocialManager::getCurrentUserInfo(enumSocialSharingType pShareType)
     }
 }
 
-void WWSocialManager::readCurrentUserInfo(std::string pId, std::string pUserName, std::string pUrl, int pScore)
+void WWSocialManager::readCurrentUserInfo(std::string pId, std::string pUserName, std::string pUrl, int pScore,std::string eMailStr)
 {
-    WWSocialFriendDetail* _tUserPlayedInfo = new WWSocialFriendDetail(pUserName, pUrl, pId,pScore);
+    WWSocialFriendDetail* _tUserPlayedInfo = new WWSocialFriendDetail(pUserName, pUrl, pId,pScore,eMailStr);
     currentLoginUserDetail = _tUserPlayedInfo;
     
     this->executeCallback(true);
