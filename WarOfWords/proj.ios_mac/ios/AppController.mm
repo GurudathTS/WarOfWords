@@ -27,6 +27,8 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 #include "WWDatamanager.h"
 
@@ -91,6 +93,7 @@ static AppDelegate s_sharedApplication;
         
     }
     
+    [Fabric with:@[[Crashlytics class]]];
 
 
 

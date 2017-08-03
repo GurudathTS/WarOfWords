@@ -56,6 +56,8 @@
 		06E7A6C21E8F7BC1003125BD /* WWPowerUpSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06E7A6C01E8F7BC0003125BD /* WWPowerUpSprite.cpp */; };
 		06ECB2F31EB6F79B004C6DB6 /* WWLandingScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 06ECB2F11EB6F79B004C6DB6 /* WWLandingScreen.cpp */; };
 		0E15E3F21E994CED00DF9A3B /* WWGameUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */; };
+		0EA955901F32C8E500432643 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EA9558E1F32C8E400432643 /* Fabric.framework */; };
+		0EA955911F32C8E500432643 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EA9558F1F32C8E500432643 /* Crashlytics.framework */; };
 		0EFE7B631EC365880068A527 /* WWDatamanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7B611EC365880068A527 /* WWDatamanager.cpp */; };
 		0EFE7B671EC371580068A527 /* WWCommonUtilty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0EFE7B651EC371580068A527 /* WWCommonUtilty.cpp */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
@@ -230,6 +232,8 @@
 		06ECB2F21EB6F79B004C6DB6 /* WWLandingScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWLandingScreen.h; sourceTree = "<group>"; };
 		0E15E3F01E994CED00DF9A3B /* WWGameUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWGameUtility.cpp; sourceTree = "<group>"; };
 		0E15E3F11E994CED00DF9A3B /* WWGameUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWGameUtility.h; sourceTree = "<group>"; };
+		0EA9558E1F32C8E400432643 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		0EA9558F1F32C8E500432643 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0EFE7B611EC365880068A527 /* WWDatamanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWDatamanager.cpp; sourceTree = "<group>"; };
 		0EFE7B621EC365880068A527 /* WWDatamanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWDatamanager.h; sourceTree = "<group>"; };
 		0EFE7B651EC371580068A527 /* WWCommonUtilty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WWCommonUtilty.cpp; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 				061ED56E1E6C086F000DD216 /* MediaPlayer.framework in Frameworks */,
 				061ED56C1E6C0835000DD216 /* CoreVideo.framework in Frameworks */,
 				061ED5521E6BF7A3000DD216 /* AVFoundation.framework in Frameworks */,
+				0EA955901F32C8E500432643 /* Fabric.framework in Frameworks */,
 				061ED5501E6BF79B000DD216 /* SystemConfiguration.framework in Frameworks */,
 				061ED54E1E6BF78C000DD216 /* libsqlite3.tbd in Frameworks */,
 				061ED54C1E6BF782000DD216 /* CoreTelephony.framework in Frameworks */,
@@ -332,6 +337,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */,
+				0EA955911F32C8E500432643 /* Crashlytics.framework in Frameworks */,
 				BF1712471292920000B8313A /* libz.dylib in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
@@ -608,6 +614,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				0EA9558E1F32C8E400432643 /* Fabric.framework */,
+				0EA9558F1F32C8E500432643 /* Crashlytics.framework */,
 				06BDB13A1EF1A8350009446E /* WarOfWords-mobile.entitlements */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
@@ -764,6 +772,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				0EA9558C1F32C6B600432643 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -908,6 +917,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0EA9558C1F32C6B600432643 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 0b3b04bd9667c83772dafbe5f0b80a01454e46d0 f200e9ba4f20b6e4e075d8183fd768409c441241b309fa3e4f290c7bec1536a2";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -985,6 +1010,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Facebook",
+					"$(PROJECT_DIR)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1027,6 +1053,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Facebook",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
