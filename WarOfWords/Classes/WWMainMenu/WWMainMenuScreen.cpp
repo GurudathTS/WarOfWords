@@ -12,6 +12,7 @@
 #include "WWCommonUtilty.h"
 #include "WWGameConstant.h"
 #include "WWDatamanager.h"
+#include "WWLandingScreen.h"
 
 Scene* WWMainMenu::createScene()
 {
@@ -281,6 +282,19 @@ void WWMainMenu::onGetRamdomUserAPIRequestCompleted(HttpClient *sender, HttpResp
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
     
+    if(document.HasMember("msg"))
+    {
+        if(strcmp(document["msg"].GetString(), "Please try again!") == 0)
+        {
+            ActivtyIndicator::PopIfActiveFromScene(this);
+            this->addChild(CommonErrorPopup::create("", "No user found"),100);
+            
+            return;
+        }
+    }
+    
+   
+    
     std::string id = document["user"]["id"].GetString();
     std::string name = document["user"]["name"].GetString();
 
@@ -348,6 +362,17 @@ void WWMainMenu::onGetUserDetailsAPIRequestCompleted(HttpClient *sender, HttpRes
     }
     rapidjson::Document document;
     WWGameUtility::getResponseBuffer(response, document);
+    
+    if(document.HasMember("msg")) // To avoid crash when anyone clears database
+    {
+        if(strcmp(document["msg"].GetString(), "Invalid ApiKey or Wrong Id") == 0)
+        {
+            UserDefault::getInstance()->setStringForKey("APIKey", "NotExist");
+            Director::getInstance()->replaceScene(WWLandingScreen::createScene());
+            return;
+        }
+    }
+
     
     std::string id = document["user"]["id"].GetString();
     std::string name = document["user"]["name"].GetString();

@@ -58,38 +58,12 @@ bool WWLandingScreen::init()
     backgroundSpr->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
     this->addChild(backgroundSpr);
     
+    
+    //this->loginBtn->setVisible(false);
+    
     //Add Ui
     this->addUI();
     
-    
-    rapidjson::StringBuffer sstream;
-    
-    rapidjson::Writer<rapidjson::StringBuffer> writer(sstream);
-    
-    writer.StartObject();
-    
-    writer.String("FullAlphabetString");
-    
-    
-    writer.String("Asfggghhhhjjjj");
-    
-    
-    
-    
-    writer.String("LastTurnAlbhabet");
-    writer.String("Aghhh");
-    
-    
-    writer.EndObject();
-    
-    
-    std::string parseStr =  sstream.GetString();
-    rapidjson::Document document;
-    document.Parse<0>(parseStr.c_str());
-    
-    std::string full  = document["FullAlphabetString"].GetString();
-
-
     
     
     return true;
